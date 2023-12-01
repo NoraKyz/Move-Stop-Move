@@ -1,5 +1,4 @@
-﻿using _Framework.Event.Scripts;
-using _Framework.Singleton;
+﻿using _Framework.Singleton;
 using UnityEngine;
 
 namespace _UI.Scripts.UI
