@@ -69,6 +69,7 @@ MonoBehaviour:
   model: {fileID: 8739273302221881792}
   moveSpeed: 5
   joystick: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!1001 &4337694363026205402
 PrefabInstance:
   m_ObjectHideFlags: 0
