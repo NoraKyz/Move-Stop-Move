@@ -1,4 +1,4 @@
-namespace _Framework.StateMachine
+namespace _Pattern.StateMachine
 {
     public interface IState<in T>
     {
