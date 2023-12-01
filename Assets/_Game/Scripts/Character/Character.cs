@@ -13,6 +13,7 @@ namespace _Game.Scripts.Character
         
         [Header("Config")]
         [SerializeField] protected float moveSpeed;
+        [SerializeField] protected float rangeAttack;
         
         private string _currentAnimName;
 

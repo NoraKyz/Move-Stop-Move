@@ -1,3 +1,5 @@
+using System;
+using _Game.Scripts.Utils;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
 using UnityEngine;
@@ -33,6 +35,13 @@ namespace _Game.Scripts.Character.Player
                 joystick = FindObjectOfType<FloatingJoystick>();
             }
         }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(TagName.Weapon))
+            {
+                ChangeState(new PlayerDieState());
+            }
+        }
         private void Update()
         {
             GetInput();
@@ -51,7 +60,6 @@ namespace _Game.Scripts.Character.Player
                 _moveDirection = Vector3.zero;
             }
         }
-
         public void Move()
         {
             controller.Move(_moveDirection * (Time.deltaTime * moveSpeed));
