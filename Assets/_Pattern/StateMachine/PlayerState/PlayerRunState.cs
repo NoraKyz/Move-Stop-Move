@@ -12,12 +12,12 @@ namespace _Pattern.StateMachine.PlayerState
 
         public void OnExecute(Player player)
         {
-            player.Move();
-
             if (player.IsMoving == false)
             {
                 player.ChangeState(new PlayerIdleState());
             }
+            
+            player.Move();
         }
 
         public void OnExit(Player player)

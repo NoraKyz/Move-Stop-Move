@@ -2,12 +2,12 @@ namespace _Game.Scripts.Character.Bot
 {
     public class Bot : Character
     {
-        public void ShowTargetIndicator()
+        public void ShowTargetCircle()
         {
             // TODO: Show target indicator
         }
 
-        public void HideTargetIndicator()
+        public void HideTargetCricle()
         {
             // TODO: Hide target indicator
         }

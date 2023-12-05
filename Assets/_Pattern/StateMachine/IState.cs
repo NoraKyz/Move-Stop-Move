@@ -1,9 +1,11 @@
+using _Framework.Pool.Scripts;
+
 namespace _Pattern.StateMachine
 {
-    public interface IState<in T>
+    public interface IState<in T> where T : GameUnit
     {
-        void OnEnter(T t);
-        void OnExecute(T t);
-        void OnExit(T t);
+        public void OnEnter(T t);
+        public void OnExecute(T t);
+        public void OnExit(T t);
     }
 }

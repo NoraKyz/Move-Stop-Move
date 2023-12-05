@@ -4,6 +4,7 @@ namespace _Pattern.StateMachine.PlayerState
 {
     public class PlayerDieState : IState<Player>
     {
+        // TODO: PlayerDieState
         public void OnEnter(Player player)
         {
             
@@ -15,6 +16,7 @@ namespace _Pattern.StateMachine.PlayerState
 
         public void OnExit(Player player)
         {
+            
         }
     }
 }

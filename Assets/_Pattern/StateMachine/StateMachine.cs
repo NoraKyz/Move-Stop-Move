@@ -1,5 +1,4 @@
 ﻿using _Framework.Pool.Scripts;
-using _Game.Scripts.Character;
 
 namespace _Pattern.StateMachine
 {

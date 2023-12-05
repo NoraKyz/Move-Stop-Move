@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using _Framework.Pool.Scripts;
-using _Game.Scripts.Utils;
 using UnityEngine;
 
 namespace _Game.Scripts.Character
@@ -10,20 +8,17 @@ namespace _Game.Scripts.Character
     {
         [Header("Components")]
         [SerializeField] private Animator anim;
-        [SerializeField] private Transform model;
+        [SerializeField] private Transform firePoint;
         
         [Header("Config")]
+        [SerializeField] protected Weapon.Weapon weapon;
         [SerializeField] protected float moveSpeed;
+        [SerializeField] protected float attackRange;
+        [SerializeField] protected List<Character> enemiesInRange;
         
         private string _currentAnimName;
-        private List<Character> EnemiesInRange { get; } = new List<Character>();
-        public bool HasEnemyInRange => EnemiesInRange.Count > 0;
-        private void Start()
-        {
-            OnInit();
-        }
-        protected virtual void OnInit() { }
-        protected virtual void OnDespawn() { }
+        public List<Character> EnemiesInRange => enemiesInRange;
+        public bool HasEnemyInRange => enemiesInRange.Count > 0;
         public void ChangeAnim(string animName)
         {
             if (_currentAnimName == animName)
@@ -35,9 +30,14 @@ namespace _Game.Scripts.Character
             _currentAnimName = animName;
             anim.SetTrigger(animName);
         }
+        private void Start()
+        {
+            OnInit();
+        }
+        protected virtual void OnInit() { }
         protected void LookAt(Vector3 target)
         {
-            model.LookAt(target);
+            TF.LookAt(target);
         }
         public void OnEnemyEnterRange(Character enemy)
         {
@@ -47,5 +47,11 @@ namespace _Game.Scripts.Character
         {
             EnemiesInRange.Remove(enemy);
         }
+        public void Attack(Character enemy)
+        {
+            LookAt(enemy.TF.position);
+            //SimplePool.Spawn(weaponPrefab, , Quaternion.identity);
+        }
+
     }
 }

@@ -145,10 +145,8 @@ public enum ParticleType
 public enum PoolType
 {
     None,
-    BrigdeBrick,
-    CharacterBrick,
-    DropBrick,
-    PlatformBrick
+    Bot,
+    Hammer
 }
 
 

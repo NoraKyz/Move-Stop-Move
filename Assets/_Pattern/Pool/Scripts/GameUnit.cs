@@ -18,7 +18,5 @@ namespace _Framework.Pool.Scripts
         }
 
         public PoolType poolType;
-        
-        // TODO: Add register and remove events to OnInit and OnDestroy methods
     }
 }

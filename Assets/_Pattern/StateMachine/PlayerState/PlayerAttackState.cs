@@ -1,13 +1,16 @@
 ﻿using _Game.Scripts.Character.Player;
 using _Game.Scripts.Utils;
+using UnityEngine;
 
 namespace _Pattern.StateMachine.PlayerState
 {
-    public class PlayerIdleState : IState<Player>
+    public class PlayerAttackState : IState<Player>
     {
+        private float _timer;
+        private const float AttackDelay  = 0.5f;
         public void OnEnter(Player player)
         {
-            player.ChangeAnim(AnimName.Idle);
+            _timer = 0;
         }
 
         public void OnExecute(Player player)
@@ -17,10 +20,12 @@ namespace _Pattern.StateMachine.PlayerState
                 player.ChangeState(new PlayerRunState());
             }
             
-            if (player.HasEnemyInRange)
-            {
-                player.ChangeState(new PlayerAttackState());
-            }
+            // _timer += Time.deltaTime;
+            //
+            // if (_timer >= AttackDelay)
+            // {
+            //     player.ChangeState(new PlayerIdleState());
+            // }
         }
 
         public void OnExit(Player player)
