@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Framework
+namespace _Pattern
 {
     public static class Cache <T>
     {

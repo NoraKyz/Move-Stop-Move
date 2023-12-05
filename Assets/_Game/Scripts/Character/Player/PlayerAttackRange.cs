@@ -1,6 +1,7 @@
 using System;
 using _Framework;
 using _Game.Scripts.Utils;
+using _Pattern;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,7 +14,7 @@ namespace _Game.Scripts.Character.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(TagName.Bot))
+            if (other.CompareTag(TagName.Character))
             {
                 Bot.Bot bot = Cache<Bot.Bot>.GetComponent(other);
                 bot.ShowTargetCircle();
@@ -22,7 +23,7 @@ namespace _Game.Scripts.Character.Player
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag(TagName.Bot))
+            if (other.CompareTag(TagName.Character))
             {
                 Bot.Bot bot = Cache<Bot.Bot>.GetComponent(other);
                 bot.HideTargetCricle();

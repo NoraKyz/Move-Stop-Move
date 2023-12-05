@@ -6,11 +6,10 @@ namespace _Pattern.StateMachine.PlayerState
 {
     public class PlayerAttackState : IState<Player>
     {
-        private float _timer;
-        private const float AttackDelay  = 0.5f;
         public void OnEnter(Player player)
         {
-            _timer = 0;
+            player.ChangeAnim(AnimName.Attack);
+            player.Attack();
         }
 
         public void OnExecute(Player player)
@@ -19,13 +18,6 @@ namespace _Pattern.StateMachine.PlayerState
             {
                 player.ChangeState(new PlayerRunState());
             }
-            
-            // _timer += Time.deltaTime;
-            //
-            // if (_timer >= AttackDelay)
-            // {
-            //     player.ChangeState(new PlayerIdleState());
-            // }
         }
 
         public void OnExit(Player player)

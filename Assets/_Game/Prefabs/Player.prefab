@@ -100,10 +100,11 @@ MonoBehaviour:
   poolType: 0
   anim: {fileID: 1711967116596948154}
   model: {fileID: 8739273302221881792}
-  weaponPrefab: {fileID: 0}
+  firePoint: {fileID: 7872581798422169923}
+  weapon: {fileID: 768034893105169198, guid: add5252a2286e9f4fa3599634e0c1cc5, type: 3}
+  size: 1
+  attackRange: 5
   moveSpeed: 5
-  attackRange: 0
-  enemiesInRange: []
   joystick: {fileID: 0}
   controller: {fileID: 681354718}
 --- !u!1 &7365441512452892141

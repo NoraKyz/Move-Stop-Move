@@ -7,6 +7,7 @@ namespace _Game.Scripts.Character.Player
 {
     public class Player : Character
     {
+        [Header("Controller")]
         [SerializeField] private FloatingJoystick joystick;
         [SerializeField] private CharacterController controller;
         
@@ -32,13 +33,6 @@ namespace _Game.Scripts.Character.Player
             if (joystick == null)
             {
                 joystick = FindObjectOfType<FloatingJoystick>();
-            }
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(TagName.Weapon))
-            {
-                ChangeState(new PlayerDieState());
             }
         }
         private void Update()

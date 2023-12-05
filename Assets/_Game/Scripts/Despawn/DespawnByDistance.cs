@@ -1,18 +1,16 @@
-﻿using _Framework;
-using _Framework.Pool.Scripts;
+﻿using _Framework.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.Despawn
 {
     public class DespawnByDistance<T> : Despawn<T> where T : GameUnit, IAutoDespawn
     {
-        [SerializeField] private float distanceDespawn;
-
         private Vector3 _startPos;
+        protected float distanceDespawn;
 
         private void OnEnable()
         {
-            _startPos = target.TF.position;
+            OnInit();
         }
 
         protected override bool CanDespawn()
@@ -21,14 +19,9 @@ namespace _Game.Scripts.Despawn
             return distance > distanceDespawn;
         }
         
-        public void SetDistanceDespawn(float distance)
+        protected virtual void OnInit()
         {
-            if (distance <= 0)
-            {
-                Common.LogWarning("Distance must be greater than 0", this);
-            }
-            
-            distanceDespawn = distance;
+            _startPos = target.TF.position;
         }
     }
 }

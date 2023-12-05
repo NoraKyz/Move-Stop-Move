@@ -1,29 +1,23 @@
-using _Framework.Pool.Scripts;
-using _Game.Scripts.Despawn;
-using _Game.Scripts.Utils;
+﻿using _Framework.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.Weapon
 {
-    public class Weapon : GameUnit, IAutoDespawn
+    public class Weapon : GameUnit
     {
-        private void OnTriggerEnter(Collider other)
+        [SerializeField] private Bullet.Bullet bullet;
+        
+        private Character.Character _owner;
+        private Transform _spawnPoint;
+        public void SpawnBullet(Vector3 target)
         {
-            if (other.CompareTag(TagName.Bot) || other.CompareTag(TagName.Player))
-            {
-                OnDespawn();
-            }
+            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(bullet, _spawnPoint.position, Quaternion.identity);
+            newBullet.OnInit(_owner, target);
         }
-
-        public void OnDespawn()
+        public void OnInit(Character.Character owner)
         {
-            SetScale(1);
-            SimplePool.Despawn(this);
-        }
-
-        public void SetScale(float scale)
-        {
-            TF.localScale = Vector3.one * scale;
+            _owner = owner;
+            _spawnPoint = _owner.FirePoint;
         }
     }
 }

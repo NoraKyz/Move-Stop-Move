@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Weapon
+  - Character
   - Bot
   layers:
   - Default
@@ -13,9 +14,9 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Platform
+  - Character
+  - Bullet
   - 
   - 
   - 

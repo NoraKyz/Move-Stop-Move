@@ -2,8 +2,7 @@
 {
     public static class TagName
     {
-        public static string Player => "Player";
-        public static string Bot => "Bot";
+        public static string Character => "Character";
         public static string Weapon => "Weapon";
     }
 }
