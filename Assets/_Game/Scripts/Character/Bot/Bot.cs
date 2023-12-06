@@ -1,15 +1,19 @@
+using UnityEngine;
+
 namespace _Game.Scripts.Character.Bot
 {
     public class Bot : Character
     {
-        public void ShowTargetCircle()
+        [Header("Components")]
+        [SerializeField] private GameObject targetIndicator;
+        public void ShowTargetIndicator()
         {
-            // TODO: Show target indicator
+            targetIndicator.SetActive(true);
         }
 
-        public void HideTargetCricle()
+        public void HideTargetIndicator()
         {
-            // TODO: Hide target indicator
+            targetIndicator.SetActive(false);
         }
     }
 }

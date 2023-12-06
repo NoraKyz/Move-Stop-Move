@@ -66,5 +66,6 @@ namespace _Game.Scripts.Character.Player
         {
             _stateMachine.ChangeState(state);
         }
+        
     }
 }

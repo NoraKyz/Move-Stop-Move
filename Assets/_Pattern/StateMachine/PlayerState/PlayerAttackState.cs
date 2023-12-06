@@ -7,13 +7,17 @@ namespace _Pattern.StateMachine.PlayerState
     public class PlayerAttackState : IState<Player>
     {
         private const float AttackTime = 1f;
+        private const float AttackSpeed = 0.4f;
+        
         private float _timer;
+        private Vector3 _targetPos;
         public void OnEnter(Player player)
         {
             _timer = 0;
+            _targetPos = player.GetRandomEnemyPos();
             
+            player.LookAt(_targetPos);
             player.ChangeAnim(AnimName.Attack);
-            player.Attack();
         }
 
         public void OnExecute(Player player)
@@ -24,7 +28,12 @@ namespace _Pattern.StateMachine.PlayerState
             }
 
             _timer += Time.deltaTime;
-            if (_timer >= AttackTime)
+
+            if (_timer >= AttackSpeed && player.AttackAble)
+            {
+                player.Attack(_targetPos);
+            } 
+            else if (_timer >= AttackTime)
             {
                 player.ChangeState(new PlayerIdleState());
             }

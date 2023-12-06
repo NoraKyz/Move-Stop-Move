@@ -1,4 +1,3 @@
-using _Game.Scripts.Utils;
 using _Game.Utils;
 using _Pattern;
 using UnityEngine;
@@ -16,8 +15,12 @@ namespace _Game.Scripts.Character.Player
             if (other.CompareTag(TagName.Character))
             {
                 Bot.Bot bot = Cache<Bot.Bot>.GetComponent(other);
-                bot.ShowTargetCircle();
-                onEnemyEnterRange?.Invoke(bot);
+
+                if (bot != null)
+                {
+                    bot.ShowTargetIndicator();
+                    onEnemyEnterRange?.Invoke(bot);
+                }
             }
         }
         private void OnTriggerExit(Collider other)
@@ -25,8 +28,12 @@ namespace _Game.Scripts.Character.Player
             if (other.CompareTag(TagName.Character))
             {
                 Bot.Bot bot = Cache<Bot.Bot>.GetComponent(other);
-                bot.HideTargetCricle();
-                onEnemyExitRange?.Invoke(bot);
+
+                if (bot != null)
+                {
+                    bot.HideTargetIndicator();
+                    onEnemyExitRange?.Invoke(bot);
+                }
             }
         }
     }

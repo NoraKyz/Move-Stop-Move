@@ -49,34 +49,25 @@ namespace _Game.Scripts.Character
             weapon.OnInit(this);
             OnCharacterDespawn += OnEnemyExitRange;
         }
-        protected void LookAt(Vector3 target)
+        public void LookAt(Vector3 target)
         {
             model.LookAt(target);
         }
         
         #region Attack
 
-        public void Attack()
+        public void Attack(Vector3 targetPos)
         {
-            Vector3 enemyPos = GetRandomEnemyPos();
-            
-            LookAt(enemyPos);
-            StartCoroutine(Throw(enemyPos));
-        }
-        private IEnumerator Throw(Vector3 target)
-        {
-            yield return new WaitForSeconds(0.4f);
-            weapon.SpawnBullet(target);
+            weapon.SpawnBullet(targetPos);
             StartCoroutine(ResetAttack());
         }
-
         private IEnumerator ResetAttack()
         {
             _attackAble = false;
             yield return new WaitForSeconds(1.5f);
             _attackAble = true;
         }
-        private Vector3 GetRandomEnemyPos()
+        public Vector3 GetRandomEnemyPos()
         {
             int randomIndex = Random.Range(0, _enemiesInRange.Count);
             return _enemiesInRange[randomIndex].TF.position;
