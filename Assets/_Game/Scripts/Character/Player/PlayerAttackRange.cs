@@ -1,5 +1,3 @@
-using System;
-using _Framework;
 using _Game.Scripts.Utils;
 using _Pattern;
 using UnityEngine;

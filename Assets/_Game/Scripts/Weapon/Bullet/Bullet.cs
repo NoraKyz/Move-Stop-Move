@@ -1,16 +1,31 @@
 using _Framework.Pool.Scripts;
-using _Game.Scripts.Despawn;
 using _Game.Scripts.Utils;
 using _Pattern;
 using UnityEngine;
 
 namespace _Game.Scripts.Weapon.Bullet
 {
-    public class Bullet : GameUnit, IAutoDespawn
+    public class Bullet : GameUnit
     {
+        [SerializeField] private float moveSpeed;
+        
         private Character.Character _owner;
-        private float _range;
-        public float Range => _range;
+        
+        // movement
+        private Vector3 _startPos;
+        private Vector3 _targetPos;
+        private Vector3 _moveDirection;
+        private float _maxFlyDistance;
+        
+        private void Update()
+        {
+            Move();
+
+            if (CanDespawn())
+            {
+                Despawn();
+            }
+        }
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(TagName.Character))
@@ -20,29 +35,37 @@ namespace _Game.Scripts.Weapon.Bullet
                 if (character != _owner)
                 {
                     character.OnHit();
-                    OnDespawn();
+                    Despawn();
                 }
             }
             else
             {
-                OnDespawn(); // trigger with platform
+                Despawn(); // trigger with platform
             }
         }
-        public void OnInit(Character.Character owner, Vector3 target)
+        
+        public void OnInit(Character.Character owner, Vector3 targetPos)
         {
             _owner = owner;
-            _range = _owner.AttackRange;
-            SetSize(_owner.Size);
-            TF.LookAt(target);
+            _startPos = TF.position;
+            _targetPos = targetPos;
+            _moveDirection = (_targetPos - _startPos).normalized;
+            _maxFlyDistance = owner.AttackRange;
+            
+            TF.localScale = Vector3.one * owner.Size;
         }
-        public void OnDespawn()
+        private void Despawn()
         {
             SimplePool.Despawn(this);
         }
-
-        private void SetSize(float size)
+        protected virtual void Move()
         {
-            TF.localScale = Vector3.one * size;
+            TF.position += _moveDirection * (moveSpeed * Time.deltaTime);
+        }
+        protected virtual bool CanDespawn()
+        {
+            float flyLength = Vector3.Distance(_startPos, TF.position);
+            return flyLength >= _maxFlyDistance;
         }
     }
 }

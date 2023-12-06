@@ -14,10 +14,14 @@ namespace _Game.Scripts.Character.Player
         private Vector3 _moveDirection;
         private StateMachine<Player> _stateMachine;
         public bool IsMoving => _moveDirection != Vector3.zero;
-        public void ChangeState(IState<Player> state)
+        
+        private void Update()
         {
-            _stateMachine.ChangeState(state);
+            GetInput();
+            
+            _stateMachine.UpdateState(this);
         }
+        
         protected override void OnInit()
         {
             base.OnInit();
@@ -35,12 +39,9 @@ namespace _Game.Scripts.Character.Player
                 joystick = FindObjectOfType<FloatingJoystick>();
             }
         }
-        private void Update()
-        {
-            GetInput();
-            
-            _stateMachine.UpdateState(this);
-        }
+
+        #region Controller
+
         private void GetInput()
         {
             if (Vector2.Distance(joystick.Direction, Vector2.zero) > 0.1f)
@@ -57,6 +58,13 @@ namespace _Game.Scripts.Character.Player
         {
             controller.Move(_moveDirection * (Time.deltaTime * moveSpeed));
             LookAt(TF.position + _moveDirection);
+        }
+
+        #endregion
+        
+        public void ChangeState(IState<Player> state)
+        {
+            _stateMachine.ChangeState(state);
         }
     }
 }

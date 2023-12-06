@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 0
-  bullet: {fileID: 971903215892231091, guid: 9ccad45578ac1ac4ab42718fdeef4d32, type: 3}
+  bullet: {fileID: 2368188371134560589, guid: 9ccad45578ac1ac4ab42718fdeef4d32, type: 3}
 --- !u!1001 &4353064221569868893
 PrefabInstance:
   m_ObjectHideFlags: 0
