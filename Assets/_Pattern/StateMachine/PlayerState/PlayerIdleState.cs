@@ -17,7 +17,7 @@ namespace _Pattern.StateMachine.PlayerState
                 player.ChangeState(new PlayerRunState());
             }
             
-            if (player.HasEnemyInRange)
+            if (player.HasEnemyInRange && player.AttackAble)
             {
                 player.ChangeState(new PlayerAttackState());
             }

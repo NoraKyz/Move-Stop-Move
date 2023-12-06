@@ -1,5 +1,6 @@
 using _Framework.Pool.Scripts;
 using _Game.Scripts.Utils;
+using _Game.Utils;
 using _Pattern;
 using UnityEngine;
 
@@ -13,7 +14,6 @@ namespace _Game.Scripts.Weapon.Bullet
         
         // movement
         private Vector3 _startPos;
-        private Vector3 _targetPos;
         private Vector3 _moveDirection;
         private float _maxFlyDistance;
         
@@ -48,10 +48,11 @@ namespace _Game.Scripts.Weapon.Bullet
         {
             _owner = owner;
             _startPos = TF.position;
-            _targetPos = targetPos;
-            _moveDirection = (_targetPos - _startPos).normalized;
             _maxFlyDistance = owner.AttackRange;
+            _moveDirection = (targetPos - _startPos).normalized;
+            _moveDirection.y = 0;
             
+            TF.rotation = Quaternion.LookRotation(_moveDirection);
             TF.localScale = Vector3.one * owner.Size;
         }
         private void Despawn()

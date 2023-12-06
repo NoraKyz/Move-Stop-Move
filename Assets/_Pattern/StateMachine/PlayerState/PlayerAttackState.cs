@@ -6,8 +6,12 @@ namespace _Pattern.StateMachine.PlayerState
 {
     public class PlayerAttackState : IState<Player>
     {
+        private const float AttackTime = 1f;
+        private float _timer;
         public void OnEnter(Player player)
         {
+            _timer = 0;
+            
             player.ChangeAnim(AnimName.Attack);
             player.Attack();
         }
@@ -17,6 +21,12 @@ namespace _Pattern.StateMachine.PlayerState
             if (player.IsMoving)
             {
                 player.ChangeState(new PlayerRunState());
+            }
+
+            _timer += Time.deltaTime;
+            if (_timer >= AttackTime)
+            {
+                player.ChangeState(new PlayerIdleState());
             }
         }
 

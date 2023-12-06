@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8623429373413100226}
   - component: {fileID: 6838690871698271289}
   - component: {fileID: 1947924044282892478}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bot
-  m_TagString: Bot
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   poolType: 1
   anim: {fileID: 1711967116596948154}
   model: {fileID: 8739273302221881792}
-  firePoint: {fileID: 0}
+  weaponSkin: {fileID: 0}
   weapon: {fileID: 768034893105169198, guid: add5252a2286e9f4fa3599634e0c1cc5, type: 3}
   size: 1
   attackRange: 5

@@ -1,15 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Framework.Pool.Scripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Character
 {
     public class Character : GameUnit
     {
+        public static event Action<Character> OnCharacterDespawn;
+        
         [Header("Components")]
         [SerializeField] private Animator anim;
         [SerializeField] private Transform model;
+        
+        [Header("Skins")]
+        [SerializeField] private Transform weaponSkin;
         
         [Header("Config")]
         [SerializeField] protected Weapon.Weapon weapon;
@@ -19,6 +26,7 @@ namespace _Game.Scripts.Character
 
         private List<Character> _enemiesInRange = new List<Character>();
         private string _currentAnimName;
+        private bool _attackAble;
         
         #region Getter
 
@@ -26,6 +34,7 @@ namespace _Game.Scripts.Character
         public float AttackRange => attackRange;
         public List<Character> EnemiesInRange => _enemiesInRange;
         public bool HasEnemyInRange => _enemiesInRange.Count > 0;
+        public bool AttackAble => _attackAble;
 
         #endregion
         
@@ -33,10 +42,12 @@ namespace _Game.Scripts.Character
         {
             OnInit();
         }
-        
+
         protected virtual void OnInit()
         {
+            _attackAble = true;
             weapon.OnInit(this);
+            OnCharacterDespawn += OnEnemyExitRange;
         }
         protected void LookAt(Vector3 target)
         {
@@ -54,9 +65,17 @@ namespace _Game.Scripts.Character
         }
         private IEnumerator Throw(Vector3 target)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.4f);
             weapon.SpawnBullet(target);
-        }   
+            StartCoroutine(ResetAttack());
+        }
+
+        private IEnumerator ResetAttack()
+        {
+            _attackAble = false;
+            yield return new WaitForSeconds(1.5f);
+            _attackAble = true;
+        }
         private Vector3 GetRandomEnemyPos()
         {
             int randomIndex = Random.Range(0, _enemiesInRange.Count);
@@ -67,7 +86,14 @@ namespace _Game.Scripts.Character
         
         public void OnHit()
         {
-            throw new System.NotImplementedException();
+            Despawn();
+        }
+
+        protected virtual void Despawn()
+        {
+            SimplePool.Despawn(this);
+            OnCharacterDespawn?.Invoke(this);
+            OnCharacterDespawn -= OnEnemyExitRange;
         }
         public void ChangeAnim(string animName)
         {

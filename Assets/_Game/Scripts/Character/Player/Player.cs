@@ -7,7 +7,7 @@ namespace _Game.Scripts.Character.Player
 {
     public class Player : Character
     {
-        [Header("Controller")]
+        [Header("Controller")] 
         [SerializeField] private FloatingJoystick joystick;
         [SerializeField] private CharacterController controller;
         
