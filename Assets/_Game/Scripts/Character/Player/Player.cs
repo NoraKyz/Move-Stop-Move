@@ -1,3 +1,4 @@
+using System;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
 using UnityEngine;
@@ -13,7 +14,11 @@ namespace _Game.Scripts.Character.Player
         private Vector3 _moveDirection;
         private StateMachine<Player> _stateMachine;
         public bool IsMoving => _moveDirection != Vector3.zero;
-        
+
+        private void Start()
+        {
+            OnInit();
+        }
         private void Update()
         {
             GetInput();

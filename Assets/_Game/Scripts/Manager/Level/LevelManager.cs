@@ -2,6 +2,7 @@
 using _Game.Scripts.Character.Player;
 using _Game.Utils;
 using _Pattern.Singleton;
+using _UI.Scripts.UI;
 using UnityEngine;
 
 namespace _Game.Scripts.Manager.Level
@@ -11,7 +12,9 @@ namespace _Game.Scripts.Manager.Level
         [SerializeField] private List<Level> levels = new List<Level>();
         
         private Level _currentLevel;
-        public float MaxDistanceMap { get; private set; }
+        private int _totalBot;
+        
+        private float _maxDistanceMap;
         public void OnLoadLevel(int level)
         {
             if (_currentLevel != null)
@@ -20,7 +23,8 @@ namespace _Game.Scripts.Manager.Level
             }
 
             _currentLevel = Instantiate(levels[level]);
-            MaxDistanceMap = 50f; // TODO: Get from level config
+            _maxDistanceMap = 40f; // TODO: Get from level config
+            _totalBot = 50;
         }
         
         [SerializeField] private Player player;
@@ -35,10 +39,38 @@ namespace _Game.Scripts.Manager.Level
             
             bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
         }
+        
+        private void CharacterDeath(Character.Character character)
+        {
+            _bots.Remove(character);
+
+            if (GameManager.IsState(GameState.Revive) || GameManager.IsState(GameState.Setting))
+            {
+                NewBot();
+            }
+            else
+            {
+                if (_totalBot > 0)
+                {
+                    _totalBot--;
+                    NewBot();
+                }
+                
+                if (_bots.Count == 0)
+                {
+                    Victory();
+                }   
+            }
+        }
+
+        private void Victory()
+        {
+            
+        }
 
         public Vector3 RandomPoint()
         {
-            return Utilities.GetRandomPosOnNavMesh(Vector3.zero, MaxDistanceMap);
+            return Utilities.GetRandomPosOnNavMesh(Vector3.zero, _maxDistanceMap);
         }
     }
 }

@@ -20,7 +20,10 @@ namespace _UI.Scripts.UI
     {
         //[SerializeField] UserData userData;
         //[SerializeField] CSVData csv;
+        
+        [SerializeField] private Transform mainCamera;
         private static GameState _gameState;
+        public Transform MainCamera => mainCamera;
         public static void ChangeState(GameState state)
         {
             _gameState = state;
