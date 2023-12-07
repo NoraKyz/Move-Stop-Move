@@ -1,8 +1,8 @@
-using _Framework.Pool.Scripts;
+using _Game.Scripts.Character;
 
 namespace _Pattern.StateMachine
 {
-    public interface IState<in T> where T : GameUnit
+    public interface IState<in T> where T : Character
     {
         public void OnEnter(T t);
         public void OnExecute(T t);

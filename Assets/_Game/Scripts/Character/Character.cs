@@ -19,22 +19,23 @@ namespace _Game.Scripts.Character
         [SerializeField] private Transform weaponSkin;
         
         [Header("Config")]
-        [SerializeField] protected Weapon.Weapon weapon;
+        [SerializeField] protected Weapon.Weapon currentWeapon;
         [SerializeField] protected float size;
         [SerializeField] protected float attackRange;
         [SerializeField] protected float moveSpeed;
 
-        private List<Character> _enemiesInRange = new List<Character>();
+        [SerializeField] private List<Character> enemiesInRange = new List<Character>();
         private string _currentAnimName;
         private bool _attackAble;
+        private bool _isDie;
         
         #region Getter
 
         public float Size => size;
         public float AttackRange => attackRange;
-        public List<Character> EnemiesInRange => _enemiesInRange;
-        public bool HasEnemyInRange => _enemiesInRange.Count > 0;
+        public bool HasEnemyInRange => enemiesInRange.Count > 0;
         public bool AttackAble => _attackAble;
+        public bool IsDie => _isDie;
 
         #endregion
         
@@ -45,9 +46,11 @@ namespace _Game.Scripts.Character
 
         protected virtual void OnInit()
         {
+            _isDie = false;
             _attackAble = true;
-            weapon.OnInit(this);
             OnCharacterDespawn += OnEnemyExitRange;
+            
+            currentWeapon.OnInit(this);
         }
         public void LookAt(Vector3 target)
         {
@@ -58,7 +61,7 @@ namespace _Game.Scripts.Character
 
         public void Attack(Vector3 targetPos)
         {
-            weapon.SpawnBullet(targetPos);
+            currentWeapon.SpawnBullet(targetPos);
             StartCoroutine(ResetAttack());
         }
         private IEnumerator ResetAttack()
@@ -69,19 +72,19 @@ namespace _Game.Scripts.Character
         }
         public Vector3 GetRandomEnemyPos()
         {
-            int randomIndex = Random.Range(0, _enemiesInRange.Count);
-            return _enemiesInRange[randomIndex].TF.position;
+            int randomIndex = Random.Range(0, enemiesInRange.Count);
+            return enemiesInRange[randomIndex].TF.position;
         }
 
         #endregion
 
         public virtual void OnHit()
         {
+            _isDie = true;
             OnCharacterDespawn?.Invoke(this);
             OnCharacterDespawn -= OnEnemyExitRange;
         }
-
-        public virtual void Despawn()
+        public virtual void OnDeath()
         {
             SimplePool.Despawn(this);
         }
@@ -98,11 +101,16 @@ namespace _Game.Scripts.Character
         }
         public void OnEnemyEnterRange(Character enemy)
         {
-            _enemiesInRange.Add(enemy);
+            if (enemy.IsDie)
+            {
+                return;
+            }
+            
+            enemiesInRange.Add(enemy);
         }
         public void OnEnemyExitRange(Character enemy)
         {
-            _enemiesInRange.Remove(enemy);
+            enemiesInRange.Remove(enemy);
         }
     }
 }

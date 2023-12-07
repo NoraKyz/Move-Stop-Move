@@ -1,3 +1,4 @@
+using System;
 using _Framework.Pool.Scripts;
 using _Game.Scripts.Utils;
 using _Game.Utils;
@@ -16,7 +17,7 @@ namespace _Game.Scripts.Weapon.Bullet
         private Vector3 _startPos;
         private Vector3 _moveDirection;
         private float _maxFlyDistance;
-        
+
         private void Update()
         {
             Move();

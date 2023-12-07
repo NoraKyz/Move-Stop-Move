@@ -1,8 +1,8 @@
-﻿using _Framework.Pool.Scripts;
+﻿using _Game.Scripts.Character;
 
 namespace _Pattern.StateMachine
 {
-    public class StateMachine<T> where T : GameUnit
+    public class StateMachine<T> where T : Character
     {
         private IState<T> _currentState;
         private T _gameUnit;

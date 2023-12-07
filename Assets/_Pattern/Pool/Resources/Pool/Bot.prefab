@@ -200,10 +200,11 @@ MonoBehaviour:
   anim: {fileID: 1711967116596948154}
   model: {fileID: 8739273302221881792}
   weaponSkin: {fileID: 0}
-  weapon: {fileID: 768034893105169198, guid: add5252a2286e9f4fa3599634e0c1cc5, type: 3}
+  currentWeapon: {fileID: 5645378295823858574}
   size: 1
   attackRange: 5
   moveSpeed: 5
+  enemiesInRange: []
   navMeshAgent: {fileID: 7605991681724167409}
   circleTargetIndicator: {fileID: 3524439934885301546}
 --- !u!195 &7605991681724167409
@@ -1066,3 +1067,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: add5252a2286e9f4fa3599634e0c1cc5, type: 3}
+--- !u!114 &5645378295823858574 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 768034893105169198, guid: add5252a2286e9f4fa3599634e0c1cc5, type: 3}
+  m_PrefabInstance: {fileID: 4967736525763934368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4646155b97c24326b761830452e23246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

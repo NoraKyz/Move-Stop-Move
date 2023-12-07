@@ -1,12 +1,11 @@
-﻿using System;
-using _Framework.Pool.Scripts;
+﻿using _Framework.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.Weapon
 {
     public class Weapon : GameUnit
     {
-        [SerializeField] private Bullet.Bullet bullet;
+        [SerializeField] private PoolType bulletType;
         
         private Character.Character _owner;
 
@@ -17,7 +16,7 @@ namespace _Game.Scripts.Weapon
         public void SpawnBullet(Vector3 target)
         {
             // Unknown Bug when call TF.position
-            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(bullet, _owner.TF.position + Vector3.up, Quaternion.identity);
+            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(PoolType.Hammer, _owner.TF.position + Vector3.up, Quaternion.identity);
             newBullet.OnInit(_owner, target);
         }
     }
