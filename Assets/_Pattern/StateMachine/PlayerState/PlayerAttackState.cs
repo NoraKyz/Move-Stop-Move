@@ -29,7 +29,7 @@ namespace _Pattern.StateMachine.PlayerState
 
             _timer += Time.deltaTime;
 
-            if (_timer >= AttackSpeed && player.AttackAble)
+            if (_timer >= AttackSpeed && player.IsAttackAble)
             {
                 player.Attack(_targetPos);
             } 

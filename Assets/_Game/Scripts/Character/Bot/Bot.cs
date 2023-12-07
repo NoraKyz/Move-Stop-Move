@@ -19,7 +19,7 @@ namespace _Game.Scripts.Character.Bot
         {
             _stateMachine.UpdateState(this);
         }
-        protected override void OnInit()
+        public override void OnInit()
         {
             base.OnInit();
             

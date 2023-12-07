@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using _Framework.Pool.Scripts;
 using _Game.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Character
 {
     public class Character : GameUnit
     {
-        public static event Action<Character> OnCharacterDespawn;
+        public static event Action<Character> OnCharacterDie;
+        
+        public UnityEvent<int> onScoreChange;
         
         [Header("Components")]
         [SerializeField] private Animator anim;
@@ -21,33 +24,34 @@ namespace _Game.Scripts.Character
         
         [Header("Config")]
         [SerializeField] protected Weapon.Weapon currentWeapon;
-        [SerializeField] protected float attackRange;
         [SerializeField] protected float moveSpeed;
-
         [SerializeField] private List<Character> enemiesInRange = new List<Character>();
-        private string _currentAnimName;
-        private bool _attackAble;
+
+        private float _attackRange;
+        private bool _isAttackAble;
         private bool _isDie;
         
+        private string _currentAnimName;
+
+        private int _score;
+        
         #region Getter
-        public float AttackRange => attackRange;
+        public float AttackRange => _attackRange;
         public bool HasEnemyInRange => enemiesInRange.Count > 0;
-        public bool AttackAble => _attackAble;
+        public bool IsAttackAble => _isAttackAble;
         public bool IsDie => _isDie;
+        public int Score => _score;
 
         #endregion
-        private void OnEnable()
-        {
-            OnInit();
-        }
-
-        protected virtual void OnInit()
+        public virtual void OnInit()
         {
             _isDie = false;
-            _attackAble = true;
-            attackRange = Constants.DefaultAttackRange;
-            OnCharacterDespawn += OnEnemyExitRange;
+            _isAttackAble = true;
+            _attackRange = Constants.DefaultAttackRange;
             
+            OnCharacterDie += OnEnemyExitRange;
+            
+            SetScore(0);
             currentWeapon.OnInit(this);
         }
         public void LookAt(Vector3 target)
@@ -64,10 +68,12 @@ namespace _Game.Scripts.Character
         }
         private IEnumerator ResetAttack()
         {
-            _attackAble = false;
+            _isAttackAble = false;
             currentWeapon.gameObject.SetActive(false);
+            
             yield return new WaitForSeconds(1.5f);
-            _attackAble = true;
+            
+            _isAttackAble = true;
             currentWeapon.gameObject.SetActive(true);
         }
         public Vector3 GetRandomEnemyPos()
@@ -81,12 +87,12 @@ namespace _Game.Scripts.Character
         public virtual void OnHit()
         {
             _isDie = true;
-            OnCharacterDespawn?.Invoke(this);
+            OnCharacterDie?.Invoke(this);
         }
-        public virtual void OnDeath()
+        public virtual void OnDespawn()
         {
+            OnCharacterDie -= OnEnemyExitRange;
             enemiesInRange.Clear();
-            OnCharacterDespawn -= OnEnemyExitRange;
             SimplePool.Despawn(this);
         }
         public void ChangeAnim(string animName)
@@ -112,6 +118,16 @@ namespace _Game.Scripts.Character
         public void OnEnemyExitRange(Character enemy)
         {
             enemiesInRange.Remove(enemy);
+        }
+        public void SetScore(int score)
+        {
+            if (score < 0)
+            {
+                score = 0;
+            }
+            
+            _score = score;
+            onScoreChange?.Invoke(score);
         }
     }
 }

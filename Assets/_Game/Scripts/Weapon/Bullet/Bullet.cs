@@ -22,7 +22,7 @@ namespace _Game.Scripts.Weapon.Bullet
 
             if (CanDespawn())
             {
-                Despawn();
+                OnDespawn();
             }
         }
         private void OnTriggerEnter(Collider other)
@@ -34,12 +34,12 @@ namespace _Game.Scripts.Weapon.Bullet
                 if (character != _owner)
                 {
                     character.OnHit();
-                    Despawn();
+                    OnDespawn();
                 }
             }
             else
             {
-                Despawn(); // trigger with platform
+                OnDespawn(); // trigger with platform
             }
         }
         
@@ -54,7 +54,7 @@ namespace _Game.Scripts.Weapon.Bullet
             TF.rotation = Quaternion.LookRotation(_moveDirection);
             TF.localScale = Vector3.one * owner.AttackRange / Constants.DefaultAttackRange;
         }
-        private void Despawn()
+        private void OnDespawn()
         {
             SimplePool.Despawn(this);
         }

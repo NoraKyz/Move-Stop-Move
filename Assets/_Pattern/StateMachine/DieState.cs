@@ -20,7 +20,7 @@ namespace _Pattern.StateMachine
             _timer += Time.deltaTime;
             if (_timer >= DespawnTime)
             {
-                character.OnDeath();
+                character.OnDespawn();
             }
         }
 

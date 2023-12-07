@@ -24,7 +24,7 @@ namespace _Pattern.StateMachine.BotState
         {
             _timer += Time.deltaTime;
 
-            if (_timer >= AttackSpeed && bot.AttackAble)
+            if (_timer >= AttackSpeed && bot.IsAttackAble)
             {
                 bot.Attack(_targetPos);
             } 

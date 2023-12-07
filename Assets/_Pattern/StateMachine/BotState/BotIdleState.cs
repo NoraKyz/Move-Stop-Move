@@ -17,7 +17,7 @@ namespace _Pattern.StateMachine.BotState
 
         public void OnExecute(Bot bot)
         {
-            if (bot.HasEnemyInRange && bot.AttackAble)
+            if (bot.HasEnemyInRange && bot.IsAttackAble)
             {
                 bot.ChangeState(new BotAttackState());
             }

@@ -1,4 +1,5 @@
 ﻿using _Game.Scripts.Character.Bot;
+using _Game.Scripts.Manager.Level;
 using _Game.Utils;
 using UnityEngine;
 
@@ -6,8 +7,6 @@ namespace _Pattern.StateMachine.BotState
 {
     public class BotPatrolState : IState<Bot>
     {
-        private const float MaxDistance = 50f;
-        
         private int _chanceAttack = Random.Range(0, 100);
         private bool _attackIfEnemyInRange;
         public void OnEnter(Bot bot)
@@ -15,7 +14,7 @@ namespace _Pattern.StateMachine.BotState
             bot.ChangeAnim(AnimName.Run);
             
             _attackIfEnemyInRange = Utilities.Chance(_chanceAttack);
-            Vector3 randomPos = Utilities.GetRandomPosOnNavMesh(Vector3.zero, MaxDistance);
+            Vector3 randomPos = LevelManager.Instance.RandomPoint();
             bot.MoveToPosition(randomPos);
         }
 

@@ -21,7 +21,7 @@ namespace _Game.Scripts.Character.Player
             _stateMachine.UpdateState(this);
         }
         
-        protected override void OnInit()
+        public override void OnInit()
         {
             base.OnInit();
             
