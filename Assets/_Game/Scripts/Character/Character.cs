@@ -74,17 +74,16 @@ namespace _Game.Scripts.Character
         }
 
         #endregion
-        
-        public void OnHit()
-        {
-            Despawn();
-        }
 
-        protected virtual void Despawn()
+        public virtual void OnHit()
         {
-            SimplePool.Despawn(this);
             OnCharacterDespawn?.Invoke(this);
             OnCharacterDespawn -= OnEnemyExitRange;
+        }
+
+        public virtual void Despawn()
+        {
+            SimplePool.Despawn(this);
         }
         public void ChangeAnim(string animName)
         {

@@ -18,7 +18,7 @@ namespace _Game.Scripts.Character.Player
 
                 if (bot != null)
                 {
-                    bot.ShowTargetIndicator();
+                    bot.ShowCircleTargetIndicator();
                     onEnemyEnterRange?.Invoke(bot);
                 }
             }
@@ -31,7 +31,7 @@ namespace _Game.Scripts.Character.Player
 
                 if (bot != null)
                 {
-                    bot.HideTargetIndicator();
+                    bot.HideCircleTargetIndicator();
                     onEnemyExitRange?.Invoke(bot);
                 }
             }

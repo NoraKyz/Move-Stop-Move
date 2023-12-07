@@ -61,11 +61,16 @@ namespace _Game.Scripts.Character.Player
         }
 
         #endregion
-        
+
+        public override void OnHit()
+        {
+            base.OnHit();
+            ChangeState(new PlayerDieState());
+        }
+
         public void ChangeState(IState<Player> state)
         {
             _stateMachine.ChangeState(state);
         }
-        
     }
 }
