@@ -9,7 +9,7 @@ namespace _Game.Scripts.Character.Player
     {
         [SerializeField] private Character owner;
 
-        private void OnEnable()
+        private void Start()
         {
             TF.localScale = Vector3.one * owner.AttackRange;
         }

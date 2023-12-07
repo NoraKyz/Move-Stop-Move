@@ -36,7 +36,6 @@ namespace _Game.Scripts.Character
         public bool IsDie => _isDie;
 
         #endregion
-        
         private void OnEnable()
         {
             OnInit();

@@ -45,8 +45,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0, z: 0.21}
+  m_Radius: 0.35
+  m_Center: {x: 0, y: 0, z: 0.35}
 --- !u!114 &2368188371134560589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 2
-  moveSpeed: 8
+  moveSpeed: 2.5
   model: {fileID: 4315444213700297654}
-  rotateSpeed: 600
+  rotateSpeed: 1000
 --- !u!1001 &4353064221569868893
 PrefabInstance:
   m_ObjectHideFlags: 0

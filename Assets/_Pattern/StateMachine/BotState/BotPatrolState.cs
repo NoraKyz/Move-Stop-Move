@@ -8,6 +8,7 @@ namespace _Pattern.StateMachine.BotState
     public class BotPatrolState : IState<Bot>
     {
         private const float MaxDistance = 50f;
+        private int _chanceAttack = Random.Range(0, 100);
         public void OnEnter(Bot bot)
         {
             bot.ChangeAnim(AnimName.Run);
@@ -23,9 +24,9 @@ namespace _Pattern.StateMachine.BotState
                 bot.ChangeState(new BotIdleState());
             }
 
-            if (bot.HasEnemyInRange && Utilities.Chance(30))
+            if (bot.HasEnemyInRange && Utilities.Chance(_chanceAttack))
             {
-                bot.ChangeState(new BotAttackState());
+                bot.ChangeState(new BotIdleState());
             }
         }
 
