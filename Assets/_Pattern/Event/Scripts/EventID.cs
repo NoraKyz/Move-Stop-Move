@@ -1,4 +1,4 @@
-﻿namespace _Framework.Event.Scripts
+﻿namespace _Pattern.Event.Scripts
 {
     public enum EventID
     {

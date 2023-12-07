@@ -1,5 +1,5 @@
 ﻿using _Game.Scripts.Character.Bot;
-using _Game.Scripts.Utils;
+using _Game.Utils;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.BotState

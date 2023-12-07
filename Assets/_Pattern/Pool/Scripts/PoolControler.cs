@@ -146,7 +146,8 @@ public enum PoolType
 {
     None,
     Bot,
-    Hammer
+    Hammer,
+    Knife
 }
 
 

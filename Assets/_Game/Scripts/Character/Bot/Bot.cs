@@ -44,7 +44,6 @@ namespace _Game.Scripts.Character.Bot
         public override void OnHit()
         {
             base.OnHit();
-            HideCircleTargetIndicator();
             ChangeState(new BotDieState());
         }
 

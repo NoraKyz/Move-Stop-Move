@@ -15,7 +15,7 @@ namespace _Game.Scripts.Weapon
         }
         public void SpawnBullet(Vector3 target)
         {
-            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(PoolType.Hammer, TF.position, Quaternion.identity);
+            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(bulletType, TF.position, Quaternion.identity);
             newBullet.OnInit(_owner, target);
         }
     }

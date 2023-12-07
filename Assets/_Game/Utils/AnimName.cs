@@ -1,4 +1,4 @@
-﻿namespace _Game.Scripts.Utils
+﻿namespace _Game.Utils
 {
     public static class AnimName
     {

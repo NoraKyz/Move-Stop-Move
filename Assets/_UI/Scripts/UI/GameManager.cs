@@ -1,4 +1,4 @@
-﻿using _Framework.Singleton;
+﻿using _Pattern.Singleton;
 using UnityEngine;
 
 namespace _UI.Scripts.UI

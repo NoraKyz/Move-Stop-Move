@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Framework.Singleton;
+using _Framework;
+using _Pattern.Singleton;
 using UnityEngine;
 
-namespace _Framework.Event.Scripts
+namespace _Pattern.Event.Scripts
 {
     public class EventManager : Singleton<EventManager>
     {
