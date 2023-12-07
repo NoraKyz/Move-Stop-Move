@@ -23,6 +23,8 @@ namespace _Game.Scripts.Character.Bot
         {
             base.OnInit();
             
+            navMeshAgent.speed = moveSpeed;
+            
             _stateMachine = new StateMachine<Bot>();
             _stateMachine.SetOwner(this);
             _stateMachine.ChangeState(new BotIdleState());
@@ -42,6 +44,7 @@ namespace _Game.Scripts.Character.Bot
         public override void OnHit()
         {
             base.OnHit();
+            HideCircleTargetIndicator();
             ChangeState(new BotDieState());
         }
 

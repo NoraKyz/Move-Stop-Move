@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Framework.Pool.Scripts;
+using _Game.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,7 +21,6 @@ namespace _Game.Scripts.Character
         
         [Header("Config")]
         [SerializeField] protected Weapon.Weapon currentWeapon;
-        [SerializeField] protected float size;
         [SerializeField] protected float attackRange;
         [SerializeField] protected float moveSpeed;
 
@@ -30,8 +30,6 @@ namespace _Game.Scripts.Character
         private bool _isDie;
         
         #region Getter
-
-        public float Size => size;
         public float AttackRange => attackRange;
         public bool HasEnemyInRange => enemiesInRange.Count > 0;
         public bool AttackAble => _attackAble;
@@ -39,7 +37,7 @@ namespace _Game.Scripts.Character
 
         #endregion
         
-        private void Start()
+        private void OnEnable()
         {
             OnInit();
         }
@@ -48,6 +46,7 @@ namespace _Game.Scripts.Character
         {
             _isDie = false;
             _attackAble = true;
+            attackRange = Constants.DefaultAttackRange;
             OnCharacterDespawn += OnEnemyExitRange;
             
             currentWeapon.OnInit(this);
@@ -84,10 +83,11 @@ namespace _Game.Scripts.Character
         {
             _isDie = true;
             OnCharacterDespawn?.Invoke(this);
-            OnCharacterDespawn -= OnEnemyExitRange;
         }
         public virtual void OnDeath()
         {
+            enemiesInRange.Clear();
+            OnCharacterDespawn -= OnEnemyExitRange;
             SimplePool.Despawn(this);
         }
         public void ChangeAnim(string animName)

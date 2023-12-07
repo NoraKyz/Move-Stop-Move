@@ -1,11 +1,11 @@
-using _Framework.Pool.Scripts;
+﻿using _Framework.Pool.Scripts;
 using _Game.Utils;
 using _Pattern;
 using UnityEngine;
 
-namespace _Game.Scripts.Character.Player
+namespace _Game.Scripts.Character.Bot
 {
-    public class PlayerAttackRange : GameUnit
+    public class BotAttackRange : GameUnit
     {
         [SerializeField] private Character owner;
 
@@ -18,12 +18,11 @@ namespace _Game.Scripts.Character.Player
         {
             if (other.CompareTag(TagName.Character))
             {
-                Bot.Bot bot = Cache<Bot.Bot>.GetComponent(other);
+                Character enemy = Cache<Character>.GetComponent(other);
 
-                if (bot != null)
+                if (enemy != owner)
                 {
-                    bot.ShowCircleTargetIndicator();
-                    owner.OnEnemyEnterRange(bot);
+                    owner.OnEnemyEnterRange(enemy);
                 }
             }
         }
@@ -31,12 +30,11 @@ namespace _Game.Scripts.Character.Player
         {
             if (other.CompareTag(TagName.Character))
             {
-                Bot.Bot bot = Cache<Bot.Bot>.GetComponent(other);
+                Character enemy = Cache<Character>.GetComponent(other);
 
-                if (bot != null)
+                if (enemy != owner)
                 {
-                    bot.HideCircleTargetIndicator();
-                    owner.OnEnemyExitRange(bot);
+                    owner.OnEnemyExitRange(enemy);
                 }
             }
         }

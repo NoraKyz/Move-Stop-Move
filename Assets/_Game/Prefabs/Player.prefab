@@ -102,7 +102,6 @@ MonoBehaviour:
   model: {fileID: 7542518595521016193}
   weaponSkin: {fileID: 1232798566431698969}
   currentWeapon: {fileID: 6332738626751372898}
-  size: 1
   attackRange: 5
   moveSpeed: 5
   enemiesInRange: []
@@ -134,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 7563903234591059961}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 0.82, y: 0.82, z: 0.82}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 480011537804314219}
@@ -202,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 480011537804314219}
   - component: {fileID: 6127667887401267981}
-  - component: {fileID: 269100297404948413}
+  - component: {fileID: 4145969234614377359}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -220,7 +219,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6879035808364581098}
   m_Father: {fileID: 3303069809532683400}
@@ -237,9 +236,9 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &269100297404948413
+--- !u!114 &4145969234614377359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,39 +247,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8634249856180344236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af693c3a5ce417d45926da3dd4bc59d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 26708348b27819a428f2d1d47a22fc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnemyEnterRange:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1383687488476345052}
-        m_TargetAssemblyTypeName: _Game.Scripts.Character.Character, Assembly-CSharp
-        m_MethodName: OnEnemyEnterRange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onEnemyExitRange:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1383687488476345052}
-        m_TargetAssemblyTypeName: _Game.Scripts.Character.Character, Assembly-CSharp
-        m_MethodName: OnEnemyExitRange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  poolType: 0
+  owner: {fileID: 1383687488476345052}
 --- !u!1001 &3303069809848572571
 PrefabInstance:
   m_ObjectHideFlags: 0

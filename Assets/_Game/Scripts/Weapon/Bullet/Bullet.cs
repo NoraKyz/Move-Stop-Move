@@ -1,6 +1,4 @@
-using System;
 using _Framework.Pool.Scripts;
-using _Game.Scripts.Utils;
 using _Game.Utils;
 using _Pattern;
 using UnityEngine;
@@ -54,7 +52,7 @@ namespace _Game.Scripts.Weapon.Bullet
             _moveDirection.y = 0;
             
             TF.rotation = Quaternion.LookRotation(_moveDirection);
-            TF.localScale = Vector3.one * owner.Size;
+            TF.localScale = Vector3.one * owner.AttackRange / Constants.DefaultAttackRange;
         }
         private void Despawn()
         {
