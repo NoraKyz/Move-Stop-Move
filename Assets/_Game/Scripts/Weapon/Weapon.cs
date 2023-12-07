@@ -15,8 +15,7 @@ namespace _Game.Scripts.Weapon
         }
         public void SpawnBullet(Vector3 target)
         {
-            // Unknown Bug when call TF.position
-            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(PoolType.Hammer, _owner.TF.position + Vector3.up, Quaternion.identity);
+            Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(PoolType.Hammer, TF.position, Quaternion.identity);
             newBullet.OnInit(_owner, target);
         }
     }

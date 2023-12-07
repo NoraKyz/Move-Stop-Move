@@ -67,8 +67,10 @@ namespace _Game.Scripts.Character
         private IEnumerator ResetAttack()
         {
             _attackAble = false;
+            currentWeapon.gameObject.SetActive(false);
             yield return new WaitForSeconds(1.5f);
             _attackAble = true;
+            currentWeapon.gameObject.SetActive(true);
         }
         public Vector3 GetRandomEnemyPos()
         {
