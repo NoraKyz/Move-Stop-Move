@@ -1,41 +1,27 @@
-﻿using _Framework.Pool.Scripts;
-using _Game.Utils;
-using _Pattern;
+﻿using _Pattern;
 using UnityEngine;
 
 namespace _Game.Scripts.Character.Bot
 {
-    public class BotAttackRange : GameUnit
+    public class BotAttackRange : AttackRange
     {
-        [SerializeField] private Character owner;
-
-        private void OnEnable()
+        protected override void EnemyEnterRange(Collider other)
         {
-            TF.localScale = Vector3.one * owner.AttackRange;
-        }
+            Character enemy = Cache<Character>.GetComponent(other);
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(TagName.Character))
+            if (enemy != owner)
             {
-                Character enemy = Cache<Character>.GetComponent(other);
-
-                if (enemy != owner)
-                {
-                    owner.OnEnemyEnterRange(enemy);
-                }
+                owner.OnEnemyEnterRange(enemy);
             }
         }
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag(TagName.Character))
-            {
-                Character enemy = Cache<Character>.GetComponent(other);
 
-                if (enemy != owner)
-                {
-                    owner.OnEnemyExitRange(enemy);
-                }
+        protected override void EnemyExitRange(Collider other)
+        {
+            Character enemy = Cache<Character>.GetComponent(other);
+
+            if (enemy != owner)
+            {
+                owner.OnEnemyExitRange(enemy);
             }
         }
     }

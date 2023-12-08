@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using _Framework.Pool.Scripts;
 using _Game.Utils;
 using UnityEngine;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Character
@@ -12,12 +11,11 @@ namespace _Game.Scripts.Character
     public class Character : GameUnit
     {
         public static event Action<Character> OnCharacterDie;
-        
-        public UnityEvent<int> onScoreChange;
-        
+
         [Header("Components")]
         [SerializeField] private Animator anim;
-        [SerializeField] private Transform model;
+        [SerializeField] protected Transform model;
+        [SerializeField] protected AttackRange attackRangeDetector;
         
         [Header("Skins")]
         [SerializeField] private Transform weaponSkin;
@@ -51,8 +49,8 @@ namespace _Game.Scripts.Character
             
             OnCharacterDie += OnEnemyExitRange;
             
-            SetScore(0);
             currentWeapon.OnInit(this);
+            attackRangeDetector.OnInit(this);
         }
         public void LookAt(Vector3 target)
         {
@@ -93,7 +91,6 @@ namespace _Game.Scripts.Character
         {
             OnCharacterDie -= OnEnemyExitRange;
             enemiesInRange.Clear();
-            SimplePool.Despawn(this);
         }
         public void ChangeAnim(string animName)
         {
@@ -127,7 +124,6 @@ namespace _Game.Scripts.Character
             }
             
             _score = score;
-            onScoreChange?.Invoke(score);
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
 using UnityEngine;
@@ -31,10 +30,10 @@ namespace _Game.Scripts.Character.Player
             base.OnInit();
             
             FindJoyStick();
+
+            InitStateMachine();
             
-            _stateMachine = new StateMachine<Player>();
-            _stateMachine.SetOwner(this);
-            _stateMachine.ChangeState(new PlayerIdleState());
+            TF.position = Vector3.zero;
         }
         private void FindJoyStick()
         {
@@ -42,6 +41,16 @@ namespace _Game.Scripts.Character.Player
             {
                 joystick = FindObjectOfType<FloatingJoystick>();
             }
+        }
+        private void InitStateMachine()
+        {
+            if (_stateMachine == null)
+            {
+                _stateMachine = new StateMachine<Player>();
+                _stateMachine.SetOwner(this);
+            }
+            
+            _stateMachine.ChangeState(new PlayerIdleState());
         }
 
         #region Controller
@@ -71,7 +80,6 @@ namespace _Game.Scripts.Character.Player
             base.OnHit();
             ChangeState(new PlayerDieState());
         }
-
         public void ChangeState(IState<Player> state)
         {
             _stateMachine.ChangeState(state);

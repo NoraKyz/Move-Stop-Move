@@ -7,10 +7,11 @@ namespace _Pattern.StateMachine.BotState
 {
     public class BotPatrolState : IState<Bot>
     {
-        private int _chanceAttack = Random.Range(0, 100);
+        private readonly int _chanceAttack = Random.Range(0, 100);
         private bool _attackIfEnemyInRange;
         public void OnEnter(Bot bot)
         {
+            bot.ResetModelRotation();
             bot.ChangeAnim(AnimName.Run);
             
             _attackIfEnemyInRange = Utilities.Chance(_chanceAttack);

@@ -1,4 +1,6 @@
-﻿using _Pattern.Singleton;
+﻿using System;
+using _Game.Scripts.Manager.Level;
+using _Pattern.Singleton;
 using UnityEngine;
 
 namespace _UI.Scripts.UI
@@ -48,6 +50,11 @@ namespace _UI.Scripts.UI
             
             //csv.OnInit();
             //userData?.OnInitData();
+        }
+
+        private void Start()
+        {
+            LevelManager.Instance.OnLoadLevel(0);
         }
     }
 }

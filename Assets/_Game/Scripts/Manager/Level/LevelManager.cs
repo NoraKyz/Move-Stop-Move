@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Game.Scripts.Character.Bot;
 using _Game.Scripts.Character.Player;
 using _Game.Utils;
 using _Pattern.Singleton;
@@ -13,8 +14,8 @@ namespace _Game.Scripts.Manager.Level
         
         private Level _currentLevel;
         private int _totalBot;
-        
         private float _maxDistanceMap;
+        
         public void OnLoadLevel(int level)
         {
             if (_currentLevel != null)
@@ -23,13 +24,29 @@ namespace _Game.Scripts.Manager.Level
             }
 
             _currentLevel = Instantiate(levels[level]);
-            _maxDistanceMap = 40f; // TODO: Get from level config
-            _totalBot = 50;
+            
+            SetUpLevel();
+        }
+        private void SetUpLevel()
+        {
+            _maxDistanceMap = _currentLevel.MaxDistanceMap;
+            _totalBot = _currentLevel.TotalBot;
+            
+            for(int i = 0; i < Constants.MaxBotOnMap; i++)
+            {
+                if (_totalBot > 0)
+                {
+                    _totalBot--;
+                    NewBot();
+                }
+            }
+            
+            player.OnInit();
         }
         
         [SerializeField] private Player player;
         
-        private List<Character.Character> _bots = new List<Character.Character>();
+        [SerializeField] private List<Character.Character> _bots = new List<Character.Character>();
         private void NewBot()
         {
             Character.Character bot = SimplePool.Spawn<Character.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
@@ -39,8 +56,7 @@ namespace _Game.Scripts.Manager.Level
             
             bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
         }
-        
-        private void CharacterDeath(Character.Character character)
+        public void BotDeath(Bot character)
         {
             _bots.Remove(character);
 
@@ -62,12 +78,10 @@ namespace _Game.Scripts.Manager.Level
                 }   
             }
         }
-
         private void Victory()
         {
             
         }
-
         public Vector3 RandomPoint()
         {
             return Utilities.GetRandomPosOnNavMesh(Vector3.zero, _maxDistanceMap);

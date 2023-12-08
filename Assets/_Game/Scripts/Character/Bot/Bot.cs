@@ -1,3 +1,4 @@
+using _Game.Scripts.Manager.Level;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.BotState;
 using UnityEngine;
@@ -25,9 +26,23 @@ namespace _Game.Scripts.Character.Bot
             
             navMeshAgent.speed = moveSpeed;
             
-            _stateMachine = new StateMachine<Bot>();
-            _stateMachine.SetOwner(this);
+            InitStateMachine();
+        }
+        private void InitStateMachine()
+        {
+            if (_stateMachine == null)
+            {
+                _stateMachine = new StateMachine<Bot>();
+                _stateMachine.SetOwner(this);
+            }
+            
             _stateMachine.ChangeState(new BotIdleState());
+        }
+        public override void OnDespawn()
+        {
+            base.OnDespawn();
+            SimplePool.Despawn(this);
+            LevelManager.Instance.BotDeath(this);
         }
         public void MoveToPosition(Vector3 position)
         {
@@ -35,28 +50,27 @@ namespace _Game.Scripts.Character.Bot
             navMeshAgent.enabled = true;
             navMeshAgent.SetDestination(_destination);
         }
-        
         public void StopMove()
         {
             navMeshAgent.enabled = false;
         }
-
         public override void OnHit()
         {
             base.OnHit();
             ChangeState(new BotDieState());
         }
-
+        public void ResetModelRotation()
+        {
+            model.localRotation = Quaternion.identity;
+        }
         public void ShowCircleTargetIndicator()
         {
             circleTargetIndicator.SetActive(true);
         }
-        
         public void HideCircleTargetIndicator()
         {
             circleTargetIndicator.SetActive(false);
         }
-        
         public void ChangeState(IState<Bot> state)
         {
             _stateMachine.ChangeState(state);

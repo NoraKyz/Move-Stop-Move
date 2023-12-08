@@ -9,7 +9,7 @@ namespace _Pattern.StateMachine
         private const float DespawnTime = 1.5f;
         
         private float _timer;
-        public void OnEnter(T character)
+        public virtual void OnEnter(T character)
         {
             _timer = 0;
             character.ChangeAnim(AnimName.Die);

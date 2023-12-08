@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 2
-  moveSpeed: 7
+  moveSpeed: 15
   model: {fileID: 4315444213700297654}
   rotateSpeed: 1000
 --- !u!1001 &4353064221569868893
