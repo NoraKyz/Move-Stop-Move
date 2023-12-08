@@ -20,6 +20,9 @@ namespace _Game.Scripts.Character.Bot
         {
             _stateMachine.UpdateState(this);
         }
+
+        #region Init
+
         public override void OnInit()
         {
             base.OnInit();
@@ -36,14 +39,13 @@ namespace _Game.Scripts.Character.Bot
                 _stateMachine.SetOwner(this);
             }
             
-            _stateMachine.ChangeState(new BotIdleState());
+            _stateMachine.ChangeState(new BotPatrolState());
         }
-        public override void OnDespawn()
-        {
-            base.OnDespawn();
-            SimplePool.Despawn(this);
-            LevelManager.Instance.BotDeath(this);
-        }
+
+        #endregion
+
+        #region Controller
+
         public void MoveToPosition(Vector3 position)
         {
             _destination = position;
@@ -54,14 +56,27 @@ namespace _Game.Scripts.Character.Bot
         {
             navMeshAgent.enabled = false;
         }
+        public void ResetModelRotation()
+        {
+            model.localRotation = Quaternion.identity;
+        }
+
+        #endregion
+        
         public override void OnHit()
         {
             base.OnHit();
             ChangeState(new BotDieState());
         }
-        public void ResetModelRotation()
+        public override void OnDespawn()
         {
-            model.localRotation = Quaternion.identity;
+            base.OnDespawn();
+            SimplePool.Despawn(this);
+            LevelManager.Instance.BotDeath(this);
+        }
+        public void ChangeState(IState<Bot> state)
+        {
+            _stateMachine.ChangeState(state);
         }
         public void ShowCircleTargetIndicator()
         {
@@ -71,9 +86,6 @@ namespace _Game.Scripts.Character.Bot
         {
             circleTargetIndicator.SetActive(false);
         }
-        public void ChangeState(IState<Bot> state)
-        {
-            _stateMachine.ChangeState(state);
-        }
+        
     }
 }

@@ -24,7 +24,9 @@ namespace _Game.Scripts.Character.Player
             
             _stateMachine.UpdateState(this);
         }
-        
+
+        #region Init
+
         public override void OnInit()
         {
             base.OnInit();
@@ -53,6 +55,8 @@ namespace _Game.Scripts.Character.Player
             _stateMachine.ChangeState(new PlayerIdleState());
         }
 
+        #endregion
+
         #region Controller
 
         private void GetInput()
@@ -70,7 +74,7 @@ namespace _Game.Scripts.Character.Player
         public void Move()
         {
             controller.Move(_moveDirection * (Time.deltaTime * moveSpeed));
-            LookAt(TF.position + _moveDirection);
+            LookAtTarget(TF.position + _moveDirection);
         }
 
         #endregion

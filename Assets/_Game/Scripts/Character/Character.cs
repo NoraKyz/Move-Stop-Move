@@ -52,10 +52,6 @@ namespace _Game.Scripts.Character
             currentWeapon.OnInit(this);
             attackRangeDetector.OnInit(this);
         }
-        public void LookAt(Vector3 target)
-        {
-            model.LookAt(target);
-        }
         
         #region Attack
 
@@ -79,30 +75,6 @@ namespace _Game.Scripts.Character
             int randomIndex = Random.Range(0, enemiesInRange.Count);
             return enemiesInRange[randomIndex].TF.position;
         }
-
-        #endregion
-
-        public virtual void OnHit()
-        {
-            _isDie = true;
-            OnCharacterDie?.Invoke(this);
-        }
-        public virtual void OnDespawn()
-        {
-            OnCharacterDie -= OnEnemyExitRange;
-            enemiesInRange.Clear();
-        }
-        public void ChangeAnim(string animName)
-        {
-            if (_currentAnimName == animName)
-            { 
-                return;
-            }
-        
-            anim.ResetTrigger(animName);
-            _currentAnimName = animName;
-            anim.SetTrigger(animName);
-        }
         public void OnEnemyEnterRange(Character enemy)
         {
             if (enemy.IsDie)
@@ -115,6 +87,33 @@ namespace _Game.Scripts.Character
         public void OnEnemyExitRange(Character enemy)
         {
             enemiesInRange.Remove(enemy);
+        }
+        #endregion
+        
+        public virtual void OnHit()
+        {
+            _isDie = true;
+            OnCharacterDie?.Invoke(this);
+        }
+        public virtual void OnDespawn()
+        {
+            OnCharacterDie -= OnEnemyExitRange;
+            enemiesInRange.Clear();
+        }
+        public void LookAtTarget(Vector3 target)
+        {
+            model.LookAt(target);
+        }
+        public void ChangeAnim(string animName)
+        {
+            if (_currentAnimName == animName)
+            { 
+                return;
+            }
+        
+            anim.ResetTrigger(animName);
+            _currentAnimName = animName;
+            anim.SetTrigger(animName);
         }
         public void SetScore(int score)
         {

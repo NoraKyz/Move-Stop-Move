@@ -16,7 +16,7 @@ namespace _Pattern.StateMachine.BotState
             _timer = 0;
             _targetPos = bot.GetRandomEnemyPos();
             
-            bot.LookAt(_targetPos);
+            bot.LookAtTarget(_targetPos);
             bot.ChangeAnim(AnimName.Attack);
         }
 

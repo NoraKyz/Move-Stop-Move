@@ -43,10 +43,11 @@ namespace _Game.Scripts.Manager.Level
             
             player.OnInit();
         }
-        
+
+        #region Character
+
         [SerializeField] private Player player;
-        
-        [SerializeField] private List<Character.Character> _bots = new List<Character.Character>();
+        private List<Character.Character> _bots = new List<Character.Character>();
         private void NewBot()
         {
             Character.Character bot = SimplePool.Spawn<Character.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
@@ -78,6 +79,9 @@ namespace _Game.Scripts.Manager.Level
                 }   
             }
         }
+
+        #endregion
+        
         private void Victory()
         {
             

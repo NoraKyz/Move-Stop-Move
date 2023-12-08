@@ -16,7 +16,7 @@ namespace _Pattern.StateMachine.PlayerState
             _timer = 0;
             _targetPos = player.GetRandomEnemyPos();
             
-            player.LookAt(_targetPos);
+            player.LookAtTarget(_targetPos);
             player.ChangeAnim(AnimName.Attack);
         }
 

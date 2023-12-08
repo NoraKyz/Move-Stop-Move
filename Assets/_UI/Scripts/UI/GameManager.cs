@@ -20,6 +20,10 @@ namespace _UI.Scripts.UI
     }
     public class GameManager : Singleton<GameManager>
     {
+        public static event Action OnMenuState;
+        public static event Action OnGamePlayState;
+        public static event Action OnSettingState;
+        
         //[SerializeField] UserData userData;
         //[SerializeField] CSVData csv;
         
@@ -29,6 +33,8 @@ namespace _UI.Scripts.UI
         public static void ChangeState(GameState state)
         {
             _gameState = state;
+            
+            
         }
         public static bool IsState(GameState state) => _gameState == state;
         private void Awake()
@@ -42,18 +48,21 @@ namespace _UI.Scripts.UI
 
             // Xu tai tho
             int maxScreenHeight = 1280;
-            float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
+            float ratio = 1.0f * Screen.currentResolution.width / Screen.currentResolution.height;
             if (Screen.currentResolution.height > maxScreenHeight)
             {
-                Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
+                Screen.SetResolution(Mathf.RoundToInt(ratio * maxScreenHeight), maxScreenHeight, true);
             }
             
             //csv.OnInit();
             //userData?.OnInitData();
+            _gameState = GameState.MainMenu;
         }
 
         private void Start()
         {
+            _gameState = GameState.MainMenu;
+            UIManager.Instance.OpenUI<MainMenu>();
             LevelManager.Instance.OnLoadLevel(0);
         }
     }
