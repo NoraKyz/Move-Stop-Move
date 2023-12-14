@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.Character.Bot;
 using _Game.Scripts.Manager.Level;
 using _Game.Utils;
+using _UI.Scripts.UI;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.BotState
@@ -25,7 +26,7 @@ namespace _Pattern.StateMachine.BotState
             {
                 bot.ChangeState(new BotIdleState());
             }
-
+            
             if (bot.HasEnemyInRange && _attackIfEnemyInRange)
             {
                 bot.ChangeState(new BotIdleState());

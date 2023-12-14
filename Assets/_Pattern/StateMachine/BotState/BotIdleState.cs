@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts.Character.Bot;
 using _Game.Utils;
+using _UI.Scripts.UI;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.BotState
@@ -17,15 +18,20 @@ namespace _Pattern.StateMachine.BotState
 
         public void OnExecute(Bot bot)
         {
-            if (bot.HasEnemyInRange && bot.IsAttackAble)
+            if (GameManager.IsState(GameState.GamePlay) == false)
             {
-                bot.ChangeState(new BotAttackState());
+                return;
             }
             
             _timer += Time.deltaTime;
             if (_timer >= _idleTime)
             {
                 bot.ChangeState(new BotPatrolState());
+            }
+            
+            if (bot.HasEnemyInRange && bot.IsAttackAble)
+            {
+                bot.ChangeState(new BotAttackState());
             }
         }
 

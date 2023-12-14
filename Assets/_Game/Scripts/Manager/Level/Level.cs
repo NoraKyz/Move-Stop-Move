@@ -5,9 +5,9 @@ namespace _Game.Scripts.Manager.Level
     public class Level : MonoBehaviour
     {
         [SerializeField] private float maxDistanceMap;
-        [SerializeField] private int totalBot;
+        [SerializeField] private int totalCharacter;
         
         public float MaxDistanceMap => maxDistanceMap;
-        public int TotalBot => totalBot;
+        public int TotalCharacter => totalCharacter;
     }
 }

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistanceMap: 40
-  totalBot: 49
+  totalCharacter: 50
 --- !u!1001 &6769327959223500234
 PrefabInstance:
   m_ObjectHideFlags: 0

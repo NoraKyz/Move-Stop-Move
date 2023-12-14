@@ -30,6 +30,8 @@ namespace _Game.Scripts.Character.Bot
             navMeshAgent.speed = moveSpeed;
             
             InitStateMachine();
+            
+            HideCircleTargetIndicator();
         }
         private void InitStateMachine()
         {
@@ -39,7 +41,7 @@ namespace _Game.Scripts.Character.Bot
                 _stateMachine.SetOwner(this);
             }
             
-            _stateMachine.ChangeState(new BotPatrolState());
+            _stateMachine.ChangeState(new BotIdleState());
         }
 
         #endregion
@@ -86,6 +88,5 @@ namespace _Game.Scripts.Character.Bot
         {
             circleTargetIndicator.SetActive(false);
         }
-        
     }
 }

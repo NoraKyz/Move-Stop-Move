@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts.Character.Player;
 using _Game.Utils;
+using _UI.Scripts.UI;
 
 namespace _Pattern.StateMachine.PlayerState
 {
@@ -16,10 +17,13 @@ namespace _Pattern.StateMachine.PlayerState
             {
                 player.ChangeState(new PlayerRunState());
             }
-            
-            if (player.HasEnemyInRange && player.IsAttackAble)
+
+            if (GameManager.IsState(GameState.GamePlay))
             {
-                player.ChangeState(new PlayerAttackState());
+                if (player.HasEnemyInRange && player.IsAttackAble)
+                {
+                    player.ChangeState(new PlayerAttackState());
+                }
             }
         }
 

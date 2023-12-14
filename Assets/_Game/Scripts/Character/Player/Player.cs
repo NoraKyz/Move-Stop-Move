@@ -1,3 +1,4 @@
+using _Pattern.Event.Scripts;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
 using UnityEngine;
@@ -31,9 +32,9 @@ namespace _Game.Scripts.Character.Player
         {
             base.OnInit();
             
-            FindJoyStick();
-
             InitStateMachine();
+            
+            this.RegisterListener(EventID.OnGamePlay, (_) => FindJoyStick());
             
             TF.position = Vector3.zero;
         }
@@ -61,6 +62,11 @@ namespace _Game.Scripts.Character.Player
 
         private void GetInput()
         {
+            if (joystick == null)
+            {
+                return;
+            }
+            
             if (Vector2.Distance(joystick.Direction, Vector2.zero) > 0.1f)
             { 
                 _moveDirection.Set(joystick.Horizontal, 0, joystick.Vertical);
@@ -78,6 +84,13 @@ namespace _Game.Scripts.Character.Player
         }
 
         #endregion
+
+        public override void OnDespawn()
+        {
+            base.OnDespawn();
+            
+            this.RemoveListener(EventID.OnGamePlay, (_) => FindJoyStick());
+        }
 
         public override void OnHit()
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Framework.Pool.Scripts;
+using _Game.Scripts.Manager.Level;
 using _Game.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -94,6 +95,7 @@ namespace _Game.Scripts.Character
         {
             _isDie = true;
             OnCharacterDie?.Invoke(this);
+            LevelManager.Instance.CharacterDeath();
         }
         public virtual void OnDespawn()
         {

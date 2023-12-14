@@ -20,21 +20,13 @@ namespace _UI.Scripts.UI
     }
     public class GameManager : Singleton<GameManager>
     {
-        public static event Action OnMenuState;
-        public static event Action OnGamePlayState;
-        public static event Action OnSettingState;
-        
         //[SerializeField] UserData userData;
         //[SerializeField] CSVData csv;
         
-        [SerializeField] private Transform mainCamera;
         private static GameState _gameState;
-        public Transform MainCamera => mainCamera;
         public static void ChangeState(GameState state)
         {
             _gameState = state;
-            
-            
         }
         public static bool IsState(GameState state) => _gameState == state;
         private void Awake()
