@@ -8,9 +8,6 @@ namespace _UI.Scripts
         public void PlayButton()
         {
             GameManager.ChangeState(GameState.GamePlay);
-            UIManager.Instance.OpenUI<GamePlay>();
-            this.PostEvent(EventID.OnGamePlay);
-            
             Close(0);
         }
     }

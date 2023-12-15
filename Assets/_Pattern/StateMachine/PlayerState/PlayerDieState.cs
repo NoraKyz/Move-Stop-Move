@@ -4,5 +4,6 @@ namespace _Pattern.StateMachine.PlayerState
 {
     public class PlayerDieState : DieState<Player>
     {
+        
     }
 }

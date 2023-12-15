@@ -1,5 +1,5 @@
-﻿using System;
-using _Game.Scripts.Manager.Level;
+﻿using _Game.Scripts.Manager.Level;
+using _Pattern.Event.Scripts;
 using _Pattern.Singleton;
 using UnityEngine;
 
@@ -9,14 +9,10 @@ namespace _UI.Scripts.UI
     {
         MainMenu = 1,
         GamePlay = 2,
-        Finish = 3,
+        Lose = 3,
         Revive = 4,
         Setting = 5,
-    }
-    public enum GameResult
-    {
-        Win = 1,
-        Lose = 2,
+        Win = 6,
     }
     public class GameManager : Singleton<GameManager>
     {
@@ -27,6 +23,8 @@ namespace _UI.Scripts.UI
         public static void ChangeState(GameState state)
         {
             _gameState = state;
+            
+            Instance.OnChangedState(state);
         }
         public static bool IsState(GameState state) => _gameState == state;
         private void Awake()
@@ -48,14 +46,52 @@ namespace _UI.Scripts.UI
             
             //csv.OnInit();
             //userData?.OnInitData();
-            _gameState = GameState.MainMenu;
         }
 
         private void Start()
         {
-            _gameState = GameState.MainMenu;
+            ChangeState(GameState.MainMenu);
+        }
+        
+        private void OnChangedState(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    OnMainMenuState();
+                    break;
+                case GameState.GamePlay:
+                    OnGamePlayState();
+                    break;
+                case GameState.Revive:
+                    OnReviveState();
+                    break;
+                case GameState.Lose:
+                    OnLoseState();
+                    break;
+            }
+        }
+        
+        private void OnMainMenuState()
+        {
             UIManager.Instance.OpenUI<MainMenu>();
             LevelManager.Instance.OnLoadLevel(0);
+        }
+        
+        private void OnGamePlayState()
+        {
+            UIManager.Instance.OpenUI<GamePlay.GamePlay>();
+            this.PostEvent(EventID.OnGamePlay);
+        }
+        
+        private void OnReviveState()
+        {
+            UIManager.Instance.OpenUI<Revive.Revive>();
+        }
+        
+        private void OnLoseState()
+        {
+            UIManager.Instance.OpenUI<Lose>();
         }
     }
 }

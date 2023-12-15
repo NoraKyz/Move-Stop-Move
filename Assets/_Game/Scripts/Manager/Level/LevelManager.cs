@@ -3,7 +3,6 @@ using _Game.Scripts.Character.Bot;
 using _Game.Scripts.Character.Player;
 using _Game.Utils;
 using _Pattern.Singleton;
-using _UI.Scripts;
 using _UI.Scripts.UI;
 using UnityEngine;
 
@@ -83,11 +82,6 @@ namespace _Game.Scripts.Manager.Level
                     Victory();
                 }   
             }
-        }
-        public void CharacterDeath()
-        {
-            _totalCharacter--;
-            UIManager.Instance.GetUI<GamePlay>().SetAliveText(_totalCharacter);
         }
         
         #endregion

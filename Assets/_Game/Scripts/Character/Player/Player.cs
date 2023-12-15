@@ -1,6 +1,7 @@
 using _Pattern.Event.Scripts;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
+using _UI.Scripts.UI;
 using UnityEngine;
 
 namespace _Game.Scripts.Character.Player
@@ -90,8 +91,9 @@ namespace _Game.Scripts.Character.Player
             base.OnDespawn();
             
             this.RemoveListener(EventID.OnGamePlay, (_) => FindJoyStick());
+            
+            GameManager.ChangeState(GameState.Revive);
         }
-
         public override void OnHit()
         {
             base.OnHit();

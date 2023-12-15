@@ -1,21 +1,26 @@
 using System.Collections;
 using _Game.Scripts.Manager.Level;
+using _Pattern.Event.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _UI.Scripts
+namespace _UI.Scripts.GamePlay
 {
     public class GamePlay : UICanvas
     {
         [SerializeField] private Text aliveText;
         [SerializeField] private GameObject tutorial;
-
+        
+        private int _alive;
+        
         public override void Open()
         {
             base.Open();
             
-            int alive = LevelManager.Instance.TotalCharacter;
-            SetAliveText(alive);
+            _alive = LevelManager.Instance.TotalCharacter;
+            SetAliveText(_alive);
+            
+            this.RegisterListener(EventID.OnCharacterDie, _ => CharacterDie());
 
             StartCoroutine(HideTutorial());
         }
@@ -24,10 +29,12 @@ namespace _UI.Scripts
         {
             base.Close(delayTime);
             
+            this.RemoveListener(EventID.OnCharacterDie, _ => CharacterDie());
+            
             tutorial.SetActive(true);
         }
 
-        public void SetAliveText(int alive)
+        private void SetAliveText(int alive)
         {
             aliveText.text = alive.ToString();
         }
@@ -36,6 +43,12 @@ namespace _UI.Scripts
         {
             yield return new WaitForSeconds(5f);
             tutorial.SetActive(false);
+        }
+        
+        private void CharacterDie()
+        {
+            _alive--;
+            SetAliveText(_alive);
         }
     }
 }

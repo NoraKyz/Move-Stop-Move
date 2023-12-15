@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Framework.Pool.Scripts;
-using _Game.Scripts.Manager.Level;
 using _Game.Utils;
+using _Pattern.Event.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,8 +10,6 @@ namespace _Game.Scripts.Character
 {
     public class Character : GameUnit
     {
-        public static event Action<Character> OnCharacterDie;
-
         [Header("Components")]
         [SerializeField] private Animator anim;
         [SerializeField] protected Transform model;
@@ -48,7 +45,7 @@ namespace _Game.Scripts.Character
             _isAttackAble = true;
             _attackRange = Constants.DefaultAttackRange;
             
-            OnCharacterDie += OnEnemyExitRange;
+            this.RegisterListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
             
             currentWeapon.OnInit(this);
             attackRangeDetector.OnInit(this);
@@ -94,12 +91,11 @@ namespace _Game.Scripts.Character
         public virtual void OnHit()
         {
             _isDie = true;
-            OnCharacterDie?.Invoke(this);
-            LevelManager.Instance.CharacterDeath();
+            this.PostEvent(EventID.OnCharacterDie, this);
         }
         public virtual void OnDespawn()
         {
-            OnCharacterDie -= OnEnemyExitRange;
+            this.RegisterListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
             enemiesInRange.Clear();
         }
         public void LookAtTarget(Vector3 target)

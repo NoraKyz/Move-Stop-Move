@@ -14,7 +14,6 @@ namespace _Game.Scripts.Character.Bot
                 owner.OnEnemyEnterRange(enemy);
             }
         }
-
         protected override void EnemyExitRange(Collider other)
         {
             Character enemy = Cache<Character>.GetComponent(other);

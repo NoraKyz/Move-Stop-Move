@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _UI.Scripts
+namespace _UI.Scripts.GamePlay
 {
     public class Tutorial : MonoBehaviour
     {
