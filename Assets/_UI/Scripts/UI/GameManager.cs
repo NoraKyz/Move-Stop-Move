@@ -74,12 +74,14 @@ namespace _UI.Scripts.UI
         
         private void OnMainMenuState()
         {
+            UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<MainMenu>();
             LevelManager.Instance.OnLoadLevel(0);
         }
         
         private void OnGamePlayState()
         {
+            UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<GamePlay.GamePlay>();
             this.PostEvent(EventID.OnGamePlay);
         }
@@ -91,6 +93,7 @@ namespace _UI.Scripts.UI
         
         private void OnLoseState()
         {
+            UIManager.Instance.CloseUI<Revive.Revive>();
             UIManager.Instance.OpenUI<Lose>();
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using _Game.Utils;
+using _UI.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,8 @@ namespace _UI.Scripts.Revive
 
                 _currentTime--;
             }
+            
+            GameManager.ChangeState(GameState.Lose);
         }
     }
 }

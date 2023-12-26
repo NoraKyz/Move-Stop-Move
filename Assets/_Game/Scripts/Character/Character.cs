@@ -31,7 +31,7 @@ namespace _Game.Scripts.Character
 
         private int _score;
         
-        #region Getter
+        #region Getter 
         public float AttackRange => _attackRange;
         public bool HasEnemyInRange => enemiesInRange.Count > 0;
         public bool IsAttackAble => _isAttackAble;

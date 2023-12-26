@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _UI.Scripts.UI;
+using UnityEngine;
 
 namespace _UI.Scripts.Revive
 {
@@ -10,6 +11,11 @@ namespace _UI.Scripts.Revive
             base.Open();
             
             timer.OnInit();
+        }
+
+        public void CloseBtn()
+        {
+            GameManager.ChangeState(GameState.Lose);
         }
     }
 }

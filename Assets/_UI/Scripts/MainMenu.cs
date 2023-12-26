@@ -8,7 +8,6 @@ namespace _UI.Scripts
         public void PlayButton()
         {
             GameManager.ChangeState(GameState.GamePlay);
-            Close(0);
         }
     }
 }

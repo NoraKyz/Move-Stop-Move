@@ -1,4 +1,3 @@
-using System.Collections;
 using _Game.Scripts.Manager.Level;
 using _Pattern.Event.Scripts;
 using UnityEngine;
@@ -21,30 +20,30 @@ namespace _UI.Scripts.GamePlay
             SetAliveText(_alive);
             
             this.RegisterListener(EventID.OnCharacterDie, _ => CharacterDie());
-
-            StartCoroutine(HideTutorial());
         }
-
         public override void Close(float delayTime)
         {
             base.Close(delayTime);
             
             this.RemoveListener(EventID.OnCharacterDie, _ => CharacterDie());
+            this.RemoveListener(EventID.OnPlayerStartMove, _ => HideTutorial());
             
-            tutorial.SetActive(true);
+            ShowTutorial();
         }
-
+        
         private void SetAliveText(int alive)
         {
             aliveText.text = alive.ToString();
         }
         
-        private IEnumerator HideTutorial()
+        private void ShowTutorial()
         {
-            yield return new WaitForSeconds(5f);
+            tutorial.SetActive(true);
+        }
+        private void HideTutorial()
+        {
             tutorial.SetActive(false);
         }
-        
         private void CharacterDie()
         {
             _alive--;

@@ -5,5 +5,6 @@
         None = 0,
         OnGamePlay = 1,
         OnCharacterDie = 2,
+        OnPlayerStartMove = 3,
     }
 }
