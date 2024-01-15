@@ -1,4 +1,5 @@
-﻿using _Game.Scripts.Manager.Level;
+﻿using _Game.Scripts.Manager;
+using _Game.Scripts.Manager.Level;
 using _Pattern.Event.Scripts;
 using _Pattern.Singleton;
 using UnityEngine;
@@ -76,6 +77,7 @@ namespace _UI.Scripts.UI
         {
             UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<MainMenu>();
+            
             LevelManager.Instance.OnLoadLevel(0);
         }
         
@@ -84,7 +86,7 @@ namespace _UI.Scripts.UI
             UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<GamePlay.GamePlay>();
             
-            this.PostEvent(EventID.OnGamePlay);
+            InputManager.FindJoyStick();
         }
         
         private void OnReviveState()

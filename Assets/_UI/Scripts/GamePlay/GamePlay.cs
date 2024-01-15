@@ -1,3 +1,4 @@
+using System;
 using _Game.Scripts.Manager.Level;
 using _Pattern.Event.Scripts;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace _UI.Scripts.GamePlay
     {
         [SerializeField] private Text aliveText;
         [SerializeField] private GameObject tutorial;
+        
+        private Action<object> _onCharacterDie;
         
         private int _alive;
         
@@ -33,13 +36,12 @@ namespace _UI.Scripts.GamePlay
 
         private void RegisterEvents()
         {
-            this.RegisterListener(EventID.OnCharacterDie, _ => UpdateTotalCharacter());
-            this.RegisterListener(EventID.OnPlayerStartMove, _ => HideTutorial());
+            _onCharacterDie = _ => UpdateTotalCharacter();
+            this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
         }
         private void RemoveEvents()
         {
-            this.RemoveListener(EventID.OnCharacterDie, _ => UpdateTotalCharacter());
-            this.RemoveListener(EventID.OnPlayerStartMove, _ => HideTutorial());
+            this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
         }
         
         private void SetAliveText(int alive)
@@ -50,13 +52,12 @@ namespace _UI.Scripts.GamePlay
         {
             tutorial.SetActive(true);
         }
-        private void HideTutorial()
+        public void HideTutorial()
         {
             tutorial.SetActive(false);
         }
         private void UpdateTotalCharacter()
         {
-            Debug.Log("UpdateTotalCharacter");
             _alive--;
             SetAliveText(_alive);
         }

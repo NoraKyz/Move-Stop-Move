@@ -12,12 +12,7 @@ namespace _Game.Scripts.Manager
         public float HorizontalAxis => joystick.Horizontal;
         public float VerticalAxis => joystick.Vertical;
         
-        private void Start()
-        {
-            this.RegisterListener(EventID.OnGamePlay, (_) => FindJoyStick());
-        }
-
-        private void FindJoyStick()
+        public void FindJoyStick()
         {
             if(joystick == null)
             {
@@ -41,9 +36,8 @@ namespace _Game.Scripts.Manager
         // this is "shortcut" for InputSystem.Instance
         
         public static float HorizontalAxis => InputSystem.Instance.HorizontalAxis;
-        
         public static float VerticalAxis => InputSystem.Instance.VerticalAxis;
-        
         public static bool HasInput() => InputSystem.Instance.HasInput();
+        public static void FindJoyStick() => InputSystem.Instance.FindJoyStick();
     }
 }

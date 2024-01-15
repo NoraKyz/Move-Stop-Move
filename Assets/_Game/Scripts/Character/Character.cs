@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Framework.Pool.Scripts;
@@ -20,6 +21,8 @@ namespace _Game.Scripts.Character
         [SerializeField] protected float moveSpeed;
         [SerializeField] private List<Character> enemiesInRange = new List<Character>();
 
+        private Action<object> _onCharacterDie;
+        
         private bool _isDie;
         private bool _isAttackAble;
         private float _attackRange;
@@ -67,11 +70,12 @@ namespace _Game.Scripts.Character
 
         protected virtual void RegisterEvents()
         {
-            this.RegisterListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
+            _onCharacterDie = (param) => OnEnemyExitRange((Character) param);
+            this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
         }
         protected virtual void RemoveEvents()
         {
-            this.RemoveListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
+            this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
         }
         
         #region Attack

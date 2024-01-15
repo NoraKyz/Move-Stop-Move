@@ -2,6 +2,7 @@ using _Game.Scripts.Manager;
 using _Pattern.Event.Scripts;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
+using _UI.Scripts.GamePlay;
 using UnityEngine;
 
 namespace _Game.Scripts.Character.Player
@@ -71,7 +72,7 @@ namespace _Game.Scripts.Character.Player
                 {
                     _isStartMove = true;
                     
-                    this.PostEvent(EventID.OnPlayerStartMove);
+                    UIManager.Instance.GetUI<GamePlay>().HideTutorial();
                 }
             }
             else

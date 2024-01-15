@@ -58,6 +58,7 @@ namespace _Pattern.Event.Scripts
 			if (_listeners.ContainsKey(eventID))
 			{
 				_listeners[eventID] -= callback;
+				Debug.Log(eventID + " " + _listeners[eventID].GetInvocationList().Length);
 			}
 			else
 			{
