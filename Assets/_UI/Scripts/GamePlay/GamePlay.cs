@@ -23,9 +23,10 @@ namespace _UI.Scripts.GamePlay
             SetAliveText(_alive);
             ShowTutorial();
         }
-        public override void Close(float delayTime)
+
+        public override void CloseDirectly()
         {
-            base.Close(delayTime);
+            base.CloseDirectly();
             
             RemoveEvents();
         }
@@ -55,6 +56,7 @@ namespace _UI.Scripts.GamePlay
         }
         private void UpdateTotalCharacter()
         {
+            Debug.Log("UpdateTotalCharacter");
             _alive--;
             SetAliveText(_alive);
         }

@@ -6,6 +6,5 @@
         
         public const float DefaultAttackRange = 5f;
         public const int MaxBotOnMap = 8;
-        
     }
 }
