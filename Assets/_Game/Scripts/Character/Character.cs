@@ -15,17 +15,14 @@ namespace _Game.Scripts.Character
         [SerializeField] protected Transform model;
         [SerializeField] protected AttackRange attackRangeDetector;
         
-        [Header("Skins")]
-        [SerializeField] private Transform weaponSkin;
-        
         [Header("Config")]
         [SerializeField] protected Weapon.Weapon currentWeapon;
         [SerializeField] protected float moveSpeed;
         [SerializeField] private List<Character> enemiesInRange = new List<Character>();
 
-        private float _attackRange;
-        private bool _isAttackAble;
         private bool _isDie;
+        private bool _isAttackAble;
+        private float _attackRange;
         
         private string _currentAnimName;
 
@@ -41,14 +38,40 @@ namespace _Game.Scripts.Character
         #endregion
         public virtual void OnInit()
         {
+            enemiesInRange.Clear();
+            
             _isDie = false;
             _isAttackAble = true;
             _attackRange = Constants.DefaultAttackRange;
+
+            _score = 0;
             
-            this.RegisterListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
+            RegisterEvents();
+            ResetModelRotation();
             
             currentWeapon.OnInit(this);
             attackRangeDetector.OnInit(this);
+        }
+        public virtual void OnHit()
+        {
+            _isDie = true;
+            
+            this.PostEvent(EventID.OnCharacterDie, this);
+            
+            RemoveEvents();
+        }
+        public virtual void OnDespawn()
+        {
+            
+        }
+
+        protected virtual void RegisterEvents()
+        {
+            this.RegisterListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
+        }
+        protected virtual void RemoveEvents()
+        {
+            this.RemoveListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
         }
         
         #region Attack
@@ -86,21 +109,16 @@ namespace _Game.Scripts.Character
         {
             enemiesInRange.Remove(enemy);
         }
+        
         #endregion
         
-        public virtual void OnHit()
-        {
-            _isDie = true;
-            this.PostEvent(EventID.OnCharacterDie, this);
-        }
-        public virtual void OnDespawn()
-        {
-            this.RegisterListener(EventID.OnCharacterDie, (param) => OnEnemyExitRange((Character) param));
-            enemiesInRange.Clear();
-        }
         public void LookAtTarget(Vector3 target)
         {
             model.LookAt(target);
+        }
+        public void ResetModelRotation()
+        {
+            model.localRotation = Quaternion.identity;
         }
         public void ChangeAnim(string animName)
         {

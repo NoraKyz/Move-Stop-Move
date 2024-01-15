@@ -17,25 +17,34 @@ namespace _UI.Scripts.GamePlay
             base.Open();
             
             _alive = LevelManager.Instance.TotalCharacter;
-            SetAliveText(_alive);
             
-            this.RegisterListener(EventID.OnCharacterDie, _ => CharacterDie());
+            RegisterEvents();
+            
+            SetAliveText(_alive);
+            ShowTutorial();
         }
         public override void Close(float delayTime)
         {
             base.Close(delayTime);
             
-            this.RemoveListener(EventID.OnCharacterDie, _ => CharacterDie());
+            RemoveEvents();
+        }
+
+        private void RegisterEvents()
+        {
+            this.RegisterListener(EventID.OnCharacterDie, _ => UpdateTotalCharacter());
+            this.RegisterListener(EventID.OnPlayerStartMove, _ => HideTutorial());
+        }
+        private void RemoveEvents()
+        {
+            this.RemoveListener(EventID.OnCharacterDie, _ => UpdateTotalCharacter());
             this.RemoveListener(EventID.OnPlayerStartMove, _ => HideTutorial());
-            
-            ShowTutorial();
         }
         
         private void SetAliveText(int alive)
         {
             aliveText.text = alive.ToString();
         }
-        
         private void ShowTutorial()
         {
             tutorial.SetActive(true);
@@ -44,7 +53,7 @@ namespace _UI.Scripts.GamePlay
         {
             tutorial.SetActive(false);
         }
-        private void CharacterDie()
+        private void UpdateTotalCharacter()
         {
             _alive--;
             SetAliveText(_alive);

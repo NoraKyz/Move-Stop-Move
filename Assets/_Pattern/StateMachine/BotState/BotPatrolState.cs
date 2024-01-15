@@ -8,16 +8,18 @@ namespace _Pattern.StateMachine.BotState
 {
     public class BotPatrolState : IState<Bot>
     {
-        private readonly int _chanceAttack = Random.Range(0, 100);
+        private int _chanceAttack = Random.Range(0, 100);
         private bool _attackIfEnemyInRange;
+        private Vector3 _nextDestination;
+        
         public void OnEnter(Bot bot)
         {
+            _attackIfEnemyInRange = Utilities.Chance(_chanceAttack);
+            _nextDestination = LevelManager.Instance.RandomPoint();
+            
             bot.ResetModelRotation();
             bot.ChangeAnim(AnimName.Run);
-            
-            _attackIfEnemyInRange = Utilities.Chance(_chanceAttack);
-            Vector3 randomPos = LevelManager.Instance.RandomPoint();
-            bot.MoveToPosition(randomPos);
+            bot.MoveToPosition(_nextDestination);
         }
 
         public void OnExecute(Bot bot)

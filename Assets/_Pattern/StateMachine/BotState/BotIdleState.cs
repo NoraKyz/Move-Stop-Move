@@ -12,6 +12,7 @@ namespace _Pattern.StateMachine.BotState
         public void OnEnter(Bot bot)
         {
             _timer = 0;
+            
             bot.StopMove();
             bot.ChangeAnim(AnimName.Idle);
         }
@@ -24,6 +25,7 @@ namespace _Pattern.StateMachine.BotState
             }
             
             _timer += Time.deltaTime;
+            
             if (_timer >= _idleTime)
             {
                 bot.ChangeState(new BotPatrolState());

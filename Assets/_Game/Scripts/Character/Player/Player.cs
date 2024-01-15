@@ -1,7 +1,7 @@
+using _Game.Scripts.Manager;
 using _Pattern.Event.Scripts;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
-using _UI.Scripts.UI;
 using UnityEngine;
 
 namespace _Game.Scripts.Character.Player
@@ -9,11 +9,12 @@ namespace _Game.Scripts.Character.Player
     public class Player : Character
     {
         [Header("Controller")] 
-        [SerializeField] private FloatingJoystick joystick;
         [SerializeField] private CharacterController controller;
         
-        private Vector3 _moveDirection;
         private StateMachine<Player> _stateMachine;
+        
+        private bool _isStartMove;
+        private Vector3 _moveDirection;
         public bool IsMoving => _moveDirection != Vector3.zero;
 
         private void Start()
@@ -35,17 +36,15 @@ namespace _Game.Scripts.Character.Player
             
             InitStateMachine();
             
-            this.RegisterListener(EventID.OnGamePlay, (_) => FindJoyStick());
-            
-            TF.position = Vector3.zero;
+            _isStartMove = false;
+            _moveDirection = Vector3.zero;
         }
-        private void FindJoyStick()
+        public override void OnHit()
         {
-            if (joystick == null)
-            {
-                joystick = FindObjectOfType<FloatingJoystick>();
-            }
+            base.OnHit();
+            ChangeState(new PlayerDieState());
         }
+        
         private void InitStateMachine()
         {
             if (_stateMachine == null)
@@ -63,15 +62,17 @@ namespace _Game.Scripts.Character.Player
 
         private void GetInput()
         {
-            if (joystick == null)
-            {
-                return;
-            }
-            
-            if (Vector2.Distance(joystick.Direction, Vector2.zero) > 0.1f)
+            if (InputManager.HasInput())
             { 
-                _moveDirection.Set(joystick.Horizontal, 0, joystick.Vertical);
+                _moveDirection.Set(InputManager.HorizontalAxis, 0, InputManager.VerticalAxis);
                 _moveDirection.Normalize();
+                
+                if(_isStartMove == false)
+                {
+                    _isStartMove = true;
+                    
+                    this.PostEvent(EventID.OnPlayerStartMove);
+                }
             }
             else
             {
@@ -85,20 +86,7 @@ namespace _Game.Scripts.Character.Player
         }
 
         #endregion
-
-        public override void OnDespawn()
-        {
-            base.OnDespawn();
-            
-            this.RemoveListener(EventID.OnGamePlay, (_) => FindJoyStick());
-            
-            GameManager.ChangeState(GameState.Revive);
-        }
-        public override void OnHit()
-        {
-            base.OnHit();
-            ChangeState(new PlayerDieState());
-        }
+        
         public void ChangeState(IState<Player> state)
         {
             _stateMachine.ChangeState(state);

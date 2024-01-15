@@ -11,9 +11,10 @@ namespace _Game.Scripts.Character.Bot
         [Header("Components")] 
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private GameObject circleTargetIndicator;
+
+        private StateMachine<Bot> _stateMachine;
         
         private Vector3 _destination;
-        private StateMachine<Bot> _stateMachine;
         public bool IsDestination => Vector3.Distance(TF.position, _destination + (TF.position.y - _destination.y) * Vector3.up) < 0.1f;
         
         private void Update()
@@ -33,6 +34,17 @@ namespace _Game.Scripts.Character.Bot
             
             HideCircleTargetIndicator();
         }
+        public override void OnHit()
+        {
+            base.OnHit();
+            
+            ChangeState(new BotDieState());
+        }
+        public override void OnDespawn()
+        {
+            base.OnDespawn();
+            SimplePool.Despawn(this);
+        }
         private void InitStateMachine()
         {
             if (_stateMachine == null)
@@ -40,7 +52,7 @@ namespace _Game.Scripts.Character.Bot
                 _stateMachine = new StateMachine<Bot>();
                 _stateMachine.SetOwner(this);
             }
-            
+    
             _stateMachine.ChangeState(new BotIdleState());
         }
 
@@ -58,24 +70,9 @@ namespace _Game.Scripts.Character.Bot
         {
             navMeshAgent.enabled = false;
         }
-        public void ResetModelRotation()
-        {
-            model.localRotation = Quaternion.identity;
-        }
 
         #endregion
         
-        public override void OnHit()
-        {
-            base.OnHit();
-            ChangeState(new BotDieState());
-        }
-        public override void OnDespawn()
-        {
-            base.OnDespawn();
-            SimplePool.Despawn(this);
-            LevelManager.Instance.BotDeath(this);
-        }
         public void ChangeState(IState<Bot> state)
         {
             _stateMachine.ChangeState(state);

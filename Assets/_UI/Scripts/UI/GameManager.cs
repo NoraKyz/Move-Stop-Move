@@ -83,6 +83,7 @@ namespace _UI.Scripts.UI
         {
             UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<GamePlay.GamePlay>();
+            
             this.PostEvent(EventID.OnGamePlay);
         }
         

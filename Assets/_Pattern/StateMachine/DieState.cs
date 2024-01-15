@@ -1,4 +1,5 @@
 ﻿using _Game.Scripts.Character;
+using _Game.Scripts.Manager.Level;
 using _Game.Utils;
 using UnityEngine;
 
@@ -14,9 +15,9 @@ namespace _Pattern.StateMachine
         {
             _timer = 0;
             _isDespawn = false;
+            
             character.ChangeAnim(AnimName.Die);
         }
-
         public void OnExecute(T character)
         {
             if (_isDespawn)
@@ -25,16 +26,21 @@ namespace _Pattern.StateMachine
             }
             
             _timer += Time.deltaTime;
+            
             if (_timer >= DespawnTime)
             {
-                _isDespawn = true;
-                character.OnDespawn();
+                Despawn(character);
             }
         }
-
         public void OnExit(T character)
         {
             
+        }
+        protected virtual void Despawn(T character)
+        {
+            _isDespawn = true;
+            
+            character.OnDespawn();
         }
     }
 }

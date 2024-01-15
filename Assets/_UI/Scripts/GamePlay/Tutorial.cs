@@ -15,7 +15,6 @@ namespace _UI.Scripts.GamePlay
         {
             MoveInInfinityShape();
         }
-
         void MoveInInfinityShape()
         {
             _timer += Time.deltaTime;

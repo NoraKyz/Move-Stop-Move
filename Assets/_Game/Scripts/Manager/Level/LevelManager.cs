@@ -13,10 +13,10 @@ namespace _Game.Scripts.Manager.Level
         [SerializeField] private List<Level> levels = new List<Level>();
         
         private Level _currentLevel;
+        
         private int _totalBot;
         private int _totalCharacter;
         private float _maxDistanceMap;
-        
         public int TotalCharacter => _totalCharacter;
         
         public void OnLoadLevel(int level)
@@ -24,6 +24,7 @@ namespace _Game.Scripts.Manager.Level
             if (_currentLevel != null)
             {
                 Destroy(_currentLevel.gameObject);
+                CollectAllCharacter();
             }
 
             _currentLevel = Instantiate(levels[level]);
@@ -57,9 +58,9 @@ namespace _Game.Scripts.Manager.Level
             Character.Character bot = SimplePool.Spawn<Character.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
             
             bot.OnInit();
-            _bots.Add(bot);
-            
             bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
+            
+            _bots.Add(bot);
         }
         public void BotDeath(Bot character)
         {
@@ -82,6 +83,19 @@ namespace _Game.Scripts.Manager.Level
                     Victory();
                 }   
             }
+        }
+        private void CollectAllCharacter()
+        {
+            for (int i = 0; i < _bots.Count; i++)
+            {
+                Bot bot = _bots[i] as Bot;
+                if (bot != null)
+                {
+                    bot.OnDespawn();
+                }
+            }
+            
+            player.OnDespawn();
         }
         
         #endregion

@@ -1,4 +1,5 @@
 ﻿using _Game.Scripts.Character.Bot;
+using _Game.Scripts.Manager.Level;
 
 namespace _Pattern.StateMachine.BotState
 {
@@ -9,6 +10,13 @@ namespace _Pattern.StateMachine.BotState
             base.OnEnter(bot);
             
             bot.StopMove();
+        }
+
+        protected override void Despawn(Bot bot)
+        {
+            base.Despawn(bot);
+            
+            LevelManager.Instance.BotDeath(bot);
         }
     }
 }
