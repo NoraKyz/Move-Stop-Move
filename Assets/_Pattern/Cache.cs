@@ -19,6 +19,5 @@ namespace _Pattern
                 return collectItems;
             }
         }
-            
     }
 }

@@ -4,12 +4,14 @@ namespace _Game.Scripts.Weapon.Bullet
 {
     public class RotateBullet : Bullet
     {
+        [Header("Rotate Config")]
         [SerializeField] private Transform model;
         [SerializeField] private float rotateSpeed;
 
         protected override void Move()
         {
             base.Move();
+            
             Rotate();
         }
         private void Rotate()

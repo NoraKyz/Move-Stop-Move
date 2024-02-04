@@ -1,3 +1,4 @@
+using _Game.Scripts.Input;
 using _Game.Scripts.Manager;
 using _Pattern.Event.Scripts;
 using _Pattern.StateMachine;
@@ -51,7 +52,7 @@ namespace _Game.Scripts.Character.Player
             if (_stateMachine == null)
             {
                 _stateMachine = new StateMachine<Player>();
-                _stateMachine.SetOwner(this);
+                _stateMachine.OnInit(this);
             }
             
             _stateMachine.ChangeState(new PlayerIdleState());

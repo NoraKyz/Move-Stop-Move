@@ -1,9 +1,7 @@
-using System;
-using _Pattern.Event.Scripts;
 using _Pattern.Singleton;
 using UnityEngine;
 
-namespace _Game.Scripts.Manager
+namespace _Game.Scripts.Input
 {
     public class InputSystem : Singleton<InputSystem>
     {
@@ -12,14 +10,13 @@ namespace _Game.Scripts.Manager
         public float HorizontalAxis => joystick.Horizontal;
         public float VerticalAxis => joystick.Vertical;
         
-        public void FindJoyStick()
+        public void GetInputEntity()
         {
             if(joystick == null)
             {
                 joystick = FindObjectOfType<FloatingJoystick>();
             }
         }
-
         public bool HasInput()
         {
             if(joystick == null)
@@ -38,6 +35,6 @@ namespace _Game.Scripts.Manager
         public static float HorizontalAxis => InputSystem.Instance.HorizontalAxis;
         public static float VerticalAxis => InputSystem.Instance.VerticalAxis;
         public static bool HasInput() => InputSystem.Instance.HasInput();
-        public static void FindJoyStick() => InputSystem.Instance.FindJoyStick();
+        public static void GetInputEntity() => InputSystem.Instance.GetInputEntity();
     }
 }

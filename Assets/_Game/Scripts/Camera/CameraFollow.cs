@@ -1,4 +1,4 @@
-﻿using _Framework.Pool.Scripts;
+﻿using _Pattern.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.Camera

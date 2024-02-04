@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Framework;
 using _Pattern.Singleton;
 using UnityEngine;
 
@@ -58,15 +57,20 @@ namespace _Pattern.Event.Scripts
 			if (_listeners.ContainsKey(eventID))
 			{
 				_listeners[eventID] -= callback;
-				Debug.Log(eventID + " " + _listeners[eventID].GetInvocationList().Length);
 			}
 			else
 			{
 				Common.Warning(false, "RemoveListener, not found key : " + eventID);
 			}
 		}
-		
-		public void ClearAllListener ()
+		public void RemoveListenersByID(EventID eventID)
+		{
+			if (_listeners.ContainsKey(eventID))
+			{
+				_listeners.Remove(eventID);
+			}
+		}
+		public void RemoveAllListeners ()
 		{
 			_listeners.Clear();
 		}
@@ -99,9 +103,14 @@ namespace _Pattern.Event.Scripts
 			EventManager.Instance.RemoveListener(eventID, callback);
 		}
 		
-		public static void ClearAllListener (this MonoBehaviour listener)
+		public static void RemoveListenersByID (this MonoBehaviour listener, EventID eventID)
 		{
-			EventManager.Instance.ClearAllListener();
+			EventManager.Instance.RemoveListenersByID(eventID);
+		}
+		
+		public static void RemoveAllListeners (this MonoBehaviour listener)
+		{
+			EventManager.Instance.RemoveAllListeners();
 		}
 	}
 	

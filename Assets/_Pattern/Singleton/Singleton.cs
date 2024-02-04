@@ -22,10 +22,10 @@ namespace _Pattern.Singleton
                         var singletonObject = new GameObject();
                         _instance = singletonObject.AddComponent<T>();
                         singletonObject.name = typeof(T) + " (Singleton)";
-
                     }
 
                 }
+                
                 return _instance;
             }
         }

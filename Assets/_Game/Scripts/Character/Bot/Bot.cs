@@ -50,7 +50,7 @@ namespace _Game.Scripts.Character.Bot
             if (_stateMachine == null)
             {
                 _stateMachine = new StateMachine<Bot>();
-                _stateMachine.SetOwner(this);
+                _stateMachine.OnInit(this);
             }
     
             _stateMachine.ChangeState(new BotIdleState());

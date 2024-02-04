@@ -1,6 +1,7 @@
 using System;
 using _Game.Scripts.Manager.Level;
 using _Pattern.Event.Scripts;
+using _UI.Scripts.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,34 +21,20 @@ namespace _UI.Scripts.GamePlay
             base.Open();
             
             _alive = LevelManager.Instance.TotalCharacter;
-            
-            RegisterEvents();
-            
+
             SetAliveText(_alive);
             ShowTutorial();
         }
-
-        public override void CloseDirectly()
+        protected override void RegisterEvents()
         {
-            base.CloseDirectly();
-            
-            RemoveEvents();
-        }
-
-        private void RegisterEvents()
-        {
-            _onCharacterDie = _ => UpdateTotalCharacter();
+            _onCharacterDie = _ => OnCharacterDie();
             this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
         }
-        private void RemoveEvents()
+        protected override void RemoveEvents()
         {
             this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
         }
         
-        private void SetAliveText(int alive)
-        {
-            aliveText.text = alive.ToString();
-        }
         private void ShowTutorial()
         {
             tutorial.SetActive(true);
@@ -56,10 +43,14 @@ namespace _UI.Scripts.GamePlay
         {
             tutorial.SetActive(false);
         }
-        private void UpdateTotalCharacter()
+        private void OnCharacterDie()
         {
             _alive--;
             SetAliveText(_alive);
+        }
+        private void SetAliveText(int alive)
+        {
+            aliveText.text = alive.ToString();
         }
     }
 }

@@ -5,7 +5,7 @@
 using System.Diagnostics;
 using UnityEngine;
 
-namespace _Framework
+namespace _Pattern
 {
 	public static class Common
 	{
@@ -35,8 +35,7 @@ namespace _Framework
 		{
 			UnityEngine.Debug.LogWarning(string.Format(format, args), context);
 		}
-
-
+		
 
 		[Conditional("DEBUG")]
 		public static void Warning(bool condition, object message)

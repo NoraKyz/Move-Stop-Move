@@ -1,4 +1,3 @@
-using _Pattern.Event.Scripts;
 using _UI.Scripts.UI;
 
 namespace _UI.Scripts

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Framework.Pool.Scripts
+namespace _Pattern.Pool.Scripts
 {
     public class GameUnit : MonoBehaviour
     {

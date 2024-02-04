@@ -1,5 +1,5 @@
-﻿using _Framework.Pool.Scripts;
-using _Game.Utils;
+﻿using _Game.Utils;
+using _Pattern.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.Character
