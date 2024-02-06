@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3303069809532683400}
   - component: {fileID: 1289237270186939807}
   - component: {fileID: 1383687488476345052}
+  - component: {fileID: 3973956789957224226}
   m_Layer: 7
   m_Name: Player
   m_TagString: Character
@@ -102,12 +103,26 @@ MonoBehaviour:
   anim: {fileID: 443159754804190459}
   model: {fileID: 7542518595521016193}
   attackRangeDetector: {fileID: 4145969234614377359}
-  weaponSkin: {fileID: 1232798566431698969}
   currentWeapon: {fileID: 1311847956047773436}
   moveSpeed: 5
   enemiesInRange: []
-  joystick: {fileID: 0}
+  playerMovement: {fileID: 3973956789957224226}
+  isFailedConfig: 0
+--- !u!114 &3973956789957224226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303069809532684151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c9cda8b8eb41b8b8bd300337737620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   controller: {fileID: 1289237270186939807}
+  moveSpeed: 5
+  isFailedConfig: 0
 --- !u!1 &7563903234591059961
 GameObject:
   m_ObjectHideFlags: 0

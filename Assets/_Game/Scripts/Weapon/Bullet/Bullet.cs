@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.Weapon.Bullet
 {
-    public class Bullet : GameUnit
+    public class Bullet : PoolUnit
     {
         [SerializeField] private float moveSpeed;
         

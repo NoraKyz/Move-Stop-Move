@@ -1,94 +1,62 @@
-using _Game.Scripts.Input;
-using _Game.Scripts.Manager;
-using _Pattern.Event.Scripts;
 using _Pattern.StateMachine;
 using _Pattern.StateMachine.PlayerState;
-using _UI.Scripts.GamePlay;
 using UnityEngine;
 
 namespace _Game.Scripts.Character.Player
 {
     public class Player : Character
     {
-        [Header("Controller")] 
-        [SerializeField] private CharacterController controller;
+        #region Config
         
-        private StateMachine<Player> _stateMachine;
-        
-        private bool _isStartMove;
-        private Vector3 _moveDirection;
-        public bool IsMoving => _moveDirection != Vector3.zero;
+        [Header("Validation")]
+        [SerializeField] private bool isFailedConfig;
 
-        private void Start()
-        {
-            OnInit();
-        }
-        private void Update()
-        {
-            GetInput();
-            
-            _stateMachine.UpdateState(this);
-        }
+        private IPlayerMovement _playerMovement;
+        private StateMachine<Player> _stateMachine;
+        public bool IsMoving => _playerMovement.IsMoving;
+        
+        #endregion
 
         #region Init
 
+        private void Awake()
+        {
+            _playerMovement = GetComponent<IPlayerMovement>();
+            _stateMachine = new StateMachine<Player>(this);
+        }
+
+        private void Start()
+        {
+            if (isFailedConfig)
+            {
+                return;
+            }
+            
+            OnInit();
+        }
         public override void OnInit()
         {
             base.OnInit();
-            
-            InitStateMachine();
-            
-            _isStartMove = false;
-            _moveDirection = Vector3.zero;
-        }
-        public override void OnHit()
-        {
-            base.OnHit();
-            ChangeState(new PlayerDieState());
-        }
-        
-        private void InitStateMachine()
-        {
-            if (_stateMachine == null)
-            {
-                _stateMachine = new StateMachine<Player>();
-                _stateMachine.OnInit(this);
-            }
-            
+
             _stateMachine.ChangeState(new PlayerIdleState());
         }
 
         #endregion
-
-        #region Controller
-
-        private void GetInput()
+        
+        private void Update()
         {
-            if (InputManager.HasInput())
-            { 
-                _moveDirection.Set(InputManager.HorizontalAxis, 0, InputManager.VerticalAxis);
-                _moveDirection.Normalize();
-                
-                if(_isStartMove == false)
-                {
-                    _isStartMove = true;
-                    
-                    UIManager.Instance.GetUI<GamePlay>().HideTutorial();
-                }
-            }
-            else
-            {
-                _moveDirection = Vector3.zero;
-            }
+            _stateMachine.UpdateState(this);
+        }
+        public override void OnHit()
+        {
+            base.OnHit();
+            
+            ChangeState(new PlayerDieState());
         }
         public void Move()
         {
-            controller.Move(_moveDirection * (Time.deltaTime * moveSpeed));
-            LookAtTarget(TF.position + _moveDirection);
+            _playerMovement.Move();
         }
-
-        #endregion
-        
         public void ChangeState(IState<Player> state)
         {
             _stateMachine.ChangeState(state);

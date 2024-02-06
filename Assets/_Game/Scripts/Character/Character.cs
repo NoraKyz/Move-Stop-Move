@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Character
 {
-    public class Character : GameUnit
+    public class Character : PoolUnit
     {
         [Header("Components")]
         [SerializeField] private Animator anim;

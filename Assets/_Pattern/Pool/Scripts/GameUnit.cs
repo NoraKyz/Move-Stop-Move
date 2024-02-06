@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Pattern.Pool.Scripts
 {
@@ -16,7 +16,5 @@ namespace _Pattern.Pool.Scripts
                 return _tf;
             }
         }
-
-        public PoolType poolType;
     }
 }

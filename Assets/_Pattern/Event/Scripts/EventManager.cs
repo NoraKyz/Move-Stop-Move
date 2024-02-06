@@ -10,8 +10,16 @@ namespace _Pattern.Event.Scripts
         #region Fields
 
         private Dictionary<EventID, Action<object>> _listeners = new Dictionary<EventID, Action<object>>();
-		
+        
 		#endregion
+		
+		public static bool HasInstance()
+		{
+			return Instance != null;
+		}
+		private void OnDestroy() {
+			ClearAllListener();
+		}
 		
 		#region Add Listeners, Post events, Remove listener
 		
@@ -27,7 +35,6 @@ namespace _Pattern.Event.Scripts
 				_listeners[eventID] += callback;
 			}
 		}
-		
 		public void PostEvent (EventID eventID, object param = null)
 		{
 			if (!_listeners.ContainsKey(eventID))
@@ -48,7 +55,6 @@ namespace _Pattern.Event.Scripts
 				_listeners.Remove(eventID);
 			}
 		}
-		
 		public void RemoveListener (EventID eventID, Action<object> callback)
 		{
 			Common.Assert(callback != null, "RemoveListener, event {0}, callback = null !!", eventID.ToString());
@@ -63,15 +69,7 @@ namespace _Pattern.Event.Scripts
 				Common.Warning(false, "RemoveListener, not found key : " + eventID);
 			}
 		}
-		public void RemoveListenersByID(EventID eventID)
-		{
-			if (_listeners.ContainsKey(eventID))
-			{
-				_listeners.Remove(eventID);
-			}
-		}
-		public void RemoveAllListeners ()
-		{
+		public void ClearAllListener() {
 			_listeners.Clear();
 		}
 
@@ -87,30 +85,17 @@ namespace _Pattern.Event.Scripts
 		{
 			EventManager.Instance.RegisterListener(eventID, callback);
 		}
-		
 		public static void PostEvent (this MonoBehaviour listener, EventID eventID, object param)
 		{
 			EventManager.Instance.PostEvent(eventID, param);
 		}
-		
 		public static void PostEvent (this MonoBehaviour sender, EventID eventID)
 		{
 			EventManager.Instance.PostEvent(eventID, null);
 		}
-		
 		public static void RemoveListener (this MonoBehaviour listener, EventID eventID, Action<object> callback)
 		{
 			EventManager.Instance.RemoveListener(eventID, callback);
-		}
-		
-		public static void RemoveListenersByID (this MonoBehaviour listener, EventID eventID)
-		{
-			EventManager.Instance.RemoveListenersByID(eventID);
-		}
-		
-		public static void RemoveAllListeners (this MonoBehaviour listener)
-		{
-			EventManager.Instance.RemoveAllListeners();
 		}
 	}
 	

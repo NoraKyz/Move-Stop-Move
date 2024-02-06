@@ -85,7 +85,7 @@ namespace _UI.Scripts.UI
             
             LevelManager.Instance.OnLoadLevel(0);
             
-            this.RemoveListenersByID(EventID.OnCharacterDie);
+            //this.RemoveListenersByID(EventID.OnCharacterDie);
         }
         private void OnGamePlayState()
         {

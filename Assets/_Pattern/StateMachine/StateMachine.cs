@@ -6,7 +6,7 @@ namespace _Pattern.StateMachine
         private IState<T> _currentState;
         private T _owner;
 
-        public void OnInit(T owner)
+        public StateMachine(T owner)
         {
             _owner = owner;
         }

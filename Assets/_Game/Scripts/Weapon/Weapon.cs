@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.Weapon
 {
-    public class Weapon : GameUnit
+    public class Weapon : PoolUnit
     {
         [SerializeField] private PoolType bulletType;
         

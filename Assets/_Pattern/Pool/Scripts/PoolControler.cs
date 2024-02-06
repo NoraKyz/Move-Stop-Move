@@ -79,7 +79,7 @@ public class PoolControlerEditor : Editor
 
         if (GUILayout.Button("Get Prefab Resource"))
         {
-            GameUnit[] resources = Resources.LoadAll<GameUnit>("Pool");
+            PoolUnit[] resources = Resources.LoadAll<PoolUnit>("Pool");
 
             for (int i = 0; i < resources.Length; i++)
             {
@@ -113,11 +113,11 @@ public class PoolAmount
 {
     [Header("-- Pool Amount --")]
     public Transform root;
-    public GameUnit prefab;
+    public PoolUnit prefab;
     public int amount;
     public bool collect;
 
-    public PoolAmount (Transform root, GameUnit prefab, int amount, bool collect)
+    public PoolAmount (Transform root, PoolUnit prefab, int amount, bool collect)
     {
         this.root = root;
         this.prefab = prefab;

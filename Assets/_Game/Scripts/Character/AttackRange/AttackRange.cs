@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.Character
 {
-    public abstract class AttackRange : GameUnit
+    public abstract class AttackRange : PoolUnit
     {
         protected Character owner;
         public void OnInit(Character character)

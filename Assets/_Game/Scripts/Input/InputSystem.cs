@@ -5,6 +5,7 @@ namespace _Game.Scripts.Input
 {
     public class InputSystem : Singleton<InputSystem>
     {
+        [Header("References")]
         [SerializeField] private FloatingJoystick joystick;
 
         public float HorizontalAxis => joystick.Horizontal;
@@ -12,18 +13,15 @@ namespace _Game.Scripts.Input
         
         public void GetInputEntity()
         {
-            if(joystick == null)
+            if (joystick != null)
             {
-                joystick = FindObjectOfType<FloatingJoystick>();
+                return;
             }
+            
+            joystick = FindObjectOfType<FloatingJoystick>();
         }
         public bool HasInput()
         {
-            if(joystick == null)
-            {
-                return false;
-            }
-            
             return Vector2.Distance(joystick.Direction, Vector2.zero) > 0.1f;
         }
     }
@@ -31,7 +29,6 @@ namespace _Game.Scripts.Input
     public static class InputManager
     {
         // this is "shortcut" for InputSystem.Instance
-        
         public static float HorizontalAxis => InputSystem.Instance.HorizontalAxis;
         public static float VerticalAxis => InputSystem.Instance.VerticalAxis;
         public static bool HasInput() => InputSystem.Instance.HasInput();

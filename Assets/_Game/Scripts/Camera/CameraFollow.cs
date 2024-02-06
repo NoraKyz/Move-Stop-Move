@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.Camera
 {
-    public class CameraFollow : GameUnit
+    public class CameraFollow : PoolUnit
     {
         [SerializeField] private Transform target;
         [SerializeField] private float smoothSpeed = 0.125f;
