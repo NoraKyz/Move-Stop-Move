@@ -125,6 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9174166944193327648}
+  - component: {fileID: 74829907176431167}
   m_Layer: 7
   m_Name: TargetIndicator
   m_TagString: Untagged
@@ -148,6 +149,18 @@ Transform:
   m_Father: {fileID: 4337694363249292489}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &74829907176431167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3524439934885301546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e5f32f45a648d3a1340fe9b2f6693a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4337694363249293110
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,8 +172,9 @@ GameObject:
   - component: {fileID: 4337694363249292489}
   - component: {fileID: 8623429373413100226}
   - component: {fileID: 6838690871698271289}
-  - component: {fileID: 1947924044282892478}
   - component: {fileID: 7605991681724167409}
+  - component: {fileID: 1947924044282892478}
+  - component: {fileID: 6045623550102618199}
   m_Layer: 7
   m_Name: Bot
   m_TagString: Character
@@ -216,28 +230,6 @@ CapsuleCollider:
   m_Height: 2.3
   m_Direction: 1
   m_Center: {x: 0, y: 1.15, z: 0}
---- !u!114 &1947924044282892478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4337694363249293110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b139b89a7866cf54bbe11eec9ca227fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poolType: 1
-  anim: {fileID: 1711967116596948154}
-  model: {fileID: 8739273302221881792}
-  attackRangeDetector: {fileID: 43016147487212107}
-  weaponSkin: {fileID: 0}
-  currentWeapon: {fileID: 1021711041086465996}
-  moveSpeed: 5
-  enemiesInRange: []
-  navMeshAgent: {fileID: 7605991681724167409}
-  circleTargetIndicator: {fileID: 3524439934885301546}
 --- !u!195 &7605991681724167409
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -260,6 +252,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1947924044282892478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4337694363249293110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b139b89a7866cf54bbe11eec9ca227fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 1
+  anim: {fileID: 1711967116596948154}
+  model: {fileID: 8739273302221881792}
+  attackDetectorDetector: {fileID: 43016147487212107}
+  currentWeapon: {fileID: 1021711041086465996}
+  moveSpeed: 5
+  enemiesInRange: []
+  circleTargetIndicator: {fileID: 74829907176431167}
+  isFailedConfig: 0
+--- !u!114 &6045623550102618199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4337694363249293110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6bda87893f49618017911675e15a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 7605991681724167409}
+  moveSpeed: 5
+  isFailedConfig: 0
 --- !u!1 &7365441512452892141
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c525f13e754d468de40be7f20b62b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
 --- !u!1001 &325740687002576098
 PrefabInstance:
   m_ObjectHideFlags: 0

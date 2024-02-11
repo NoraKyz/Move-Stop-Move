@@ -8,9 +8,6 @@ namespace _Game.Scripts.Character.Player
     {
         #region Config
         
-        [Header("Validation")]
-        [SerializeField] private bool isFailedConfig;
-
         private IPlayerMovement _playerMovement;
         private StateMachine<Player> _stateMachine;
         public bool IsMoving => _playerMovement.IsMoving;
@@ -24,14 +21,8 @@ namespace _Game.Scripts.Character.Player
             _playerMovement = GetComponent<IPlayerMovement>();
             _stateMachine = new StateMachine<Player>(this);
         }
-
         private void Start()
         {
-            if (isFailedConfig)
-            {
-                return;
-            }
-            
             OnInit();
         }
         public override void OnInit()

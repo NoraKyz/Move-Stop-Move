@@ -102,12 +102,10 @@ MonoBehaviour:
   poolType: 0
   anim: {fileID: 443159754804190459}
   model: {fileID: 7542518595521016193}
-  attackRangeDetector: {fileID: 4145969234614377359}
+  attackDetectorDetector: {fileID: 4145969234614377359}
   currentWeapon: {fileID: 1311847956047773436}
   moveSpeed: 5
   enemiesInRange: []
-  playerMovement: {fileID: 3973956789957224226}
-  isFailedConfig: 0
 --- !u!114 &3973956789957224226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26708348b27819a428f2d1d47a22fc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
 --- !u!1001 &3303069809848572571
 PrefabInstance:
   m_ObjectHideFlags: 0

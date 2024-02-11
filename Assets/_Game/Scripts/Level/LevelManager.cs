@@ -58,7 +58,7 @@ namespace _Game.Scripts.Manager.Level
             Character.Character bot = SimplePool.Spawn<Character.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
             
             bot.OnInit();
-            bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
+            //bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
             
             _bots.Add(bot);
         }

@@ -5,6 +5,7 @@ using _Game.Utils;
 using _Pattern.Event.Scripts;
 using _Pattern.Pool.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.Character
@@ -14,11 +15,10 @@ namespace _Game.Scripts.Character
         [Header("Components")]
         [SerializeField] private Animator anim;
         [SerializeField] protected Transform model;
-        [SerializeField] protected AttackRange attackRangeDetector;
+        [SerializeField] protected AttackRange.AttackDetector attackDetectorDetector;
         
         [Header("Config")]
         [SerializeField] protected Weapon.Weapon currentWeapon;
-        [SerializeField] protected float moveSpeed;
         [SerializeField] private List<Character> enemiesInRange = new List<Character>();
 
         private Action<object> _onCharacterDie;
@@ -28,16 +28,13 @@ namespace _Game.Scripts.Character
         private float _attackRange;
         
         private string _currentAnimName;
-
-        private int _score;
         
         #region Getter 
         public float AttackRange => _attackRange;
         public bool HasEnemyInRange => enemiesInRange.Count > 0;
         public bool IsAttackAble => _isAttackAble;
         public bool IsDie => _isDie;
-        public int Score => _score;
-
+        
         #endregion
         public virtual void OnInit()
         {
@@ -47,13 +44,11 @@ namespace _Game.Scripts.Character
             _isAttackAble = true;
             _attackRange = Constants.DefaultAttackRange;
 
-            _score = 0;
-            
             RegisterEvents();
             ResetModelRotation();
             
             currentWeapon.OnInit(this);
-            attackRangeDetector.OnInit(this);
+            attackDetectorDetector.OnInit(this);
         }
         public virtual void OnHit()
         {
@@ -134,15 +129,6 @@ namespace _Game.Scripts.Character
             anim.ResetTrigger(animName);
             _currentAnimName = animName;
             anim.SetTrigger(animName);
-        }
-        public void SetScore(int score)
-        {
-            if (score < 0)
-            {
-                score = 0;
-            }
-            
-            _score = score;
         }
     }
 }
