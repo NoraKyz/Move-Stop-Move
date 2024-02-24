@@ -1,5 +1,6 @@
-﻿using _Game.Scripts.Character.Player;
-using _Game.Utils;
+﻿using _Game.Scripts.GamePlay.Character.Base;
+using _Game.Scripts.GamePlay.Character.Player;
+using _Game.Scripts.Other.Utils;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.PlayerState
@@ -10,13 +11,15 @@ namespace _Pattern.StateMachine.PlayerState
         private const float AttackSpeed = 0.4f;
         
         private float _timer;
-        private Vector3 _targetPos;
+        private Character _target;
+        
         public void OnEnter(Player player)
         {
             _timer = 0;
-            _targetPos = player.GetRandomEnemyPos();
+            _target = player.GetEnemy();
+            _target.SetCircleTargetIndicator(true);
             
-            player.LookAtTarget(_targetPos);
+            player.LookAtTarget(_target.TF.position);
             player.ChangeAnim(AnimName.Attack);
         }
 
@@ -31,7 +34,7 @@ namespace _Pattern.StateMachine.PlayerState
 
             if (_timer >= AttackSpeed && player.IsAttackAble)
             {
-                player.Attack(_targetPos);
+                player.Attack(_target.TF.position);
             } 
             else if (_timer >= AttackTime)
             {
@@ -41,7 +44,7 @@ namespace _Pattern.StateMachine.PlayerState
 
         public void OnExit(Player player)
         {
-            
+            _target.SetCircleTargetIndicator(false);
         }
     }
 }

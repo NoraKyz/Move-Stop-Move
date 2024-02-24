@@ -1,5 +1,5 @@
-﻿using _Game.Scripts.Character.Player;
-using _Game.Utils;
+﻿using _Game.Scripts.GamePlay.Character.Player;
+using _Game.Scripts.Other.Utils;
 
 namespace _Pattern.StateMachine.PlayerState
 {

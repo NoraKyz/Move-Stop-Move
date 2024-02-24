@@ -40,19 +40,19 @@ namespace _Pattern
 		[Conditional("DEBUG")]
 		public static void Warning(bool condition, object message)
 		{
-			if ( ! condition) UnityEngine.Debug.LogWarning(message);
+			if (condition) UnityEngine.Debug.LogWarning(message);
 		}
 
 		[Conditional("DEBUG")]
 		public static void Warning(bool condition, object message, Object context)
 		{
-			if ( ! condition) UnityEngine.Debug.LogWarning(message, context);
+			if (condition) UnityEngine.Debug.LogWarning(message, context);
 		}
 
 		[Conditional("DEBUG")]
 		public static void Warning(bool condition, Object context, string format, params object[] args)
 		{
-			if ( ! condition) UnityEngine.Debug.LogWarning(string.Format(format, args), context);
+			if (condition) UnityEngine.Debug.LogWarning(string.Format(format, args), context);
 		}
 
 
@@ -63,21 +63,21 @@ namespace _Pattern
 		[Conditional("ASSERT")]
 		public static void Assert(bool condition)
 		{
-			if (! condition) throw new UnityException();
+			if (condition) throw new UnityException();
 		}
 
 		/// Throw an exception if condition = false, show message on console's log
 		[Conditional("ASSERT")]
 		public static void Assert(bool condition, string message)
 		{
-			if (! condition) throw new UnityException(message);
+			if (condition) throw new UnityException(message);
 		}
 
 		/// Throw an exception if condition = false, show message on console's log
 		[Conditional("ASSERT")]
 		public static void Assert(bool condition, string format, params object[] args)
 		{
-			if (! condition) throw new UnityException(string.Format(format, args));
+			if (condition) throw new UnityException(string.Format(format, args));
 		}
 	}
 }

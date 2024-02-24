@@ -1,40 +1,49 @@
 ﻿using System.Collections.Generic;
-using _Game.Scripts.Character.Bot;
-using _Game.Scripts.Character.Player;
-using _Game.Utils;
+using _Game.Scripts.GamePlay.Character.Bot;
+using _Game.Scripts.GamePlay.Character.Player;
+using _Game.Scripts.Other.Utils;
+using _Game.Scripts.UI.Base;
 using _Pattern.Singleton;
-using _UI.Scripts.UI;
 using UnityEngine;
 
-namespace _Game.Scripts.Manager.Level
+namespace _Game.Scripts.Level
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        [SerializeField] private List<Level> levels = new List<Level>();
+        #region Config
+
+        [Header("References")]
+        [SerializeField] private List<LevelDataSO> levels = new List<LevelDataSO>();
         
-        private Level _currentLevel;
+        [Header("Config")]
+        [SerializeField] private int currentLevelId;
+        [SerializeField] private GameObject currentLevelPrefab;
         
         private int _totalBot;
         private int _totalCharacter;
         private float _maxDistanceMap;
         public int TotalCharacter => _totalCharacter;
+
+        #endregion
         
-        public void OnLoadLevel(int level)
+        public void OnLoadLevel(int levelId)
         {
-            if (_currentLevel != null)
+            if (currentLevelPrefab != null)
             {
-                Destroy(_currentLevel.gameObject);
+                Destroy(currentLevelPrefab);
                 CollectAllCharacter();
             }
-
-            _currentLevel = Instantiate(levels[level]);
             
-            SetUpLevel();
+            currentLevelId = levelId;   
+            currentLevelPrefab = Instantiate(levels[levelId].mapPrefab);
+            
+            SetUpLevel(currentLevelId);
         }
-        private void SetUpLevel()
+        
+        private void SetUpLevel(int id)
         {
-            _maxDistanceMap = _currentLevel.MaxDistanceMap;
-            _totalCharacter = _currentLevel.TotalCharacter;
+            _maxDistanceMap = levels[id].maxDistanceMap;
+            _totalCharacter = levels[id].totalCharacter;
             _totalBot = _totalCharacter - 1;
             
             for(int i = 0; i < Constants.MaxBotOnMap; i++)
@@ -52,16 +61,18 @@ namespace _Game.Scripts.Manager.Level
         #region Character
 
         [SerializeField] private Player player;
-        private List<Character.Character> _bots = new List<Character.Character>();
+        private List<GamePlay.Character.Base.Character> _bots = new List<GamePlay.Character.Base.Character>();
+        
         private void NewBot()
         {
-            Character.Character bot = SimplePool.Spawn<Character.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
+            GamePlay.Character.Base.Character bot = SimplePool.Spawn<GamePlay.Character.Base.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
             
             bot.OnInit();
             //bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
             
             _bots.Add(bot);
         }
+        
         public void BotDeath(Bot character)
         {
             _bots.Remove(character);
@@ -84,6 +95,7 @@ namespace _Game.Scripts.Manager.Level
                 }   
             }
         }
+        
         private void CollectAllCharacter()
         {
             for (int i = 0; i < _bots.Count; i++)
@@ -104,9 +116,8 @@ namespace _Game.Scripts.Manager.Level
         {
             
         }
-        public Vector3 RandomPoint()
-        {
-            return Utilities.GetRandomPosOnNavMesh(Vector3.zero, _maxDistanceMap);
-        }
+        
+        public Vector3 RandomPoint() => Utilities.GetRandomPosOnNavMesh(Vector3.zero, _maxDistanceMap);
+        
     }
 }

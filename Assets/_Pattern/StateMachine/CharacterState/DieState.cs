@@ -1,9 +1,8 @@
-﻿using _Game.Scripts.Character;
-using _Game.Scripts.Manager.Level;
-using _Game.Utils;
+﻿using _Game.Scripts.GamePlay.Character.Base;
+using _Game.Scripts.Other.Utils;
 using UnityEngine;
 
-namespace _Pattern.StateMachine
+namespace _Pattern.StateMachine.CharacterState
 {
     public class DieState<T> : IState<T> where T : Character
     {
@@ -11,6 +10,7 @@ namespace _Pattern.StateMachine
         
         private float _timer;
         private bool _isDespawn;
+        
         public virtual void OnEnter(T character)
         {
             _timer = 0;
@@ -18,6 +18,7 @@ namespace _Pattern.StateMachine
             
             character.ChangeAnim(AnimName.Die);
         }
+        
         public void OnExecute(T character)
         {
             if (_isDespawn)
@@ -32,10 +33,12 @@ namespace _Pattern.StateMachine
                 Despawn(character);
             }
         }
+        
         public void OnExit(T character)
         {
             
         }
+        
         protected virtual void Despawn(T character)
         {
             _isDespawn = true;

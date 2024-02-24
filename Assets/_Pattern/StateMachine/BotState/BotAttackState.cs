@@ -1,5 +1,6 @@
-﻿using _Game.Scripts.Character.Bot;
-using _Game.Utils;
+﻿using _Game.Scripts.GamePlay.Character.Base;
+using _Game.Scripts.GamePlay.Character.Bot;
+using _Game.Scripts.Other.Utils;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.BotState
@@ -10,13 +11,14 @@ namespace _Pattern.StateMachine.BotState
         private const float AttackSpeed = 0.4f;
         
         private float _timer;
-        private Vector3 _targetPos;
+        private Character _target;
+        
         public void OnEnter(Bot bot)
         {
             _timer = 0;
-            _targetPos = bot.GetRandomEnemyPos();
+            _target = bot.GetEnemy();
             
-            bot.LookAtTarget(_targetPos);
+            bot.LookAtTarget(_target.TF.position);
             bot.ChangeAnim(AnimName.Attack);
         }
 
@@ -26,7 +28,7 @@ namespace _Pattern.StateMachine.BotState
 
             if (_timer >= AttackSpeed && bot.IsAttackAble)
             {
-                bot.Attack(_targetPos);
+                bot.Attack(_target.TF.position);
             } 
             else if (_timer >= AttackTime)
             {

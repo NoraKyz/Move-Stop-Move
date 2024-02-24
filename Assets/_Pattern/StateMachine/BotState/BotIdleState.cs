@@ -1,6 +1,6 @@
-﻿using _Game.Scripts.Character.Bot;
-using _Game.Utils;
-using _UI.Scripts.UI;
+﻿using _Game.Scripts.GamePlay.Character.Bot;
+using _Game.Scripts.Other.Utils;
+using _Game.Scripts.UI.Base;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.BotState
@@ -9,6 +9,7 @@ namespace _Pattern.StateMachine.BotState
     {
         private float _timer;
         private float _idleTime = Random.Range(3f, 5f);
+        
         public void OnEnter(Bot bot)
         {
             _timer = 0;

@@ -1,7 +1,6 @@
-﻿using _Game.Scripts.Character.Bot;
-using _Game.Scripts.Manager.Level;
-using _Game.Utils;
-using _UI.Scripts.UI;
+﻿using _Game.Scripts.GamePlay.Character.Bot;
+using _Game.Scripts.Level;
+using _Game.Scripts.Other.Utils;
 using UnityEngine;
 
 namespace _Pattern.StateMachine.BotState

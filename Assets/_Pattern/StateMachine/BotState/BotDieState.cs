@@ -1,5 +1,6 @@
-﻿using _Game.Scripts.Character.Bot;
-using _Game.Scripts.Manager.Level;
+﻿using _Game.Scripts.GamePlay.Character.Bot;
+using _Game.Scripts.Level;
+using _Pattern.StateMachine.CharacterState;
 
 namespace _Pattern.StateMachine.BotState
 {

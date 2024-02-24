@@ -1,6 +1,6 @@
-﻿using _Game.Scripts.Character.Player;
-using _Game.Utils;
-using _UI.Scripts.UI;
+﻿using _Game.Scripts.GamePlay.Character.Player;
+using _Game.Scripts.Other.Utils;
+using _Game.Scripts.UI.Base;
 
 namespace _Pattern.StateMachine.PlayerState
 {
