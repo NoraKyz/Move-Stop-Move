@@ -22,7 +22,7 @@ namespace _Game.Scripts.GamePlay.Input
         }
         public bool HasInput()
         {
-            return Vector2.Distance(joystick.Direction, Vector2.zero) > 0.1f;
+            return joystick.Direction != Vector2.zero;
         }
     }
 

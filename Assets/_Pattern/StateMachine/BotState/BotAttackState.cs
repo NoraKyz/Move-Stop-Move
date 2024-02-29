@@ -7,6 +7,7 @@ namespace _Pattern.StateMachine.BotState
 {
     public class BotAttackState : IState<Bot>
     {
+        // Thoi gian de hoan thien 1 don tan cong
         private const float AttackTime = 1f;
         private const float AttackSpeed = 0.4f;
         

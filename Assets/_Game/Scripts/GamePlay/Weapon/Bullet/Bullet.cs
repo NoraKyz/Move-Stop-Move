@@ -1,3 +1,4 @@
+using System.Collections;
 using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
 using _Pattern;
@@ -38,6 +39,9 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
         private void Update()
         {
             Move();
+            
+            // TODO: replace with distance check
+            StartCoroutine(CountDownDespawn());
         }
         
         private void OnTriggerEnter(Collider other)
@@ -54,10 +58,15 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
             }
         }
         
-        
         private void OnDespawn()
         {
             SimplePool.Despawn(this);
+        }
+        
+        private IEnumerator CountDownDespawn()
+        {
+            yield return new WaitForSeconds(3f);
+            OnDespawn();
         }
         
         protected virtual void Move()

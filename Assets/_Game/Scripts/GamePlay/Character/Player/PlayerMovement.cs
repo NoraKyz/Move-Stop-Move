@@ -18,7 +18,9 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private bool _moveAble;
         private bool _isStartMove;
         private Vector3 _moveDirection;
+        
         public bool IsMoving => _moveDirection != Vector3.zero;
+        public Vector3 MoveDirection => _moveDirection;
 
         #endregion
         
@@ -71,6 +73,11 @@ namespace _Game.Scripts.GamePlay.Character.Player
         public void Move()
         {
             controller.Move(_moveDirection * (Time.deltaTime * moveSpeed));
+            
+            if(_moveDirection != Vector3.zero)
+            {
+                TF.forward = _moveDirection;
+            }
         }
     }
 }

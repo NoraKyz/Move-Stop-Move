@@ -13,6 +13,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         [SerializeField] private PlayerMovement playerMovement;
         
         private StateMachine<Player> _stateMachine;
+        
         public bool IsMoving => playerMovement.IsMoving;
         
         #endregion
@@ -45,7 +46,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             
             ChangeState(new PlayerDieState());
         }
-        
+
         public void Move() => playerMovement.Move();
         
         public void ChangeState(IState<Player> state) => _stateMachine.ChangeState(state);

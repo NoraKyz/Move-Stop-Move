@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using _Pattern.Pool.Scripts;
+using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Base
 {
-    public class CharacterModel : MonoBehaviour
+    public class CharacterModel : GameUnit
     {
         #region Config
 
@@ -18,19 +19,16 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         public void OnInit()
         {
-            ResetModelRotation();
+            model.localRotation = Quaternion.identity;
         }
 
         #endregion
 
         public void LookAtTarget(Vector3 targetPos)
         {
-            model.LookAt(targetPos);
-        }
-        
-        public void ResetModelRotation()
-        {
-            model.localRotation = Quaternion.identity;
+           Vector3 lookPos = targetPos - model.position;
+           lookPos.y = 0;
+           TF.forward = lookPos.normalized;
         }
         
         public void ChangeAnim(string animName)

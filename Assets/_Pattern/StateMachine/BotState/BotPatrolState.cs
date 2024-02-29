@@ -7,16 +7,18 @@ namespace _Pattern.StateMachine.BotState
 {
     public class BotPatrolState : IState<Bot>
     {
+        // Ty le tan cong ke thu tren duong di
         private int _chanceAttack = Random.Range(0, 100);
         private bool _attackIfEnemyInRange;
         private Vector3 _nextDestination;
         
         public void OnEnter(Bot bot)
         {
+            // Random de xem co tan cong ke thu tren duong di hay khong
             _attackIfEnemyInRange = Utilities.Chance(_chanceAttack);
+            // Lay 1 diem ngau nhien trong map
             _nextDestination = LevelManager.Instance.RandomPoint();
             
-            bot.ResetModelRotation();
             bot.ChangeAnim(AnimName.Run);
             bot.MoveToPosition(_nextDestination);
         }

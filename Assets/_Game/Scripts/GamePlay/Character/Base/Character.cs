@@ -61,8 +61,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
         
         public void LookAtTarget(Vector3 target) => characterModel.LookAtTarget(target);
         
-        public void ResetModelRotation() => characterModel.ResetModelRotation();
-        
         public void ChangeAnim(string animName) => characterModel.ChangeAnim(animName);
         
         public void SetCircleTargetIndicator(bool isVisible) => circleTargetIndicator.SetVisible(isVisible);
