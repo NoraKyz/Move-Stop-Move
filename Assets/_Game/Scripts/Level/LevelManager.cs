@@ -3,7 +3,8 @@ using _Game.Scripts.GamePlay.Character.Bot;
 using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
 using _Game.Scripts.UI.Base;
-using _Pattern.Singleton;
+using _SDK.Pool.Scripts;
+using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.Level

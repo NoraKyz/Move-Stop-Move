@@ -1,9 +1,9 @@
-﻿using _Pattern.Pool.Scripts;
+﻿using _SDK.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Weapon
 {
-    public class Weapon : PoolUnit
+    public class Weapon : GameUnit
     {
         #region Config
 

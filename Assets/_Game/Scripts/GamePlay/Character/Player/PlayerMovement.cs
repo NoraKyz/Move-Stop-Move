@@ -1,6 +1,6 @@
 ﻿using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.UI.Base;
-using _Pattern.Pool.Scripts;
+using _SDK.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player

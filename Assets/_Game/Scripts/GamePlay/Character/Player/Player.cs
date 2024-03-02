@@ -1,6 +1,6 @@
 using System;
-using _Pattern.StateMachine;
-using _Pattern.StateMachine.PlayerState;
+using _SDK.StateMachine;
+using _SDK.StateMachine.PlayerState;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player

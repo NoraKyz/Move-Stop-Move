@@ -1,6 +1,7 @@
 using System;
-using _Pattern.StateMachine;
-using _Pattern.StateMachine.BotState;
+using _SDK.Pool.Scripts;
+using _SDK.StateMachine;
+using _SDK.StateMachine.BotState;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Bot

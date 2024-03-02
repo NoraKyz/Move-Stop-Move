@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Other.Utils;
-using _Pattern;
-using _Pattern.Event.Scripts;
-using _Pattern.Pool.Scripts;
+using _SDK.Event.Scripts;
+using _SDK.Pool.Scripts;
+using _SDK.Utils;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Base

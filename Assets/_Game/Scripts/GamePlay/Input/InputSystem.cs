@@ -1,4 +1,4 @@
-using _Pattern.Singleton;
+using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Input

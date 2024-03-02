@@ -15,7 +15,7 @@
 ///
 
 using System.Collections.Generic;
-using _Pattern.Singleton;
+using _SDK.Singleton;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -122,7 +122,7 @@ namespace _Game.Scripts.UI.Base
             {
                 if (uiResources == null)
                 {
-                    uiResources = Resources.LoadAll<UICanvas>("UI/");
+                    uiResources = UnityEngine.Resources.LoadAll<UICanvas>("UI/");
                 }
 
                 for (int i = 0; i < uiResources.Length; i++)

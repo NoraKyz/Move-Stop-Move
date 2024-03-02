@@ -1,7 +1,8 @@
 using System;
+using _Game.Scripts.GamePlay.Skin;
 using _Game.Scripts.Interface;
-using _Pattern.Event.Scripts;
-using _Pattern.Pool.Scripts;
+using _SDK.Event.Scripts;
+using _SDK.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Base

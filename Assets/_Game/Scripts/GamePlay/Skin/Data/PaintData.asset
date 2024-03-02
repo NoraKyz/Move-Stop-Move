@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c497e9e908ae4f3da3d26de51f177717, type: 3}
+  m_Name: PaintData
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 0}
+  - {fileID: 2100000, guid: 62c7f5512df154947b2b8e2479038444, type: 2}
+  - {fileID: 2100000, guid: b68cb168e575c684c89459f20c43e9c1, type: 2}
+  - {fileID: 2100000, guid: 6631529848c52e5419ebc7f6a9febcc9, type: 2}
+  - {fileID: 2100000, guid: 09c2589c4fa2b6849995c1070ceed507, type: 2}
+  - {fileID: 2100000, guid: b4fddf98782ad5f4c840353dd896c0ae, type: 2}
+  - {fileID: 2100000, guid: f85a4840b7326ca428ed9cf0d22748d2, type: 2}
+  - {fileID: 2100000, guid: 24b69c3a036a26c4a9ebfa44a7c17a04, type: 2}
+  - {fileID: 2100000, guid: f2ab1937c21bd6d4d8b677fdd1b5b0ec, type: 2}
+  - {fileID: 2100000, guid: 26f32de4bbd0fa5438f692e76bfbf1bd, type: 2}

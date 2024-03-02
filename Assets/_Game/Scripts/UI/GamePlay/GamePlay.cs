@@ -1,7 +1,7 @@
 using System;
 using _Game.Scripts.Level;
 using _Game.Scripts.UI.Base;
-using _Pattern.Event.Scripts;
+using _SDK.Event.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 

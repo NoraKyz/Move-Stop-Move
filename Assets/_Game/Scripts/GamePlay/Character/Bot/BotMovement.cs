@@ -1,4 +1,4 @@
-﻿using _Pattern.Pool.Scripts;
+﻿using _SDK.Pool.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
 

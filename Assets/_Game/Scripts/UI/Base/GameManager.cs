@@ -1,7 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Level;
-using _Pattern;
-using _Pattern.Singleton;
+using _SDK.Singleton;
+using _SDK.Utils;
 using UnityEngine;
 
 namespace _Game.Scripts.UI.Base
@@ -15,6 +15,7 @@ namespace _Game.Scripts.UI.Base
         Setting = 5,
         Win = 6,
     }
+    
     public class GameManager : Singleton<GameManager>
     {
         //[SerializeField] UserData userData;
