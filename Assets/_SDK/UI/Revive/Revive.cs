@@ -1,7 +1,7 @@
-﻿using _Game.Scripts.UI.Base;
+﻿using _SDK.UI.Base;
 using UnityEngine;
 
-namespace _Game.Scripts.UI.Revive
+namespace _SDK.UI.Revive
 {
     public class Revive : UICanvas
     {

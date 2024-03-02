@@ -1,6 +1,6 @@
-using _Game.Scripts.UI.Base;
+using _SDK.UI.Base;
 
-namespace _Game.Scripts.UI
+namespace _SDK.UI
 {
     public class Lose : UICanvas
     {

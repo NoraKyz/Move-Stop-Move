@@ -1,6 +1,6 @@
 ﻿using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
-using _Game.Scripts.UI.Base;
+using _SDK.UI.Base;
 
 namespace _SDK.StateMachine.PlayerState
 {

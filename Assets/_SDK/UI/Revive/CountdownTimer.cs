@@ -1,10 +1,10 @@
 using System.Collections;
 using _Game.Scripts.Other.Utils;
-using _Game.Scripts.UI.Base;
+using _SDK.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Game.Scripts.UI.Revive
+namespace _SDK.UI.Revive
 {
     public class CountdownTimer : MonoBehaviour
     {

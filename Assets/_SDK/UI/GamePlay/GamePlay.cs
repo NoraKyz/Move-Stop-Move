@@ -1,11 +1,11 @@
 using System;
 using _Game.Scripts.Level;
-using _Game.Scripts.UI.Base;
 using _SDK.Event.Scripts;
+using _SDK.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Game.Scripts.UI.GamePlay
+namespace _SDK.UI.GamePlay
 {
     public class GamePlay : UICanvas
     {

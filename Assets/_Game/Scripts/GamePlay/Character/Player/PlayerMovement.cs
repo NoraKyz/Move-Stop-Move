@@ -1,6 +1,6 @@
 ﻿using _Game.Scripts.GamePlay.Input;
-using _Game.Scripts.UI.Base;
 using _SDK.Pool.Scripts;
+using _SDK.UI.Base;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player
@@ -67,7 +67,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             if(_isStartMove == false)
             {
                 _isStartMove = true;
-                UIManager.Instance.GetUI<UI.GamePlay.GamePlay>().SetTutorial(false);
+                UIManager.Instance.GetUI<_SDK.UI.GamePlay.GamePlay>().SetTutorial(false);
             }
         }
         public void Move()

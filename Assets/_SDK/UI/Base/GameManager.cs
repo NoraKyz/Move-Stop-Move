@@ -4,7 +4,7 @@ using _SDK.Singleton;
 using _SDK.Utils;
 using UnityEngine;
 
-namespace _Game.Scripts.UI.Base
+namespace _SDK.UI.Base
 {
     public enum GameState
     {

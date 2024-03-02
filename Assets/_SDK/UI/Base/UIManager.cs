@@ -19,7 +19,7 @@ using _SDK.Singleton;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _Game.Scripts.UI.Base
+namespace _SDK.UI.Base
 {
     public class UIManager : Singleton<UIManager>
     {

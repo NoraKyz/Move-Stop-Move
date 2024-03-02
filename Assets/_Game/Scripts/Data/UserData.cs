@@ -125,7 +125,6 @@ namespace _Game.Scripts.Data
             return (T)Enum.ToObject(typeof(T), PlayerPrefs.GetInt(key, Convert.ToInt32(defaultValue)));
         }
 
-
 #if UNITY_EDITOR
         [Space(10)]
         [Header("---- Editor ----")]
