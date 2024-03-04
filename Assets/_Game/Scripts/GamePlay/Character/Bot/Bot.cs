@@ -1,4 +1,5 @@
 using System;
+using _Game.Scripts.Other.Utils;
 using _SDK.Pool.Scripts;
 using _SDK.StateMachine;
 using _SDK.StateMachine.BotState;
@@ -33,7 +34,17 @@ namespace _Game.Scripts.GamePlay.Character.Bot
             botMovement.OnInit();
             _stateMachine.ChangeState(new BotIdleState());
         }
- 
+
+        public override void WearClothes()
+        {
+            base.WearClothes();
+            
+            ChangeWeapon(Utilities.RandomEnumValue<WeaponType>());
+            ChangeShield(Utilities.RandomEnumValue<ShieldType>());
+            ChangeHair(Utilities.RandomEnumValue<HairType>());
+            ChangePant(Utilities.RandomEnumValue<PantType>());
+        }
+
         #endregion
         
         private void Update()

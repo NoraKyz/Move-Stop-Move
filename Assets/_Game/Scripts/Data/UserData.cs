@@ -30,6 +30,34 @@ namespace _Game.Scripts.Data
     [CreateAssetMenu(fileName = "UserData", menuName = "Data/UserData", order = 1)]
     public class UserData : ScriptableObject
     {
+        private static UserData _ins;
+        public static UserData Ins
+        {
+            get
+            {
+                if (_ins == null)
+                {
+                    UserData[] datas = Resources.LoadAll<UserData>("");
+
+                    if (datas.Length == 1)
+                    {
+                        _ins = datas[0];
+                    }
+                    else
+                    if (datas.Length == 0)
+                    {
+                        Debug.LogError("Can find ScriptableObject UserData");
+                    }
+                    else
+                    {
+                        Debug.LogError("have multiple ScriptableObject UserData");
+                    }
+                }
+
+                return _ins;
+            }
+        }
+        
         public int level = 0;
         public int coin = 0;
 
@@ -182,7 +210,12 @@ namespace _Game.Scripts.Data
                 _userData.OnInitData();
                 EditorUtility.SetDirty(_userData);
             }
-       
+            
+            if(GUILayout.Button("Reset Data"))
+            {
+                _userData.OnResetData();
+                EditorUtility.SetDirty(_userData);
+            }
         }
     }
 #endif

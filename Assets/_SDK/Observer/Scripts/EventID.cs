@@ -1,4 +1,4 @@
-﻿namespace _SDK.Event.Scripts
+﻿namespace _SDK.Observer.Scripts
 {
     public enum EventID
     {

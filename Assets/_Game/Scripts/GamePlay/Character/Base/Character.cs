@@ -1,8 +1,9 @@
 using System;
-using _Game.Scripts.GamePlay.Skin;
 using _Game.Scripts.Interface;
-using _SDK.Event.Scripts;
+using _Game.Scripts.Other.Utils;
+using _SDK.Observer.Scripts;
 using _SDK.Pool.Scripts;
+using _SDK.Utils;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Base
@@ -14,6 +15,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [Header("References")] 
         [SerializeField] private CharacterAttack characterAttack;
         [SerializeField] private CharacterModel characterModel;
+        [SerializeField] private CharacterSkin characterSkin;
         [SerializeField] private CircleTargetIndicator circleTargetIndicator;
 
         [Header("Config")] 
@@ -33,10 +35,16 @@ namespace _Game.Scripts.GamePlay.Character.Base
         {
             IsDie = false;
             SetSize(size > 0 ? size : 1);
+            WearClothes();
             
-            characterAttack.OnInit();
             characterModel.OnInit();
+            characterAttack.OnInit();
             circleTargetIndicator.OnInit();
+        }
+        
+        public virtual void WearClothes()
+        {
+            characterSkin.OnDespawn();
         }
 
         #endregion
@@ -65,5 +73,18 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public void ChangeAnim(string animName) => characterModel.ChangeAnim(animName);
         
         public void SetCircleTargetIndicator(bool isVisible) => circleTargetIndicator.SetVisible(isVisible);
+
+        public void ChangeWeapon(WeaponType weaponType)
+        {
+            characterSkin.ChangeWeapon(weaponType);
+            characterAttack.SetWeapon(characterSkin.CurrentWeapon);
+        }
+        
+        public void ChangeHair(HairType hairType) => characterSkin.ChangeHair(hairType);
+        
+        public void ChangePant(PantType pantType) => characterSkin.ChangePant(pantType);
+        
+        public void ChangeShield(ShieldType shieldType) => characterSkin.ChangeShield(shieldType);
+        
     }
 }

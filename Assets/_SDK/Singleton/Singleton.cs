@@ -23,12 +23,10 @@ namespace _SDK.Singleton
                         _instance = singletonObject.AddComponent<T>();
                         singletonObject.name = typeof(T) + " (Singleton)";
                     }
-
                 }
                 
                 return _instance;
             }
         }
-
     }
 }

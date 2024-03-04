@@ -1,4 +1,5 @@
 using System;
+using _Game.Scripts.Data;
 using _SDK.StateMachine;
 using _SDK.StateMachine.PlayerState;
 using UnityEngine;
@@ -31,6 +32,16 @@ namespace _Game.Scripts.GamePlay.Character.Player
 
             playerMovement.OnInit();
             _stateMachine.ChangeState(new PlayerIdleState());
+        }
+
+        public override void WearClothes()
+        {
+            base.WearClothes();
+            
+            ChangeWeapon(UserData.Ins.playerWeapon);
+            ChangeShield(UserData.Ins.playerShield);
+            ChangeHair(UserData.Ins.playerHair);
+            ChangePant(UserData.Ins.playerPant);
         }
 
         #endregion

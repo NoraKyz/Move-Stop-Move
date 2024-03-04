@@ -33,6 +33,11 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         #endregion
         
+        public void SetWeapon(Weapon.Weapon weapon)
+        {
+            currentWeapon = weapon;
+        }
+        
         // Random enemy pos from list enemy in range
         public Character GetRandomEnemyInRange()
         {

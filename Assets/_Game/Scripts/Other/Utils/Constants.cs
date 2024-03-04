@@ -68,7 +68,7 @@
         Candy0 = 4,
         Candy1 = 5,
         Candy2 = 6,
-        Candy4 = 7,
+        Candy3 = 7,
         Hammer = 8,
         Knife = 9,
         Uzi = 10,

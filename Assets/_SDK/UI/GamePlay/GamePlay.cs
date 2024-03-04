@@ -1,6 +1,6 @@
 using System;
 using _Game.Scripts.Level;
-using _SDK.Event.Scripts;
+using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;

@@ -4,10 +4,12 @@ namespace _SDK.ServiceLocator
 {
     public class GameService : MonoBehaviour
     {
-        protected GameServiceProvider ServiceProvider;
+        // Help to get other services without using Singleton
+        protected GameServiceProvider serviceProvider;
+        
         public virtual void Initialize(GameServiceProvider gameService)
         {
-            ServiceProvider = gameService;
+            serviceProvider = gameService;
         }
     }
 }

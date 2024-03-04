@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4646155b97c24326b761830452e23246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
   bulletType: 3
 --- !u!1 &7341282753412527128
 GameObject:

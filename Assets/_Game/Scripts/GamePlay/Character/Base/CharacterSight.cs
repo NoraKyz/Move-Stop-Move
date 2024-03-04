@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Other.Utils;
-using _SDK.Event.Scripts;
+using _SDK.Observer.Scripts;
 using _SDK.Pool.Scripts;
 using _SDK.Utils;
 using UnityEngine;

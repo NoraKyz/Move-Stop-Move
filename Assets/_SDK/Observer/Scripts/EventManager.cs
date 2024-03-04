@@ -4,7 +4,7 @@ using _SDK.Singleton;
 using _SDK.Utils;
 using UnityEngine;
 
-namespace _SDK.Event.Scripts
+namespace _SDK.Observer.Scripts
 {
     public class EventManager : Singleton<EventManager>
     {

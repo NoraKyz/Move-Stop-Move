@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   coin: 0
-  soundIsOn: 1
-  vibrate: 1
+  soundIsOn: 0
+  vibrateIsOn: 0
   removeAds: 0
-  tutorialed: 0
+  tutorialIsShow: 0
   playerWeapon: 0
-  playerHat: 0
+  playerHair: 0
   playerPant: 0
-  playerAccessory: 0
+  playerShield: 0
   isTest: 0
