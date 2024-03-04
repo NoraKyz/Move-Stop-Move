@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4186918941017888510}
-  - component: {fileID: 4186918941017888497}
+  - component: {fileID: 1110591228015096578}
+  - component: {fileID: 2904871736752939109}
   m_Layer: 0
-  m_Name: Candy_1
+  m_Name: CandyBullet_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +34,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4186918941017888497
+--- !u!135 &1110591228015096578
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4186918941017888496}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0.37}
+--- !u!114 &2904871736752939109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +56,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4186918941017888496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4646155b97c24326b761830452e23246, type: 3}
+  m_Script: {fileID: 11500000, guid: 34754b48b54e95641b29bba3357508e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 7
+  poolType: 7
+  moveSpeed: 12
 --- !u!1001 &4186918940084017740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71,43 +86,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.23583828
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.15795642
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.039500926
+      value: 0.182
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5615555
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17279503
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.12827913
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.798963
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 177.308
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 78.382
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -5.005005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fbc5fda451e2e2941b3727e928985e97, type: 3}
       propertyPath: m_ConstrainProportionsScale

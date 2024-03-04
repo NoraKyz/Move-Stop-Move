@@ -145,9 +145,20 @@ public enum ParticleType
 public enum PoolType
 {
     None = 0,
-    Bot,
-    Hammer,
-    Knife
+    Bot = 1,
+    // Weapon
+    Arrow = 2,
+    Axe1 = 3,
+    Axe2 = 4,
+    Boomerang = 5,
+    Candy0 = 6,
+    Candy1 = 7,
+    Candy2 = 8,
+    Candy3 = 9,
+    Hammer = 10,
+    Knife = 11,
+    Uzi = 12,
+    Z = 13,
 }
 
 

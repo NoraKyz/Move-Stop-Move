@@ -3,7 +3,6 @@ using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
 using _SDK.Pool.Scripts;
-using _SDK.Utils;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Base

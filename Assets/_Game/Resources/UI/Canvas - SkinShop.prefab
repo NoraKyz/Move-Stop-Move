@@ -277,7 +277,6 @@ GameObject:
   - component: {fileID: 1235891464029424794}
   - component: {fileID: 1235891464029424797}
   - component: {fileID: 1235891464029424796}
-  - component: {fileID: 1235891464029424795}
   m_Layer: 5
   m_Name: Hair
   m_TagString: Untagged
@@ -388,7 +387,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891464029424795}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopItemBar, Assembly-CSharp
         m_MethodName: Selected
         m_Mode: 1
@@ -400,20 +399,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1235891464029424795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235891464029424798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312197b4917a470469a67d83494edbb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bg: {fileID: 1235891464029424797}
-  type: 0
 --- !u!1 &1235891464175284988
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +922,6 @@ GameObject:
   - component: {fileID: 1235891465117294756}
   - component: {fileID: 1235891465117294759}
   - component: {fileID: 1235891465117294758}
-  - component: {fileID: 1235891465117294778}
   m_Layer: 5
   m_Name: Pant
   m_TagString: Untagged
@@ -1048,7 +1032,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891465117294778}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopItemBar, Assembly-CSharp
         m_MethodName: Selected
         m_Mode: 1
@@ -1060,20 +1044,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1235891465117294778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235891465117294776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312197b4917a470469a67d83494edbb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bg: {fileID: 1235891465117294759}
-  type: 1
 --- !u!1 &1235891465135928877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,7 +1056,6 @@ GameObject:
   - component: {fileID: 1235891465135928873}
   - component: {fileID: 1235891465135928872}
   - component: {fileID: 1235891465135928875}
-  - component: {fileID: 1235891465135928884}
   m_Layer: 5
   m_Name: Shield
   m_TagString: Untagged
@@ -1197,7 +1166,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891465135928884}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopItemBar, Assembly-CSharp
         m_MethodName: Selected
         m_Mode: 1
@@ -1209,20 +1178,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1235891465135928884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235891465135928877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312197b4917a470469a67d83494edbb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bg: {fileID: 1235891465135928872}
-  type: 2
 --- !u!1 &1235891465159074212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,9 +1265,8 @@ GameObject:
   - component: {fileID: 1235891465265921103}
   - component: {fileID: 1235891465265921101}
   - component: {fileID: 1235891465265921100}
-  - component: {fileID: 1235891465265921096}
   m_Layer: 5
-  m_Name: UIShop
+  m_Name: Canvas - SkinShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1378,33 +1332,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1235891465265921096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235891465265921102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82fd38ac43f5f2d48ae2da3b93e9afa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDestroyOnClose: 0
-  data: {fileID: 11400000, guid: 0161e370b2e693d47b79ed010bab6812, type: 2}
-  contentPanel: {fileID: 1235891464231688241}
-  txtCoin: {fileID: 3550162616821271165}
-  txtCost: {fileID: 3131588092688463349}
-  bars:
-  - {fileID: 1235891464029424795}
-  - {fileID: 1235891465117294778}
-  - {fileID: 1235891465135928884}
-  - {fileID: 1235891465613460140}
-  buttons:
-  - {fileID: 3131588091873182551}
-  - {fileID: 3131588092300119675}
-  - {fileID: 3131588091602216910}
-  prefab: {fileID: 3400301169822184517, guid: 27b64e9cf3945cd40949d70baeea58b9, type: 3}
 --- !u!1 &1235891465555565471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,7 +1424,6 @@ GameObject:
   - component: {fileID: 1235891465613460129}
   - component: {fileID: 1235891465613460128}
   - component: {fileID: 1235891465613460131}
-  - component: {fileID: 1235891465613460140}
   m_Layer: 5
   m_Name: Set
   m_TagString: Untagged
@@ -1608,7 +1534,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891465613460140}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShopItemBar, Assembly-CSharp
         m_MethodName: Selected
         m_Mode: 1
@@ -1620,20 +1546,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1235891465613460140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235891465613460133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312197b4917a470469a67d83494edbb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bg: {fileID: 1235891465613460128}
-  type: 3
 --- !u!1 &3131588091602216910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,7 +1871,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891465265921096}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIShop, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 1
@@ -2249,7 +2161,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891465265921096}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIShop, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 1
@@ -2905,7 +2817,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1235891465265921096}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIShop, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1

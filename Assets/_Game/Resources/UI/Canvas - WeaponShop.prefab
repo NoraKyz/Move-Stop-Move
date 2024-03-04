@@ -197,7 +197,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5031950001894305076}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIWeaponShop, Assembly-CSharp
         m_MethodName: Next
         m_Mode: 1
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5031950001894305076}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIWeaponShop, Assembly-CSharp
         m_MethodName: Previous
         m_Mode: 1
@@ -433,14 +433,13 @@ GameObject:
   - component: {fileID: 5031950001894305033}
   - component: {fileID: 5031950001894305035}
   - component: {fileID: 5031950001894305032}
-  - component: {fileID: 5031950001894305076}
   m_Layer: 5
-  m_Name: UIWeaponShop
+  m_Name: Canvas - WeaponShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5031950001894305033
 RectTransform:
   m_ObjectHideFlags: 0
@@ -505,27 +504,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5031950001894305076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5031950001894305038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 083f39c9e1f40c347a5330936bc1dec2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDestroyOnClose: 0
-  data: {fileID: 11400000, guid: 504f450ba9cd1e248bba26423a2d7e72, type: 2}
-  img: {fileID: 7807047539765277941}
-  txtCost: {fileID: 5588331648050572049}
-  buttons:
-  - {fileID: 5588331648457139814}
-  - {fileID: 5031950002697147281}
-  - {fileID: 5588331649829524329}
-  txtCoin: {fileID: 1543420155711961666}
 --- !u!1 &5031950002126735112
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +706,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5031950001894305076}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIWeaponShop, Assembly-CSharp
         m_MethodName: EquipButton
         m_Mode: 1
@@ -862,7 +840,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5031950001894305076}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIWeaponShop, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -1076,7 +1054,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5031950001894305076}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIWeaponShop, Assembly-CSharp
         m_MethodName: BuyButton
         m_Mode: 1
