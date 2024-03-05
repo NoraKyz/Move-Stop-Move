@@ -1,22 +1,51 @@
 ﻿using _Game.Scripts.GamePlay.Character.Bot;
 using _Game.Scripts.Level;
-using _SDK.StateMachine.CharacterState;
+using _Game.Scripts.Other.Utils;
+using UnityEngine;
 
 namespace _SDK.StateMachine.BotState
 {
-    public class BotDieState : DieState<Bot>
+    public class BotDieState : IState<Bot>
     {
-        public override void OnEnter(Bot bot)
+        private const float DespawnTime = 1.5f;
+        
+        private float _timer;
+        private bool _isDespawn;
+        
+        public void OnEnter(Bot player)
         {
-            base.OnEnter(bot);
+            _timer = 0;
+            _isDespawn = false;
             
-            bot.StopMove();
+            player.StopMove();
+            player.ChangeAnim(AnimName.Die);
         }
-
-        protected override void Despawn(Bot bot)
+        
+        public void OnExecute(Bot bot)
         {
-            base.Despawn(bot);
+            if (_isDespawn)
+            {
+                return;
+            }
             
+            _timer += Time.deltaTime;
+            
+            if (_timer >= DespawnTime)
+            {
+                Despawn(bot);
+            }
+        }
+        
+        public void OnExit(Bot bot)
+        {
+            
+        }
+        
+        private void Despawn(Bot bot)
+        {
+            _isDespawn = true;
+            
+            bot.OnDespawn();
             LevelManager.Instance.BotDeath(bot);
         }
     }

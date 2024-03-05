@@ -14,13 +14,13 @@ namespace _SDK.StateMachine.BotState
         private float _timer;
         private Character _target;
         
-        public void OnEnter(Bot bot)
+        public void OnEnter(Bot player)
         {
             _timer = 0;
-            _target = bot.GetEnemy();
+            _target = player.GetEnemy();
             
-            bot.LookAtTarget(_target.TF.position);
-            bot.ChangeAnim(AnimName.Attack);
+            player.LookAtTarget(_target.TF.position);
+            player.ChangeAnim(AnimName.Attack);
         }
 
         public void OnExecute(Bot bot)

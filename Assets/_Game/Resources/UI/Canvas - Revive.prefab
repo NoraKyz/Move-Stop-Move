@@ -579,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7429553997767649872}
   - component: {fileID: 7429553997767649887}
+  - component: {fileID: 6104132979097090807}
   m_Layer: 5
   m_Name: Countdown
   m_TagString: Untagged
@@ -629,6 +630,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6104132979097090807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7429553997767649873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66837171d7c969e4eae949ee22ac7770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 7429553997108355284}
 --- !u!1 &7429553997869383046
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +731,7 @@ GameObject:
   - component: {fileID: 7429553997926377336}
   - component: {fileID: 7429553997926377337}
   - component: {fileID: 7429553997926377339}
+  - component: {fileID: 4761695266138649172}
   m_Layer: 5
   m_Name: Canvas - Revive
   m_TagString: Untagged
@@ -808,6 +823,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4761695266138649172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7429553997926377341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc513ac9cb04f5fbe5504694c21bfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsDestroyOnClose: 0
+  timer: {fileID: 6104132979097090807}
 --- !u!1 &7429553998050637285
 GameObject:
   m_ObjectHideFlags: 0

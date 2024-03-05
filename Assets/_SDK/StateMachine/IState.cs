@@ -3,7 +3,7 @@ namespace _SDK.StateMachine
 {
     public interface IState<in T>
     {
-        public void OnEnter(T t);
+        public void OnEnter(T player);
         
         public void OnExecute(T t);
         

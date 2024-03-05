@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8110825791162461003}
   - component: {fileID: 6060946964735186161}
   - component: {fileID: 5496322039221526416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Z
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.17
+  m_Radius: 0.35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5496322039221526416
 MonoBehaviour:
@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 8957123939229600247}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8110825791162461003}

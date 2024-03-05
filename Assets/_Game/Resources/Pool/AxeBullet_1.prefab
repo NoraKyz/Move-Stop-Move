@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1803140878935223807}
   - component: {fileID: 7927389841870442970}
   - component: {fileID: 2947915713962516883}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AxeBullet_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,6 +73,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e0d896bbd71c8314e9765bf4e9190459, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0d896bbd71c8314e9765bf4e9190459, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0d896bbd71c8314e9765bf4e9190459, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0d896bbd71c8314e9765bf4e9190459, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e0d896bbd71c8314e9765bf4e9190459, type: 3}
       propertyPath: m_LocalRotation.w

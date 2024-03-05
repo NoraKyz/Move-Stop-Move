@@ -22,6 +22,7 @@ namespace _SDK.UI.Base
         //[SerializeField] CSVData csv;
         
         private static GameState _gameState;
+        
         public static void ChangeState(GameState state)
         {
             _gameState = state;

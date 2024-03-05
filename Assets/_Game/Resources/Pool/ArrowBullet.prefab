@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8383490352336644476}
   - component: {fileID: 7262153311925229954}
   - component: {fileID: 324149367557956807}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArrowBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.13
-  m_Center: {x: 0, y: 0, z: 0.26}
+  m_Center: {x: 0, y: 0, z: 0.3}
 --- !u!114 &324149367557956807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,15 +74,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88e0ddc4f494aa241b5529866af45b29, type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88e0ddc4f494aa241b5529866af45b29, type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88e0ddc4f494aa241b5529866af45b29, type: 3}
       propertyPath: m_LocalScale.z
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88e0ddc4f494aa241b5529866af45b29, type: 3}
       propertyPath: m_LocalPosition.x

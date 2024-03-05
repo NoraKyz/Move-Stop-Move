@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3694200056730382369}
   - component: {fileID: 4862982309695323149}
   - component: {fileID: 4588057037441856002}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CandyBullet_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,8 +45,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.22
-  m_Center: {x: 0, y: 0, z: 0.36}
+  m_Radius: 0.28
+  m_Center: {x: 0, y: 0, z: 0.44}
 --- !u!114 &4588057037441856002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,15 +74,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 407b6b6a06faf824a87f61fcb8436446, type: 3}
       propertyPath: m_LocalScale.x
-      value: 37
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 407b6b6a06faf824a87f61fcb8436446, type: 3}
       propertyPath: m_LocalScale.y
-      value: 37
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 407b6b6a06faf824a87f61fcb8436446, type: 3}
       propertyPath: m_LocalScale.z
-      value: 37
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 407b6b6a06faf824a87f61fcb8436446, type: 3}
       propertyPath: m_LocalRotation.w

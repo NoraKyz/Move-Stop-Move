@@ -10,12 +10,12 @@ namespace _SDK.StateMachine.BotState
         private float _timer;
         private float _idleTime = Random.Range(3f, 5f);
         
-        public void OnEnter(Bot bot)
+        public void OnEnter(Bot player)
         {
             _timer = 0;
             
-            bot.StopMove();
-            bot.ChangeAnim(AnimName.Idle);
+            player.StopMove();
+            player.ChangeAnim(AnimName.Idle);
         }
 
         public void OnExecute(Bot bot)
