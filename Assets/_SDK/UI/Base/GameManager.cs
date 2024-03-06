@@ -1,5 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Level;
+using _SDK.ServiceLocator;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.Singleton;
 using _SDK.Utils;
 using UnityEngine;
@@ -95,7 +97,7 @@ namespace _SDK.UI.Base
             UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<GamePlay.GamePlay>();
             
-            InputManager.GetInputEntity();
+            this.GetService<InputManager>().GetInputEntity();
         }
         
         private void OnReviveState()

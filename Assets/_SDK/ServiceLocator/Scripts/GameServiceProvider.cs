@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _SDK.ServiceLocator
+namespace _SDK.ServiceLocator.Scripts
 {
     [CreateAssetMenu(fileName = "GameServiceProvider", menuName = "Game Service Provider")]
     public class GameServiceProvider : ScriptableObject

@@ -1,9 +1,10 @@
-using _SDK.Singleton;
+using _SDK.ServiceLocator;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Input
 {
-    public class InputSystem : Singleton<InputSystem>
+    public class InputManager : GameService
     {
         [Header("References")]
         [SerializeField] private FloatingJoystick joystick;
@@ -24,14 +25,5 @@ namespace _Game.Scripts.GamePlay.Input
         {
             return joystick.Direction != Vector2.zero;
         }
-    }
-
-    public static class InputManager
-    {
-        // this is "shortcut" for InputSystem.Instance
-        public static float HorizontalAxis => InputSystem.Instance.HorizontalAxis;
-        public static float VerticalAxis => InputSystem.Instance.VerticalAxis;
-        public static bool HasInput() => InputSystem.Instance.HasInput();
-        public static void GetInputEntity() => InputSystem.Instance.GetInputEntity();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _SDK.ServiceLocator
+namespace _SDK.ServiceLocator.Scripts
 {
     public class GameService : MonoBehaviour
     {

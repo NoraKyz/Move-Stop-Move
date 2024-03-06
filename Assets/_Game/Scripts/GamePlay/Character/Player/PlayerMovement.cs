@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts.GamePlay.Input;
 using _SDK.Pool.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private bool _isStartMove;
         private Vector3 _moveDirection;
         
+        private InputManager _inputManager;
+        
         public bool IsMoving => _moveDirection != Vector3.zero;
         public Vector3 MoveDirection => _moveDirection;
 
@@ -31,6 +34,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _moveAble = false;
             _isStartMove = false;
             _moveDirection = Vector3.zero;
+            _inputManager = this.GetService<InputManager>();
         }
 
         #endregion
@@ -46,7 +50,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         }
         private void GetInput()
         {
-            if (InputManager.HasInput())
+            if (_inputManager.HasInput())
             {
                 GetDirectionFromInput();
 
@@ -59,7 +63,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         }
         private void GetDirectionFromInput()
         {
-            _moveDirection.Set(InputManager.HorizontalAxis, 0, InputManager.VerticalAxis);
+            _moveDirection.Set(_inputManager.HorizontalAxis, 0, _inputManager.VerticalAxis);
             _moveDirection.Normalize();
         }
         private void OnStartMove()

@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
+using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.GamePlay.Character.Bot;
-using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
-using _SDK.Pool.Scripts;
-using _SDK.Singleton;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
 
 namespace _Game.Scripts.Level
 {
-    public class LevelManager : Singleton<LevelManager>
+    public class LevelManager : GameService
     {
         #region Config
 
@@ -18,25 +17,26 @@ namespace _Game.Scripts.Level
         
         [Header("Config")]
         [SerializeField] private int currentLevelId;
-        [SerializeField] private GameObject currentLevelPrefab;
+        [SerializeField] private GameObject currentMapPrefab;
         
         private int _totalBot;
         private int _totalCharacter;
         private float _maxDistanceMap;
+        
         public int TotalCharacter => _totalCharacter;
 
         #endregion
         
         public void OnLoadLevel(int levelId)
         {
-            if (currentLevelPrefab != null)
+            if (currentMapPrefab != null)
             {
-                Destroy(currentLevelPrefab);
-                CollectAllCharacter();
+                Destroy(currentMapPrefab);
+                this.GetService<CharacterManager>().DespawnAllCharacter();
             }
             
             currentLevelId = levelId;   
-            currentLevelPrefab = Instantiate(levels[levelId].mapPrefab);
+            currentMapPrefab = Instantiate(levels[levelId].mapPrefab);
             
             SetUpLevel(currentLevelId);
         }
@@ -45,74 +45,42 @@ namespace _Game.Scripts.Level
         {
             _maxDistanceMap = levels[id].maxDistanceMap;
             _totalCharacter = levels[id].totalCharacter;
-            _totalBot = _totalCharacter - 1;
+            _totalBot = levels[id].totalCharacter - 1;
             
             for(int i = 0; i < Constants.MaxBotOnMap; i++)
             {
                 if (_totalBot > 0)
                 {
                     _totalBot--;
-                    NewBot();
+                    this.GetService<CharacterManager>().NewBot();
                 }
             }
             
-            player.OnInit();
-        }
-
-        #region Character
-
-        [SerializeField] private Player player;
-        private List<GamePlay.Character.Base.Character> _bots = new List<GamePlay.Character.Base.Character>();
-        
-        private void NewBot()
-        {
-            GamePlay.Character.Base.Character bot = SimplePool.Spawn<GamePlay.Character.Base.Character>(PoolType.Bot, RandomPoint(), Quaternion.identity);
-            
-            bot.OnInit();
-            //bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
-            
-            _bots.Add(bot);
+            this.GetService<CharacterManager>().NewPlayer();
         }
         
-        public void BotDeath(Bot character)
+        public void BotDeath(Bot bot)
         {
-            _bots.Remove(character);
+            this.GetService<CharacterManager>().RemoveBot(bot);
 
             if (GameManager.IsState(GameState.Revive) || GameManager.IsState(GameState.Setting))
             {
-                NewBot();
+                this.GetService<CharacterManager>().NewBot();
             }
             else
             {
                 if (_totalBot > 0)
                 {
                     _totalBot--;
-                    NewBot();
+                    this.GetService<CharacterManager>().NewBot();
                 }
-                
-                if (_bots.Count == 0)
+                else if (_totalBot == 0)
                 {
                     Victory();
                 }   
             }
         }
-        
-        private void CollectAllCharacter()
-        {
-            for (int i = 0; i < _bots.Count; i++)
-            {
-                Bot bot = _bots[i] as Bot;
-                if (bot != null)
-                {
-                    bot.OnDespawn();
-                }
-            }
-            
-            player.OnDespawn();
-        }
-        
-        #endregion
-        
+
         private void Victory()
         {
             
