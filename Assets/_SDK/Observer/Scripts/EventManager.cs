@@ -85,17 +85,11 @@ namespace _SDK.Observer.Scripts
 	{
 		public static void RegisterListener (this MonoBehaviour listener, EventID eventID, Action<object> callback)
 		{
-			if (EventManager.HasInstance())
-			{
-				EventManager.Instance.RegisterListener(eventID, callback);
-			}
+			EventManager.Instance.RegisterListener(eventID, callback);
 		}
 		public static void PostEvent (this MonoBehaviour listener, EventID eventID, object param)
 		{
-			if(EventManager.HasInstance())
-			{
-				EventManager.Instance.PostEvent(eventID, param);
-			}
+			EventManager.Instance.PostEvent(eventID, param);
 		}
 		public static void PostEvent (this MonoBehaviour sender, EventID eventID)
 		{
