@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Character.Bot;
 using _Game.Scripts.Level;
 using _Game.Scripts.Other.Utils;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _SDK.StateMachine.BotState
@@ -46,7 +47,7 @@ namespace _SDK.StateMachine.BotState
             _isDespawn = true;
             
             bot.OnDespawn();
-            LevelManager.Instance.BotDeath(bot);
+            bot.GetService<LevelGameManager>().BotDeath(bot);
         }
     }
 }

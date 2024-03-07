@@ -10,26 +10,26 @@ namespace _Game.Scripts.GamePlay.Character
         [Header("References")]
         [SerializeField] private Player.Player player;
         [SerializeField] private List<Bot.Bot> bots = new List<Bot.Bot>();
-        [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
-
-        public void NewPlayer()
-        {
-            player.OnInit();
-        }
+        
+        private Map.Map _currentMap;
+        
+        public void SetMap(Map.Map map) => _currentMap = map;
+        
+        public void ResetPlayer() => player.OnInit();
         
         public void NewBot()
         {
-            Bot.Bot bot = SimplePool.Spawn<Bot.Bot>(PoolType.Bot, RandomSpawnPos(), Quaternion.identity);
+            Bot.Bot bot = SimplePool.Spawn<Bot.Bot>(PoolType.Bot, _currentMap.GetRandomSpawnPos(), Quaternion.identity);
             
             bot.OnInit();
             //bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
             
             bots.Add(bot);
         }
-
-        public void RemoveBot(Bot.Bot bot) => bots.Remove(bot); 
         
-        public void DespawnAllCharacter()
+        public void RemoveBot(Bot.Bot bot) => bots.Remove(bot);
+        
+        public void ClearAll()
         {
             for (int i = 0; i < bots.Count; i++)
             {
@@ -40,11 +40,6 @@ namespace _Game.Scripts.GamePlay.Character
             }
             
             player.OnDespawn();
-        }
-        
-        private Vector3 RandomSpawnPos()
-        {
-            return spawnPoints[Random.Range(0, spawnPoints.Count)].position;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using _Game.Scripts.GamePlay.Character.Bot;
 using _Game.Scripts.Level;
+using _Game.Scripts.Map;
 using _Game.Scripts.Other.Utils;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _SDK.StateMachine.BotState
@@ -12,15 +14,17 @@ namespace _SDK.StateMachine.BotState
         private bool _attackIfEnemyInRange;
         private Vector3 _nextDestination;
         
-        public void OnEnter(Bot player)
+        public void OnEnter(Bot bot)
         {
             // Random de xem co tan cong ke thu tren duong di hay khong
             _attackIfEnemyInRange = Utilities.Chance(_chanceAttack);
-            // Lay 1 diem ngau nhien trong map
-            _nextDestination = LevelManager.Instance.RandomPoint();
             
-            player.ChangeAnim(AnimName.Run);
-            player.MoveToPosition(_nextDestination);
+            // Lay 1 diem ngau nhien trong map
+            Map currentMap = bot.GetService<LevelManager>().CurrentMap;
+            _nextDestination = currentMap.GetRandomPos();
+            
+            bot.ChangeAnim(AnimName.Run);
+            bot.MoveToPosition(_nextDestination);
         }
 
         public void OnExecute(Bot bot)
