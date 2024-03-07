@@ -1,5 +1,5 @@
 ﻿using _Game.Scripts.GamePlay.Character;
-using _Game.Scripts.Map;
+using _Game.Scripts.GamePlay.Map;
 using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
@@ -14,10 +14,10 @@ namespace _Game.Scripts.Level
         [SerializeField] private MapDataSO mapData;
         
         private Level _currentLevel;
-        private Map.Map _currentMap;
+        private GamePlay.Map.Map _currentMap;
         
         public Level CurrentLevel => _currentLevel;
-        public Map.Map CurrentMap => _currentMap;
+        public GamePlay.Map.Map CurrentMap => _currentMap;
 
         #endregion
         

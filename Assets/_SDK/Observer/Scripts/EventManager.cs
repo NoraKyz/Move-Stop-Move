@@ -16,7 +16,7 @@ namespace _SDK.Observer.Scripts
 		
 		public static bool HasInstance()
 		{
-			return Instance != null;
+			return  instance != null;
 		}
 		
 		private void OnDestroy() 
@@ -85,19 +85,31 @@ namespace _SDK.Observer.Scripts
 	{
 		public static void RegisterListener (this MonoBehaviour listener, EventID eventID, Action<object> callback)
 		{
-			EventManager.Instance.RegisterListener(eventID, callback);
+			if (EventManager.HasInstance())
+			{
+				EventManager.Instance.RegisterListener(eventID, callback);
+			}
 		}
 		public static void PostEvent (this MonoBehaviour listener, EventID eventID, object param)
 		{
-			EventManager.Instance.PostEvent(eventID, param);
+			if(EventManager.HasInstance())
+			{
+				EventManager.Instance.PostEvent(eventID, param);
+			}
 		}
 		public static void PostEvent (this MonoBehaviour sender, EventID eventID)
 		{
-			EventManager.Instance.PostEvent(eventID);
+			if (EventManager.HasInstance())
+			{
+				EventManager.Instance.PostEvent(eventID);
+			}
 		}
 		public static void RemoveListener (this MonoBehaviour listener, EventID eventID, Action<object> callback)
 		{
-			EventManager.Instance.RemoveListener(eventID, callback);
+			if(EventManager.HasInstance())
+			{
+				EventManager.Instance.RemoveListener(eventID, callback);
+			}
 		}
 	}
 	

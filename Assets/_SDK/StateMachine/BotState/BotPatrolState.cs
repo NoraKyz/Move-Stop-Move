@@ -1,6 +1,6 @@
 ﻿using _Game.Scripts.GamePlay.Character.Bot;
+using _Game.Scripts.GamePlay.Map;
 using _Game.Scripts.Level;
-using _Game.Scripts.Map;
 using _Game.Scripts.Other.Utils;
 using _SDK.ServiceLocator.Scripts;
 using UnityEngine;

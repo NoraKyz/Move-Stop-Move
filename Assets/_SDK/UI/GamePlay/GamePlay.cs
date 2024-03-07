@@ -1,6 +1,7 @@
 using System;
 using _Game.Scripts.Level;
 using _SDK.Observer.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,8 @@ namespace _SDK.UI.GamePlay
         {
             base.Open();
             
-            _alive = LevelManager.Instance.TotalCharacter;
+            Level currentLevel = this.GetService<LevelManager>().CurrentLevel;
+            _alive = currentLevel.TotalBots + 1;
 
             SetAliveText(_alive);
             SetTutorial(true);

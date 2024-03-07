@@ -1,6 +1,6 @@
-﻿using _Game.Scripts.GamePlay.Input;
+﻿using _Game.Scripts.Data;
+using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Level;
-using _SDK.ServiceLocator;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.Singleton;
 using _SDK.Utils;
@@ -89,7 +89,7 @@ namespace _SDK.UI.Base
             UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<MainMenu>();
             
-            LevelManager.Instance.OnLoadLevel(0);
+            this.GetService<LevelManager>().OnLoadLevel(UserData.Ins.level);
         }
         
         private void OnGamePlayState()

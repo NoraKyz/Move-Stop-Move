@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Game.Scripts.Level
 {
     [Serializable]
-    public class Level : MonoBehaviour
+    public class Level
     {
         [SerializeField] private int mapId;
         [SerializeField] private int totalBots;

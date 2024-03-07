@@ -155,8 +155,9 @@ Transform:
   - {fileID: 375601294}
   - {fileID: 1568868587}
   - {fileID: 2096968521}
-  m_Father: {fileID: 929356221}
-  m_RootOrder: 3
+  - {fileID: 1426700469}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &13396874
 MonoBehaviour:
@@ -379,8 +380,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 929356221}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &140813828
 MonoBehaviour:
@@ -430,13 +431,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255190738}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 929356221}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &375601293
 GameObject:
@@ -712,8 +713,8 @@ Transform:
   - {fileID: 2077166009}
   - {fileID: 1696760455}
   - {fileID: 1597770496}
-  m_Father: {fileID: 929356221}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &802946736
 MonoBehaviour:
@@ -887,12 +888,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900295760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.9098887, y: -15.126364, z: 6.609951}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929356220
 GameObject:
@@ -904,7 +905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 929356221}
   m_Layer: 0
-  m_Name: ======Manager======
+  m_Name: ========Manager========
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,11 +922,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 802946735}
-  - {fileID: 140813827}
-  - {fileID: 255190740}
-  - {fileID: 13396873}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1200,6 +1197,50 @@ Transform:
   m_Father: {fileID: 802946735}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1426700468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426700469}
+  - component: {fileID: 1426700470}
+  m_Layer: 0
+  m_Name: LevelGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1426700469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426700468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 13396873}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1426700470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426700468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6850a15248630c4982f0a0bea1d1392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1568868586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,8 +1286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1263269909}
-  _bots: []
-  _spawnPoints: []
+  bots: []
 --- !u!1 &1597770495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,11 +1471,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802b0e4730364213aa881d4e0395c46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 11400000, guid: 927fdddb6b323d84c8997df122453882, type: 2}
-  currentLevelId: 0
-  currentLevelPrefab: {fileID: 0}
-  player: {fileID: 1263269909}
+  levelData: {fileID: 11400000, guid: f9db1dbeb6bc2204bb6508433eb6f37b, type: 2}
+  mapData: {fileID: 11400000, guid: 8ba7f92d30aa4be46bd39c61b8aaafdf, type: 2}
 --- !u!4 &2096968521
 Transform:
   m_ObjectHideFlags: 0
