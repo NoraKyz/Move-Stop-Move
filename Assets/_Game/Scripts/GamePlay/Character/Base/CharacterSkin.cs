@@ -1,4 +1,5 @@
 ﻿using _Game.Scripts.GamePlay.Skin.Base;
+using _Game.Scripts.GamePlay.Skin.Data;
 using _Game.Scripts.Other.Utils;
 using UnityEngine;
 

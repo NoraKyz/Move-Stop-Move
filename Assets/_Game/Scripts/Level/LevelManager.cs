@@ -14,10 +14,10 @@ namespace _Game.Scripts.Level
         [SerializeField] private MapDataSO mapData;
         
         private Level _currentLevel;
-        private GamePlay.Map.Map _currentMap;
+        private Map _currentMap;
         
         public Level CurrentLevel => _currentLevel;
-        public GamePlay.Map.Map CurrentMap => _currentMap;
+        public Map CurrentMap => _currentMap;
 
         #endregion
         

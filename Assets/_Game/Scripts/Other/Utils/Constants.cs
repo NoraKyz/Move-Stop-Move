@@ -74,4 +74,14 @@
         Uzi = 10,
         Z = 11,
     }
+    
+    public enum SetType
+    {
+        None = 0,
+        Devil = 1,
+        Angel = 2,
+        Witch = 3,
+        DeadPool = 4,
+        Thor = 5,
+    }
 }

@@ -29,7 +29,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         public override void OnInit()
         {
             base.OnInit();
-
+            
             playerMovement.OnInit();
             _stateMachine.ChangeState(new PlayerIdleState());
         }

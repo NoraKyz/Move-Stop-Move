@@ -35,6 +35,9 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _isStartMove = false;
             _moveDirection = Vector3.zero;
             _inputManager = this.GetService<InputManager>();
+            
+            TF.position = Vector3.zero;
+            TF.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
 
         #endregion
@@ -71,7 +74,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             if(_isStartMove == false)
             {
                 _isStartMove = true;
-                UIManager.Instance.GetUI<_SDK.UI.GamePlay.GamePlay>().SetTutorial(false);
+                UIManager.Instance.GetUI<_SDK.UI.GamePlay.UIGamePlay>().SetTutorial(false);
             }
         }
         public void Move()

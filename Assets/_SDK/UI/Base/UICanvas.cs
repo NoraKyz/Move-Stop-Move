@@ -58,7 +58,6 @@ namespace _SDK.UI.Base
         public virtual void Open()
         {
             gameObject.SetActive(true);
-            RegisterEvents();
         }
 
         //close canvas directly
@@ -67,7 +66,6 @@ namespace _SDK.UI.Base
         {
             UIManager.Instance.RemoveBackUI(this);
             gameObject.SetActive(false);
-            RemoveEvents();
         
             if (IsDestroyOnClose)
             {
@@ -81,9 +79,5 @@ namespace _SDK.UI.Base
         {
             Invoke(nameof(CloseDirectly), delayTime);
         }
-    
-        protected virtual void RegisterEvents() { }
-    
-        protected virtual void RemoveEvents() { }
     }
 }

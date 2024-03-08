@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _SDK.UI.Revive
 {
-    public class Revive : UICanvas
+    public class UIRevive : UICanvas
     {
         #region Config
 

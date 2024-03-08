@@ -1,4 +1,3 @@
-using _SDK.ServiceLocator;
 using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
@@ -21,6 +20,7 @@ namespace _Game.Scripts.GamePlay.Input
             
             joystick = FindObjectOfType<FloatingJoystick>();
         }
+        
         public bool HasInput()
         {
             return joystick.Direction != Vector2.zero;

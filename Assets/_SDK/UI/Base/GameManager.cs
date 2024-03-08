@@ -87,7 +87,7 @@ namespace _SDK.UI.Base
         private void OnMainMenuState()
         {
             UIManager.Instance.CloseAll();
-            UIManager.Instance.OpenUI<MainMenu>();
+            UIManager.Instance.OpenUI<UIMainMenu>();
             
             this.GetService<LevelManager>().OnLoadLevel(UserData.Ins.level);
         }
@@ -95,20 +95,20 @@ namespace _SDK.UI.Base
         private void OnGamePlayState()
         {
             UIManager.Instance.CloseAll();
-            UIManager.Instance.OpenUI<GamePlay.GamePlay>();
+            UIManager.Instance.OpenUI<GamePlay.UIGamePlay>();
             
             this.GetService<InputManager>().GetInputEntity();
         }
         
         private void OnReviveState()
         {
-            UIManager.Instance.OpenUI<Revive.Revive>();
+            UIManager.Instance.OpenUI<Revive.UIRevive>();
         }
         
         private void OnLoseState()
         {
-            UIManager.Instance.CloseUI<Revive.Revive>();
-            UIManager.Instance.OpenUI<Lose>();
+            UIManager.Instance.CloseUI<Revive.UIRevive>();
+            UIManager.Instance.OpenUI<UILose>();
         }
     }
 }

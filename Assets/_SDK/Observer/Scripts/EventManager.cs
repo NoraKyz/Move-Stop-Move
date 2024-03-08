@@ -93,10 +93,7 @@ namespace _SDK.Observer.Scripts
 		}
 		public static void PostEvent (this MonoBehaviour sender, EventID eventID)
 		{
-			if (EventManager.HasInstance())
-			{
-				EventManager.Instance.PostEvent(eventID);
-			}
+			EventManager.Instance.PostEvent(eventID);
 		}
 		public static void RemoveListener (this MonoBehaviour listener, EventID eventID, Action<object> callback)
 		{

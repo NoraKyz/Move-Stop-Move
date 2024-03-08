@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _SDK.UI.GamePlay
 {
-    public class GamePlay : UICanvas
+    public class UIGamePlay : UICanvas
     {
         #region Config
 
@@ -22,13 +22,13 @@ namespace _SDK.UI.GamePlay
 
         #endregion
         
-        protected override void RegisterEvents()
+        private void OnEnable()
         {
             _onCharacterDie = _ => OnCharacterDie();
             this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
         }
         
-        protected override void RemoveEvents()
+        private void OnDisable()
         {
             this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
         }

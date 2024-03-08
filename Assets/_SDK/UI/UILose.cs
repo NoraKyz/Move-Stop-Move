@@ -2,7 +2,7 @@ using _SDK.UI.Base;
 
 namespace _SDK.UI
 {
-    public class Lose : UICanvas
+    public class UILose : UICanvas
     {
         public void OnClickContinueBtn()
         {

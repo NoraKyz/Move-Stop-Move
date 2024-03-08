@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Game.Scripts.GamePlay.Skin.Base
+namespace _Game.Scripts.GamePlay.Skin.Data
 {
     [CreateAssetMenu(fileName = "PaintData", menuName = "Data/PaintData")]
     public class PaintDataSO : ScriptableObject
