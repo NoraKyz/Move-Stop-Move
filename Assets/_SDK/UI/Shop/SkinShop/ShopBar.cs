@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using _SDK.Observer.Scripts;
 using UnityEngine;
 
@@ -7,13 +6,15 @@ namespace _SDK.UI.Shop.SkinShop
 {
     public class ShopBar : MonoBehaviour
     {
-        [SerializeField] private List<ButtonBar> buttons;
+        [SerializeField] private ButtonShopBar buttonShopBarDefaultSelected;
+        
+        private ButtonShopBar _currButtonSelected;
         
         private Action<object> _onSelectBar;
 
         private void OnEnable()
         {
-            _onSelectBar = (param) => UpdateStateButtons((ShopType) param);
+            _onSelectBar = (param) => UpdateStateButtons((ButtonShopBar) param);
             this.RegisterListener(EventID.OnSelectShopBar, _onSelectBar);
         }
 
@@ -22,13 +23,14 @@ namespace _SDK.UI.Shop.SkinShop
             this.RemoveListener(EventID.OnSelectShopBar, _onSelectBar);
         }
 
-        private void UpdateStateButtons(ShopType shopType)
+        private void UpdateStateButtons(ButtonShopBar btn)
         { 
-            for(int i = 0; i < buttons.Count; i++)
+            if (_currButtonSelected != null)
             {
-                ShopType type = buttons[i].ShopType;
-                buttons[i].SetState(type == shopType);
+                _currButtonSelected.SetSelection(false);
             }
+            
+            _currButtonSelected = btn;
         }
     }
 }

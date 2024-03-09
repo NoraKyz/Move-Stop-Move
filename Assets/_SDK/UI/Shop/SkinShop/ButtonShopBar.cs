@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace _SDK.UI.Shop.SkinShop
 {
-    public class ButtonBar : MonoBehaviour
+    public class ButtonShopBar : MonoBehaviour
     {
         [SerializeField] private Image background;
         [SerializeField] private Button button;
@@ -12,15 +12,20 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private ShopType shopType;
         
         public ShopType ShopType => shopType;
-        
+
         private void Awake()
         {
-            button.onClick.AddListener(() => {
-                this.PostEvent(EventID.OnSelectShopBar, shopType);
-            });
+            button.onClick.AddListener(OnSelect);
         }
 
-        public void SetState(bool isSelect)
+        private void OnSelect()
+        {
+            SetSelection(true);
+
+            this.PostEvent(EventID.OnSelectShopBar, this);
+        }
+
+        public void SetSelection(bool isSelect)
         {
             background.enabled = !isSelect;
         }

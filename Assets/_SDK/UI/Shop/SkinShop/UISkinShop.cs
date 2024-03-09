@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
+using _SDK.Observer.Message;
 using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace _SDK.UI.Shop.SkinShop
     public class UISkinShop : UICanvas
     {
         [SerializeField] private Transform content;
+        
         [SerializeField] private SkinShopItem itemPrefab;
         
         [SerializeField] private SkinShopDataSO skinShopData;
@@ -25,6 +27,7 @@ namespace _SDK.UI.Shop.SkinShop
         private MiniPool<SkinShopItem> _skinShopItemPool = new MiniPool<SkinShopItem>();
         
         private Action<object> _onSelectBar;
+        private Action<object> _onSelectItem;
         
         private void Awake()
         {
@@ -33,7 +36,7 @@ namespace _SDK.UI.Shop.SkinShop
 
         private void OnEnable()
         {
-            _onSelectBar = (param) => InitShop((ShopType) param);
+            _onSelectBar = (param) => InitShop((ButtonShopBar) param);
             this.RegisterListener(EventID.OnSelectShopBar, _onSelectBar);
         }
         
@@ -46,12 +49,17 @@ namespace _SDK.UI.Shop.SkinShop
         {
             base.Open();
             
-            this.PostEvent(EventID.OnSelectShopBar, ShopType.Hair);
+            this.PostEvent(EventID.OnSelectShopBar, buttonShopBarDefaultSelected);
+            buttonShopBarDefaultSelected.SetSelection(true);
+            
+            
         }
 
         
-        private void InitShop(ShopType shopType)
+        private void InitShop(ButtonShopBar btn)
         {
+            ShopType shopType = btn.ShopType;
+            
             switch (shopType)
             {
                 case ShopType.Hair:
@@ -71,16 +79,24 @@ namespace _SDK.UI.Shop.SkinShop
             }
         }
 
-        private void InitShopItems<T>(List<SkinShopData<T>> items) where T : Enum
+        private void InitShopItems<T>(List<SkinShopData<T>> listItemData) where T : Enum
         {
             _skinShopItemPool.Collect();
             
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < listItemData.Count; i++)
             {
-                SkinShopItemState state = UserData.Ins.GetEnumData(items[i].Type.ToString(), SkinShopItemState.UnSelect);
+                ItemShopState state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), ItemShopState.Lock);
                 SkinShopItem item = _skinShopItemPool.Spawn();
                 
-                item.OnInit(i, items[i], state);
+                item.OnInit(listItemData[i], state);
+                
+                // Select first item
+                if (i == 0)
+                {
+                    ItemSelectedMessage<T> mess = new ItemSelectedMessage<T>(listItemData[i], item);
+                    this.PostEvent(EventID.OnSelectSkinItem, mess);
+                    item.SetSelection(true);
+                }
             }
         }
         

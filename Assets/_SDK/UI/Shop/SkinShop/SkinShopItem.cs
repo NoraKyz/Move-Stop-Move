@@ -1,31 +1,58 @@
 ﻿using System;
+using _SDK.Observer.Message;
+using _SDK.Observer.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _SDK.UI.Shop.SkinShop
 {
-    public enum SkinShopItemState
+    public enum ItemShopState
     {
-        Select = 0,
-        UnSelect = 1,
-        Equipable = 2,
-        Equipped = 3
+        Lock = 0,
+        Unlock = 1,
+        Equipped = 2
     }
     
     public class SkinShopItem : MonoBehaviour
     {
-        [SerializeField] private Image image;
+        [SerializeField] private Image imageItem;
+        [SerializeField] private Text iconEquipped;
+        [SerializeField] private Image iconLock;
+        [SerializeField] private Outline outline;
+        [SerializeField] private Button button;
 
-        private int _id;
-        private int _cost;
-        private SkinShopItemState _state;
-        
-        public void OnInit<T>(int id, SkinShopData<T> data, SkinShopItemState state) where T : Enum
+        private bool _isSelected;
+        private ItemShopState _currentState;
+
+        public void OnInit<T>(SkinShopData<T> data, ItemShopState state) where T : Enum
         {
-            _id = id;
-            image.sprite = data.Sprite;
-            _cost = data.Cost;
-            _state = state; 
+            imageItem.sprite = data.Sprite;
+            
+            button.onClick.AddListener(() => OnSelect(data));
+            
+            SetState(state); 
+        }
+
+        private void OnSelect<T> (SkinShopData<T> data) where T : Enum
+        {
+            SetSelection(true);
+
+            ItemSelectedMessage<T> mess = new ItemSelectedMessage<T>(data, this);
+            this.PostEvent(EventID.OnSelectSkinItem, mess);
+        }
+
+        public void SetSelection(bool isSelect)
+        {
+            _isSelected = isSelect;
+            outline.enabled = isSelect;
+        }
+
+        public void SetState(ItemShopState state)
+        {
+            _currentState = state;
+
+            iconEquipped.enabled = state == ItemShopState.Equipped;
+            iconLock.enabled = state == ItemShopState.Lock;
         }
     }
 }

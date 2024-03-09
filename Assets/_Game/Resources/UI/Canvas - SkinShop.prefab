@@ -928,6 +928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
   content: {fileID: 2810707826913906300}
+  buttonShopBarDefaultSelected: {fileID: 5415192209807048894}
   itemPrefab: {fileID: 8328532621504540789, guid: 27b64e9cf3945cd40949d70baeea58b9, type: 3}
   skinShopData: {fileID: 11400000, guid: 4fc38e39e1339f4478bf76685d72d655, type: 2}
 --- !u!223 &5804751444946653738
@@ -1059,11 +1060,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607853f19f024c95b00c5c2a4709517c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 5415192209807048894}
-  - {fileID: 2059314614015326343}
-  - {fileID: 7910014599360901180}
-  - {fileID: 3759743574821656956}
 --- !u!1 &1235891465613460133
 GameObject:
   m_ObjectHideFlags: 0
