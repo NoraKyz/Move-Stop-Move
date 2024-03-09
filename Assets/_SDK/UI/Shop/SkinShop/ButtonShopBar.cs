@@ -1,4 +1,5 @@
-﻿using _SDK.Observer.Scripts;
+﻿using _Game.Scripts.Other.Utils;
+using _SDK.Observer.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,14 +19,13 @@ namespace _SDK.UI.Shop.SkinShop
             button.onClick.AddListener(OnSelect);
         }
 
-        private void OnSelect()
+        public void OnSelect()
         {
-            SetSelection(true);
-
+            SetUISelection(true);
             this.PostEvent(EventID.OnSelectShopBar, this);
         }
-
-        public void SetSelection(bool isSelect)
+        
+        public void SetUISelection(bool isSelect)
         {
             background.enabled = !isSelect;
         }

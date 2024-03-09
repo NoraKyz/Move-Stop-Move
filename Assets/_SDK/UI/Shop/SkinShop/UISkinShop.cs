@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
+using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Message;
 using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
@@ -8,22 +9,16 @@ using UnityEngine;
 
 namespace _SDK.UI.Shop.SkinShop
 {
-    public enum ShopType
-    {
-        Hair = 0, 
-        Pant = 1, 
-        Shield = 2, 
-        Set = 3, 
-    }
-    
     public class UISkinShop : UICanvas
     {
         [SerializeField] private Transform content;
-        
         [SerializeField] private SkinShopItem itemPrefab;
+        [SerializeField] private ShopBar shopBar;
         
         [SerializeField] private SkinShopDataSO skinShopData;
         
+        private SkinShopItem _currSelectItem;
+
         private MiniPool<SkinShopItem> _skinShopItemPool = new MiniPool<SkinShopItem>();
         
         private Action<object> _onSelectBar;
@@ -38,21 +33,22 @@ namespace _SDK.UI.Shop.SkinShop
         {
             _onSelectBar = (param) => InitShop((ButtonShopBar) param);
             this.RegisterListener(EventID.OnSelectShopBar, _onSelectBar);
+            
+            //_onSelectItem = (param) => UpdateUIItems((ItemSelectedMessage<T>) param);
+            //this.RegisterListener(EventID.OnSelectSkinItem, _onSelectItem);
         }
         
         private void OnDisable()
         {
             this.RemoveListener(EventID.OnSelectShopBar, _onSelectBar);
+            this.RemoveListener(EventID.OnSelectSkinItem, _onSelectItem);
         }
 
         public override void Open()
         {
             base.Open();
             
-            this.PostEvent(EventID.OnSelectShopBar, buttonShopBarDefaultSelected);
-            buttonShopBarDefaultSelected.SetSelection(true);
-            
-            
+            shopBar.OnInit();
         }
 
         
@@ -93,11 +89,19 @@ namespace _SDK.UI.Shop.SkinShop
                 // Select first item
                 if (i == 0)
                 {
-                    ItemSelectedMessage<T> mess = new ItemSelectedMessage<T>(listItemData[i], item);
-                    this.PostEvent(EventID.OnSelectSkinItem, mess);
-                    item.SetSelection(true);
+                    item.OnSelect(listItemData[i]);
                 }
             }
+        }
+        
+        private void UpdateUIItems(SkinShopItem item)
+        {
+            if (_currSelectItem != null)
+            {
+                _currSelectItem.SetUISelection(false);
+            }
+            
+            _currSelectItem = item;
         }
         
         public void OnClickBackBtn()

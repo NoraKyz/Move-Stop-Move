@@ -21,29 +21,25 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private Outline outline;
         [SerializeField] private Button button;
 
-        private bool _isSelected;
         private ItemShopState _currentState;
 
         public void OnInit<T>(SkinShopData<T> data, ItemShopState state) where T : Enum
         {
             imageItem.sprite = data.Sprite;
-            
             button.onClick.AddListener(() => OnSelect(data));
-            
             SetState(state); 
         }
 
-        private void OnSelect<T> (SkinShopData<T> data) where T : Enum
+        public void OnSelect<T> (SkinShopData<T> data) where T : Enum
         {
-            SetSelection(true);
+            SetUISelection(true);
 
             ItemSelectedMessage<T> mess = new ItemSelectedMessage<T>(data, this);
             this.PostEvent(EventID.OnSelectSkinItem, mess);
         }
 
-        public void SetSelection(bool isSelect)
+        public void SetUISelection(bool isSelect)
         {
-            _isSelected = isSelect;
             outline.enabled = isSelect;
         }
 

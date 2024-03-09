@@ -84,4 +84,12 @@
         DeadPool = 4,
         Thor = 5,
     }
+    
+    public enum ShopType
+    {
+        Hair = 0, 
+        Pant = 1, 
+        Shield = 2, 
+        Set = 3, 
+    }
 }
