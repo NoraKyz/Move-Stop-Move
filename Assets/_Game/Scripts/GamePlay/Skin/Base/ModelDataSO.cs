@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Skin.Base
 {
-    public class ModelSkinDataSO <T> : ScriptableObject
+    public class ModelDataSO <T> : ScriptableObject
     {
         [SerializeField] private List<T> prefabs = new List<T>();
         

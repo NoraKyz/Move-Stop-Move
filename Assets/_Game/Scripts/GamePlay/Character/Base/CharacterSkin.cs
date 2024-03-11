@@ -16,9 +16,9 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] Renderer pant;
 
         [Header("Config")] 
-        [SerializeField] private ModelSkinDataSO<Hair> hairData;
-        [SerializeField] private ModelSkinDataSO<Weapon.Weapon> weaponData;
-        [SerializeField] private ModelSkinDataSO<Shield> shieldData;
+        [SerializeField] private ModelDataSO<Hair> hairData;
+        [SerializeField] private ModelDataSO<Weapon.Weapon> weaponData;
+        [SerializeField] private ModelDataSO<Shield> shieldData;
         [SerializeField] private PaintDataSO pantData;
         
         private Weapon.Weapon _currentWeapon;

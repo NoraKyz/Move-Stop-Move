@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
-using _SDK.Observer.Message;
 using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
@@ -17,9 +16,9 @@ namespace _SDK.UI.Shop.SkinShop
         
         [SerializeField] private SkinShopDataSO skinShopData;
         
-        private SkinShopItem _currSelectItem;
+        private SkinShopItem _currentSelectItem;
 
-        private MiniPool<SkinShopItem> _skinShopItemPool = new MiniPool<SkinShopItem>();
+        private MiniPool<SkinShopItem> _skinShopItemPool = new();
         
         private Action<object> _onSelectBar;
         private Action<object> _onSelectItem;
@@ -34,10 +33,10 @@ namespace _SDK.UI.Shop.SkinShop
             _onSelectBar = (param) => InitShop((ButtonShopBar) param);
             this.RegisterListener(EventID.OnSelectShopBar, _onSelectBar);
             
-            //_onSelectItem = (param) => UpdateUIItems((ItemSelectedMessage<T>) param);
-            //this.RegisterListener(EventID.OnSelectSkinItem, _onSelectItem);
+            _onSelectItem = (param) => UpdateUIItems((SkinShopItem) param);
+            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectItem);
         }
-        
+
         private void OnDisable()
         {
             this.RemoveListener(EventID.OnSelectShopBar, _onSelectBar);
@@ -89,19 +88,19 @@ namespace _SDK.UI.Shop.SkinShop
                 // Select first item
                 if (i == 0)
                 {
-                    item.OnSelect(listItemData[i]);
+                    item.OnSelect();
                 }
             }
         }
         
         private void UpdateUIItems(SkinShopItem item)
         {
-            if (_currSelectItem != null)
+            if (_currentSelectItem != null)
             {
-                _currSelectItem.SetUISelection(false);
+                _currentSelectItem.SetUISelection(false);
             }
             
-            _currSelectItem = item;
+            _currentSelectItem = item;
         }
         
         public void OnClickBackBtn()

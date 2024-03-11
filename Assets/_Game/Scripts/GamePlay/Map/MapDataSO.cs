@@ -6,9 +6,9 @@ namespace _Game.Scripts.GamePlay.Map
     [CreateAssetMenu(fileName = "MapData", menuName = "Data/MapData")]
     public class MapDataSO : ScriptableObject
     {
-        [SerializeField] private List<GamePlay.Map.Map> maps;
+        [SerializeField] private List<Map> maps;
         
-        public GamePlay.Map.Map GetMap(int id)
+        public Map GetMap(int id)
         {
             return maps[id];
         }

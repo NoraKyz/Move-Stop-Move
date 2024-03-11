@@ -1,5 +1,4 @@
 ﻿using System;
-using _SDK.Observer.Message;
 using _SDK.Observer.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,22 +19,23 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private Image iconLock;
         [SerializeField] private Outline outline;
         [SerializeField] private Button button;
-
-        private ItemShopState _currentState;
+        
+        public Enum ItemType { get; private set; }
 
         public void OnInit<T>(SkinShopData<T> data, ItemShopState state) where T : Enum
         {
+            ItemType = data.Type;
+            
             imageItem.sprite = data.Sprite;
-            button.onClick.AddListener(() => OnSelect(data));
+            button.onClick.AddListener(OnSelect);
+            
             SetState(state); 
         }
 
-        public void OnSelect<T> (SkinShopData<T> data) where T : Enum
+        public void OnSelect()
         {
             SetUISelection(true);
-
-            ItemSelectedMessage<T> mess = new ItemSelectedMessage<T>(data, this);
-            this.PostEvent(EventID.OnSelectSkinItem, mess);
+            this.PostEvent(EventID.OnSelectSkinItem, this);
         }
 
         public void SetUISelection(bool isSelect)
@@ -45,8 +45,6 @@ namespace _SDK.UI.Shop.SkinShop
 
         public void SetState(ItemShopState state)
         {
-            _currentState = state;
-
             iconEquipped.enabled = state == ItemShopState.Equipped;
             iconLock.enabled = state == ItemShopState.Lock;
         }

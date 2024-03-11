@@ -8,9 +8,9 @@ namespace _SDK.UI.Shop.SkinShop
     {
         [SerializeField] private ButtonShopBar buttonDefaultSelected;
         
-        private ButtonShopBar _currButtonSelected;
+        private ButtonShopBar _currentButtonSelected;
         
-        private Action<object> _onSelectBar;
+        private Action<object> _onSelectButtonBar;
 
         public void OnInit()
         {
@@ -19,23 +19,23 @@ namespace _SDK.UI.Shop.SkinShop
 
         private void OnEnable()
         {
-            _onSelectBar = (param) => UpdateUIButtons((ButtonShopBar) param);
-            this.RegisterListener(EventID.OnSelectShopBar, _onSelectBar);
+            _onSelectButtonBar = (param) => UpdateUIButtons((ButtonShopBar) param);
+            this.RegisterListener(EventID.OnSelectShopBar, _onSelectButtonBar);
         }
 
         private void OnDisable()
         {
-            this.RemoveListener(EventID.OnSelectShopBar, _onSelectBar);
+            this.RemoveListener(EventID.OnSelectShopBar, _onSelectButtonBar);
         }
 
         private void UpdateUIButtons(ButtonShopBar btn)
         { 
-            if (_currButtonSelected != null)
+            if (_currentButtonSelected != null)
             {
-                _currButtonSelected.SetUISelection(false);
+                _currentButtonSelected.SetUISelection(false);
             }
             
-            _currButtonSelected = btn;
+            _currentButtonSelected = btn;
         }
     }
 }
