@@ -35,16 +35,6 @@ namespace _Game.Scripts.GamePlay.Character.Bot
             _stateMachine.ChangeState(new BotIdleState());
         }
 
-        public override void WearClothes()
-        {
-            base.WearClothes();
-            
-            ChangeWeapon(Utilities.RandomEnumValue<WeaponType>());
-            ChangeShield(Utilities.RandomEnumValue<ShieldType>());
-            ChangeHair(Utilities.RandomEnumValue<HairType>());
-            ChangePant(Utilities.RandomEnumValue<PantType>());
-        }
-
         #endregion
         
         private void Update()

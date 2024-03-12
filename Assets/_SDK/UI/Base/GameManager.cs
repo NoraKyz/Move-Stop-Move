@@ -10,12 +10,12 @@ namespace _SDK.UI.Base
 {
     public enum GameState
     {
-        MainMenu = 1,
-        GamePlay = 2,
-        Lose = 3,
-        Revive = 4,
-        Setting = 5,
-        Win = 6,
+        MainMenu = 0,
+        GamePlay = 1,
+        Lose = 2,
+        Revive = 3,
+        Setting = 4,
+        Win = 5,
     }
     
     public class GameManager : Singleton<GameManager>
@@ -89,7 +89,7 @@ namespace _SDK.UI.Base
             UIManager.Instance.CloseAll();
             UIManager.Instance.OpenUI<UIMainMenu>();
             
-            this.GetService<LevelManager>().OnLoadLevel(UserData.Ins.level);
+            this.GetService<LevelManager>().OnLoadLevel(UserData.Ins.Level);
         }
         
         private void OnGamePlayState()

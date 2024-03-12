@@ -1,11 +1,13 @@
-﻿using _Game.Scripts.GamePlay.Skin.Base;
+﻿using System;
+using _Game.Scripts.GamePlay.Skin.Base;
 using _Game.Scripts.GamePlay.Skin.Data;
 using _Game.Scripts.Other.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _Game.Scripts.GamePlay.Character.Base
 {
-    public class CharacterSkin : MonoBehaviour
+    public abstract class CharacterSkin : MonoBehaviour
     {
         #region Config
         
@@ -25,16 +27,27 @@ namespace _Game.Scripts.GamePlay.Character.Base
         private Shield _currentShield;
         private Hair _currentHair;
         
+        public UnityEvent<Weapon.Weapon> onWeaponChanged;
         public Weapon.Weapon CurrentWeapon => _currentWeapon;
 
         #endregion
-        
-        public void ChangeWeapon(WeaponType weaponType)
+
+        #region Init
+
+        public virtual void OnInit()
         {
-            _currentWeapon = Instantiate(weaponData.GetSkin((int)weaponType), rightHand);
+            TakeOffClothes();
         }
 
-        public void ChangeShield(ShieldType shieldType)
+        #endregion
+        
+        protected void ChangeWeapon(WeaponType weaponType)
+        {
+            _currentWeapon = Instantiate(weaponData.GetSkin((int)weaponType), rightHand);
+            onWeaponChanged.Invoke(_currentWeapon);
+        }
+
+        protected void ChangeShield(ShieldType shieldType)
         {
             if (shieldType != ShieldType.None)
             {
@@ -42,7 +55,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
             }
         }
         
-        public void ChangeHair(HairType hairType)
+        protected void ChangeHair(HairType hairType)
         {
             if (hairType != HairType.None)
             {
@@ -50,7 +63,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
             }
         }
 
-        public void ChangePant(PantType pantType)
+        protected void ChangePant(PantType pantType)
         {
             if (pantType != PantType.None)
             {
@@ -58,21 +71,28 @@ namespace _Game.Scripts.GamePlay.Character.Base
             }
         }
 
-        public void OnDespawn()
+        protected void TakeOffClothes()
         {
-            DespawnHat();
+            DespawnHair();
+            DespawnPant();
             DespawnShield();
             DespawnWeapon();
         }
 
-        public void DespawnHat()
+        protected void DespawnHair()
         {
             if (_currentHair)
             {
                 Destroy(_currentHair.gameObject);
             }
         }
-        public void DespawnShield()
+        
+        protected void DespawnPant()
+        {
+            pant.materials = Array.Empty<Material>();
+        }
+        
+        protected void DespawnShield()
         {
             if (_currentShield)
             {
@@ -80,7 +100,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
             }
         }
 
-        public void DespawnWeapon()
+        protected void DespawnWeapon()
         {
             if (_currentWeapon)
             {

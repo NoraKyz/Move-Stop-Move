@@ -21,7 +21,6 @@ namespace _SDK.UI.Shop.SkinShop
 
         public void OnSelect()
         {
-            SetUISelection(true);
             this.PostEvent(EventID.OnSelectShopBar, this);
         }
         

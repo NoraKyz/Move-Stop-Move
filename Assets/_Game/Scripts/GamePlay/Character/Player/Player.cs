@@ -34,16 +34,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _stateMachine.ChangeState(new PlayerIdleState());
         }
 
-        public override void WearClothes()
-        {
-            base.WearClothes();
-            
-            ChangeWeapon(UserData.Ins.playerWeapon);
-            ChangeShield(UserData.Ins.playerShield);
-            ChangeHair(UserData.Ins.playerHair);
-            ChangePant(UserData.Ins.playerPant);
-        }
-
         #endregion
         
         private void Update()

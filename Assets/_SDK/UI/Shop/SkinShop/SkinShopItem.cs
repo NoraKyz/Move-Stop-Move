@@ -1,4 +1,5 @@
 ﻿using System;
+using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,10 +22,12 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private Button button;
         
         public Enum ItemType { get; private set; }
+        public ShopType ShopType { get; private set; }
 
-        public void OnInit<T>(SkinShopData<T> data, ItemShopState state) where T : Enum
+        public void OnInit<T>(ShopType shopType, SkinShopData<T> data, ItemShopState state) where T : Enum
         {
             ItemType = data.Type;
+            ShopType = shopType;
             
             imageItem.sprite = data.Sprite;
             button.onClick.AddListener(OnSelect);
@@ -34,7 +37,6 @@ namespace _SDK.UI.Shop.SkinShop
 
         public void OnSelect()
         {
-            SetUISelection(true);
             this.PostEvent(EventID.OnSelectSkinItem, this);
         }
 

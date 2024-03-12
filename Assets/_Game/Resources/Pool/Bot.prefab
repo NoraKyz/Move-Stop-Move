@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 6045623550102618199}
   - component: {fileID: 2602974994278998570}
   - component: {fileID: 3172171587018762980}
-  - component: {fileID: 2114915565826903274}
+  - component: {fileID: 1991413732824445639}
   m_Layer: 7
   m_Name: Bot
   m_TagString: Character
@@ -238,7 +238,7 @@ MonoBehaviour:
   poolType: 1
   characterAttack: {fileID: 3172171587018762980}
   characterModel: {fileID: 2602974994278998570}
-  characterSkin: {fileID: 2114915565826903274}
+  characterSkin: {fileID: 1991413732824445639}
   circleTargetIndicator: {fileID: 2762032795152754709}
   size: 0
   botMovement: {fileID: 6045623550102618199}
@@ -285,7 +285,7 @@ MonoBehaviour:
   owner: {fileID: 1947924044282892478}
   characterSight: {fileID: 4246860836806192171}
   currentWeapon: {fileID: 0}
---- !u!114 &2114915565826903274
+--- !u!114 &1991413732824445639
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4337694363249293110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3759128bc58e4bfb8175e914fc3ee342, type: 3}
+  m_Script: {fileID: 11500000, guid: 06e4736026184fdba141d542a3781c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 1535476407515588407}
@@ -305,6 +305,22 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: dbce969335333864d8e8ff4e4f807a62, type: 2}
   shieldData: {fileID: 11400000, guid: 209e445a70086ad4091930d846f4290e, type: 2}
   pantData: {fileID: 11400000, guid: 22ced8bad8d012e419b257aa9a9dc34f, type: 2}
+  onWeaponChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3172171587018762980}
+        m_TargetAssemblyTypeName: _Game.Scripts.GamePlay.Character.Base.CharacterAttack,
+          Assembly-CSharp
+        m_MethodName: SetWeapon
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7365441512452892141
 GameObject:
   m_ObjectHideFlags: 0

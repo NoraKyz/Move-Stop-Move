@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
+using _Game.Scripts.GamePlay.Camera;
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
@@ -48,8 +49,8 @@ namespace _SDK.UI.Shop.SkinShop
             base.Open();
             
             shopBar.OnInit();
+            CameraFollow.Instance.ChangeState(CameraFollow.State.Shop);
         }
-
         
         private void InitShop(ButtonShopBar btn)
         {
@@ -58,23 +59,23 @@ namespace _SDK.UI.Shop.SkinShop
             switch (shopType)
             {
                 case ShopType.Hair:
-                    InitShopItems(skinShopData.Hairs);
+                    InitShopItems(skinShopData.Hairs, shopType);
                     break;
                 case ShopType.Pant:
-                    InitShopItems(skinShopData.Paints);
+                    InitShopItems(skinShopData.Paints, shopType);
                     break;
                 case ShopType.Shield:
-                    InitShopItems(skinShopData.Shields);
+                    InitShopItems(skinShopData.Shields, shopType);
                     break;
                 case ShopType.Set:
-                    InitShopItems(skinShopData.Sets);
+                    InitShopItems(skinShopData.Sets, shopType);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void InitShopItems<T>(List<SkinShopData<T>> listItemData) where T : Enum
+        private void InitShopItems<T>(List<SkinShopData<T>> listItemData, ShopType shopType) where T : Enum
         {
             _skinShopItemPool.Collect();
             
@@ -83,7 +84,7 @@ namespace _SDK.UI.Shop.SkinShop
                 ItemShopState state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), ItemShopState.Lock);
                 SkinShopItem item = _skinShopItemPool.Spawn();
                 
-                item.OnInit(listItemData[i], state);
+                item.OnInit(shopType, listItemData[i], state);
                 
                 // Select first item
                 if (i == 0)
@@ -101,11 +102,13 @@ namespace _SDK.UI.Shop.SkinShop
             }
             
             _currentSelectItem = item;
+            _currentSelectItem.SetUISelection(true);
         }
         
         public void OnClickBackBtn()
         {
             CloseDirectly();
+            this.PostEvent(EventID.OnCloseShopSkin);
             UIManager.Instance.OpenUI<UIMainMenu>();
         }
     }

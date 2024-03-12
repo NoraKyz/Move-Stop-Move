@@ -26,14 +26,12 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         private void OnEnable()
         {
-            // Register event to remove enemy died in enemiesInRange of all Character 
             _onCharacterDie = (param) => OnEnemyExitRange((Character) param);
             this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
         }
 
         private void OnDisable()
         {
-            // Remove event OnCharacterDie
             this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
         }
 

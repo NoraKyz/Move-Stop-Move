@@ -1,31 +1,48 @@
-﻿using _SDK.Pool.Scripts;
+﻿using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Camera
 {
-    public class CameraFollow : GameUnit
+    public class CameraFollow : Singleton<CameraFollow>
     {
-        #region Config
-
+        public enum State
+        {
+            MainMenu = 0, 
+            Gameplay = 1, 
+            Shop = 2
+        }
+  
         [Header("References")]
+        [SerializeField] Transform tf;
         [SerializeField] private Transform target;
         
-        [Header("Config")]
-        [SerializeField] private float smoothSpeed = 0.125f;
-        [SerializeField] private Vector3 offset;
-
-        #endregion
+        [Header("Offset")]
+        [SerializeField] Vector3 offset;
+        [SerializeField] Vector3 offsetMin;
+        [SerializeField] Vector3 offsetMax;
+        
+        [SerializeField] Transform[] offsets;
+        [SerializeField] float moveSpeed = 5f;
+        
+        private Vector3 _targetOffset;
+        private Quaternion _targetRotate;
         
         private void LateUpdate()
         {
-            if (target == null)
-            {
-                return;
-            }
-            
-            Vector3 desiredPosition = target.position + offset;
-            Vector3 smoothedPosition = Vector3.Lerp(TF.position, desiredPosition, smoothSpeed);
-            TF.position = smoothedPosition;
+            offset = Vector3.Lerp(offset, _targetOffset, Time.deltaTime * moveSpeed);
+            tf.rotation = Quaternion.Lerp(tf.rotation, _targetRotate, Time.deltaTime * moveSpeed);
+            tf.position = Vector3.Lerp(tf.position, target.position + _targetOffset, Time.deltaTime * moveSpeed);
+        }
+
+        public void SetRateOffset(float rate)
+        {
+            _targetOffset = Vector3.Lerp(offsetMin, offsetMax, rate);
+        }
+
+        public void ChangeState(State state)
+        {
+            _targetOffset = offsets[(int)state].localPosition;
+            _targetRotate = offsets[(int)state].localRotation;
         }
     }
 }

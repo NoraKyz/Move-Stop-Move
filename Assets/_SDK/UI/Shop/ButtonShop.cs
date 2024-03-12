@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Game.Scripts.UI.Shop
+namespace _SDK.UI.Shop
 {
     public enum ButtonShopState
     {

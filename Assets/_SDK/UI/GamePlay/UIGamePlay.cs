@@ -1,4 +1,5 @@
 using System;
+using _Game.Scripts.GamePlay.Camera;
 using _Game.Scripts.Level;
 using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
@@ -36,6 +37,8 @@ namespace _SDK.UI.GamePlay
         public override void Open()
         {
             base.Open();
+            
+            CameraFollow.Instance.ChangeState(CameraFollow.State.Gameplay);
             
             Level currentLevel = this.GetService<LevelManager>().CurrentLevel;
             _alive = currentLevel.TotalBots + 1;

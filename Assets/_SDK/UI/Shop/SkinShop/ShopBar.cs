@@ -36,6 +36,7 @@ namespace _SDK.UI.Shop.SkinShop
             }
             
             _currentButtonSelected = btn;
+            _currentButtonSelected.SetUISelection(true);
         }
     }
 }

@@ -5,31 +5,11 @@ using UnityEngine;
 
 namespace _Game.Scripts.Data
 {
-    public static class DataKey
-    {
-        public const string Level = "Level";
-        public const string Coin = "Coin";
-        public const string SoundIsOn = "SoundIsOn";
-        public const string VibrateIsOn = "VibrateIsOn";
-        public const string RemoveAds = "RemoveAds";
-        public const string TutorialIsShow = "TutorialIsShow";
-
-        public const string PlayerWeapon = "PlayerWeapon";
-        public const string PlayerHair = "PlayerHair";
-        public const string PlayerPant = "PlayerPant";
-        public const string PlayerShield = "PlayerShield";
-        public const string PlayerSkin = "PlayerSkin";
-
-        public const string WeaponData = "WeaponData";
-        public const string HairData = "HairData";
-        public const string PantData = "PantData";
-        public const string ShieldData = "ShieldData";
-        public const string SkinData = "SkinData";
-    }
-    
     [CreateAssetMenu(fileName = "UserData", menuName = "Data/UserData", order = 1)]
     public class UserData : ScriptableObject
     {
+        #region Singleton
+
         private static UserData _ins;
         public static UserData Ins
         {
@@ -57,20 +37,63 @@ namespace _Game.Scripts.Data
                 return _ins;
             }
         }
+
+        #endregion
+
+        #region Data Key
+
+        public const string KeyLevel = "Level";
+        public const string KeyCoin = "Coin";
+        public const string KeySoundIsOn = "SoundIsOn";
+        public const string KeyVibrateIsOn = "VibrateIsOn";
+        public const string KeyRemoveAds = "RemoveAds";
+        public const string KeyTutorialIsShow = "TutorialIsShow";
+
+        public const string KeyPlayerWeapon = "PlayerWeapon";
+        public const string KeyPlayerHair = "PlayerHair";
+        public const string KeyPlayerPant = "PlayerPant";
+        public const string KeyPlayerShield = "PlayerShield";
+        public const string KeyPlayerSet = "PlayerSet";
+
+        public const string KeyWeaponData = "WeaponData";
+        public const string KeyHairData = "HairData";
+        public const string KeyPantData = "PantData";
+        public const string KeyShieldData = "ShieldData";
+        public const string KeySetData = "SetData";
+
+        #endregion
         
-        public int level = 0;
-        public int coin = 0;
+        [SerializeField] private int level;
+        [SerializeField] private int coin;
 
-        public bool soundIsOn = true;
-        public bool vibrateIsOn = true;
-        public bool removeAds = false;
-        public bool tutorialIsShow = false;
+        [SerializeField] private bool soundIsOn = true;
+        [SerializeField] private bool vibrateIsOn = true;
+        [SerializeField] private bool removeAds;
+        [SerializeField] private bool tutorialIsShow;
 
-        public WeaponType playerWeapon;
-        public HairType playerHair;
-        public PantType playerPant;
-        public ShieldType playerShield;
-        //public SkinType playerSkin;
+        [SerializeField] private WeaponType playerWeapon;
+        [SerializeField] private HairType playerHair;
+        [SerializeField] private PantType playerPant;
+        [SerializeField] private ShieldType playerShield;
+        [SerializeField] private SetType playerSet;
+
+        #region Getter
+
+        public int Level => level;
+        public int Coin => coin;
+        
+        public bool SoundIsOn => soundIsOn;
+        public bool VibrateIsOn => vibrateIsOn;
+        public bool RemoveAds => removeAds;
+        public bool TutorialIsShow => tutorialIsShow;
+        
+        public WeaponType PlayerWeapon => playerWeapon;
+        public HairType PlayerHair => playerHair;
+        public PantType PlayerPant => playerPant;
+        public ShieldType PlayerShield => playerShield;
+        public SetType PlayerSet => playerSet;
+
+        #endregion
 
         //Example
         // UserData.Ins.SetInt(UserData.Key_Level, ref UserData.Ins.level, 1);
@@ -80,19 +103,14 @@ namespace _Game.Scripts.Data
         ///  0 = lock , 1 = unlock , 2 = selected
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="ID"></param>
-        /// <param name="state"></param>
-        public void SetDataState(string key, int ID, int state)
-        {
-            PlayerPrefs.SetInt(key + ID, state);
-        }
-        /// <summary>
-        ///  0 = lock , 1 = unlock , 2 = selected
-        /// </summary>
-        /// <param name="key"></param>
         /// <param name="id"></param>
         /// <param name="state"></param>
-        public int GetDataState(string key, int id, int state = 0)
+        public void SetDataState(string key, int id, int state)
+        {
+            PlayerPrefs.SetInt(key + id, state);
+        }
+        
+        public int GetDataState(string key, int id, int state)
         {
             return PlayerPrefs.GetInt(key + id, state);
         }
@@ -102,7 +120,7 @@ namespace _Game.Scripts.Data
             PlayerPrefs.SetInt(key, state);
         }
 
-        public int GetDataState(string key, int state = 0)
+        public int GetDataState(string key, int state)
         {
             return PlayerPrefs.GetInt(key, state);
         }
@@ -112,6 +130,7 @@ namespace _Game.Scripts.Data
         /// if(bool) true == 1
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="variable"></param>
         /// <param name="value"></param>
         public void SetIntData(string key, ref int variable, int value)
         {
@@ -166,19 +185,19 @@ namespace _Game.Scripts.Data
             if (isTest) return;
 #endif
 
-            level = PlayerPrefs.GetInt(DataKey.Level, 0);
-            coin = PlayerPrefs.GetInt(DataKey.Coin, 0);
+            level = PlayerPrefs.GetInt(KeyLevel, 0);
+            coin = PlayerPrefs.GetInt(KeyCoin, 0);
 
-            removeAds = PlayerPrefs.GetInt(DataKey.RemoveAds, 0) == 1;
-            tutorialIsShow =  PlayerPrefs.GetInt(DataKey.TutorialIsShow, 0) == 1;
-            soundIsOn =  PlayerPrefs.GetInt(DataKey.SoundIsOn, 0) == 1;
-            vibrateIsOn =  PlayerPrefs.GetInt(DataKey.VibrateIsOn, 0) == 1;
+            removeAds = PlayerPrefs.GetInt(KeyRemoveAds, 0) == 1;
+            tutorialIsShow =  PlayerPrefs.GetInt(KeyTutorialIsShow, 0) == 1;
+            soundIsOn =  PlayerPrefs.GetInt(KeySoundIsOn, 0) == 1;
+            vibrateIsOn =  PlayerPrefs.GetInt(KeyVibrateIsOn, 0) == 1;
 
-            playerWeapon = GetEnumData(DataKey.PlayerWeapon, WeaponType.Hammer);
-            playerHair = GetEnumData(DataKey.PlayerHair, HairType.None);
-            playerPant = GetEnumData(DataKey.PlayerPant, PantType.None);
-            playerShield = GetEnumData(DataKey.PlayerShield, ShieldType.None);
-            //playerSkin = GetEnumData(Key_Player_Skin, SkinType.SKIN_Normal);
+            playerWeapon = GetEnumData(KeyPlayerWeapon, WeaponType.Hammer);
+            playerHair = GetEnumData(KeyPlayerHair, HairType.None);
+            playerPant = GetEnumData(KeyPlayerPant, PantType.None);
+            playerShield = GetEnumData(KeyPlayerShield, ShieldType.None);
+            playerSet = GetEnumData(KeyPlayerSet, SetType.Angel);
         }
 
         public void OnResetData()

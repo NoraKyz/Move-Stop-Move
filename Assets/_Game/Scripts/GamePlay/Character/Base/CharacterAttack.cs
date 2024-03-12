@@ -23,7 +23,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         #endregion
 
         #region Init
-        
+
         public void OnInit()
         {
             _isAttackAble = true;
@@ -38,21 +38,18 @@ namespace _Game.Scripts.GamePlay.Character.Base
             currentWeapon = weapon;
         }
         
-        // Random enemy pos from list enemy in range
         public Character GetRandomEnemyInRange()
         {
             int randomIndex = Random.Range(0, EnemiesInRange.Count);
             return EnemiesInRange[randomIndex];
         }
         
-        // Use current weapon spawn bullet to target position, then reset attack
         public void Attack(Vector3 targetPos)
         {
             currentWeapon.SpawnBullet(owner, targetPos);
             StartCoroutine(ResetAttack());
         }
-        
-        // First disable attack, then wait 1.5s to enable attack
+
         private IEnumerator ResetAttack()
         {
             _isAttackAble = false;
