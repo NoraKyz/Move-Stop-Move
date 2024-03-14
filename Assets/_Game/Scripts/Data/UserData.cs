@@ -1,6 +1,5 @@
 ﻿using System;
 using _Game.Scripts.Other.Utils;
-using _SDK.Observer.Scripts;
 using _SDK.UI.Shop.SkinShop;
 using UnityEditor;
 using UnityEngine;
@@ -79,8 +78,6 @@ namespace _Game.Scripts.Data
         [SerializeField] private ShieldType playerShield;
         [SerializeField] private SetType playerSet;
 
-        private Action<object> _onEquipSkinItem;
-
         #region Getter
 
         public int Level => level;
@@ -98,28 +95,27 @@ namespace _Game.Scripts.Data
         public SetType PlayerSet => playerSet;
 
         #endregion
-
-        private void Awake()
+        
+        public void SetCoin(int value)
         {
-            _onEquipSkinItem = (param) => OnEquipSkinItem((SkinShopItem) param);
-            EventManager.Instance.RegisterListener(EventID.OnEquipSkinItem, _onEquipSkinItem);
+            SetIntData(KeyCoin, ref coin, value);
         }
         
-        private void OnEquipSkinItem(SkinShopItem item)
+        public void SetSkinItem(SkinShopItem item)
         {
             switch (item.ShopType)
             {
                 case ShopType.Hair:
-                    playerHair = (HairType) item.ItemType;
+                    SetEnumData(KeyPlayerHair, ref playerHair,(HairType) item.ItemType);
                     break;
                 case ShopType.Pant:
-                    playerPant = (PantType) item.ItemType;
+                    SetEnumData(KeyPlayerPant, ref playerPant, (PantType) item.ItemType);
                     break;
                 case ShopType.Shield:
-                    playerShield = (ShieldType) item.ItemType;
+                    SetEnumData(KeyPlayerShield, ref playerShield, (ShieldType) item.ItemType);
                     break;
                 case ShopType.Set:
-                    playerSet = (SetType) item.ItemType;
+                    SetEnumData(KeyPlayerSet, ref playerSet, (SetType) item.ItemType);
                     break;
             }
         }
@@ -191,7 +187,7 @@ namespace _Game.Scripts.Data
             PlayerPrefs.SetInt(key, Convert.ToInt32(value));
         }
 
-        public void SetEnumData<T>(string key,T value)
+        public void SetEnumData<T>(string key, T value)
         {
             PlayerPrefs.SetInt(key, Convert.ToInt32(value));
         }
@@ -226,7 +222,7 @@ namespace _Game.Scripts.Data
             playerHair = GetEnumData(KeyPlayerHair, HairType.None);
             playerPant = GetEnumData(KeyPlayerPant, PantType.None);
             playerShield = GetEnumData(KeyPlayerShield, ShieldType.None);
-            playerSet = GetEnumData(KeyPlayerSet, SetType.SAngel);
+            playerSet = GetEnumData(KeyPlayerSet, SetType.None);
         }
 
         public void OnResetData()

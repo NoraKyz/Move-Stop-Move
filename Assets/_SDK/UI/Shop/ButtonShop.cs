@@ -72,6 +72,17 @@ namespace _SDK.UI.Shop
 
         private void BuyItem()
         {
+            int currentCoin = UserData.Ins.Coin;
+            
+            if(currentCoin < _currentItem.Cost)
+            {
+                return;
+            }
+            
+            currentCoin -= _currentItem.Cost;
+            UserData.Ins.SetCoin(currentCoin);
+            this.PostEvent(EventID.OnChangeCoin, currentCoin);
+            
             EquipItem();
         }
 

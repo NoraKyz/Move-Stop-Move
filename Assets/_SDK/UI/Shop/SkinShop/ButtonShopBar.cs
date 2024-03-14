@@ -28,17 +28,22 @@ namespace _SDK.UI.Shop.SkinShop
             _onSelectShopBar = (param) => SetUISelection((ButtonShopBar) param == this);
             this.RegisterListener(EventID.OnSelectShopBar, _onSelectShopBar);
             
+            OnInit();
+        }
+
+        private void OnDisable()
+        {
+            this.RemoveListener(EventID.OnSelectShopBar, _onSelectShopBar);
+        }
+
+        private void OnInit()
+        {
             SetUISelection(false);
 
             if (defaultSelect)
             {
                 OnSelect();
             }
-        }
-
-        private void OnDisable()
-        {
-            this.RemoveListener(EventID.OnSelectShopBar, _onSelectShopBar);
         }
 
         private void OnSelect()

@@ -8,5 +8,6 @@
         OnSelectSkinItem = 3,
         OnCloseShopSkin = 4,
         OnEquipSkinItem = 5,
+        OnChangeCoin = 6,
     }
 }

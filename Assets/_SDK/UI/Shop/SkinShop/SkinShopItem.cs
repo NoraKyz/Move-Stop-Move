@@ -29,6 +29,7 @@ namespace _SDK.UI.Shop.SkinShop
         
         public Enum ItemType { get; private set; }
         public ShopType ShopType { get; private set; }
+        public int Cost { get; private set; }
         public State CurrentState => _currentState;
 
         private void Awake()
@@ -56,10 +57,12 @@ namespace _SDK.UI.Shop.SkinShop
             ShopType = shopType;
             
             ItemType = data.Type;
+            Cost = data.Cost;
             imageItem.sprite = data.Sprite;
             
             _currentState = state;
             SetUIState(state);
+            
             SetUISelection(false);
         }
 
@@ -71,6 +74,7 @@ namespace _SDK.UI.Shop.SkinShop
         public void OnEquip()
         {
             SetState(State.Equipped);
+            UserData.Ins.SetSkinItem(this);
             this.PostEvent(EventID.OnEquipSkinItem, this);
         }
         

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73aeb486a4d849afa7553214ae2256b3, type: 3}
   m_Name: UserData
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1000
   coin: 0
   soundIsOn: 0
   vibrateIsOn: 0
   removeAds: 0
   tutorialIsShow: 0
-  playerWeapon: 0
+  playerWeapon: 8
   playerHair: 0
   playerPant: 0
   playerShield: 0
