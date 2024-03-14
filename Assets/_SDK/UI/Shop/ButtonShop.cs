@@ -1,28 +1,55 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using _Game.Scripts.Data;
+using _SDK.Observer.Scripts;
+using _SDK.UI.Shop.SkinShop;
 using UnityEngine;
 
 namespace _SDK.UI.Shop
 {
-    public enum ButtonShopState
-    {
-        Buy = 0,
-        Equip = 1,
-        Equipped = 2
-    }
+    
     
     public class ButtonShop : MonoBehaviour
     {
         [SerializeField] List<GameObject> stateViews;
         
-        private ButtonShopState _state;
-        
-        public void SetState(ButtonShopState state)
+        public enum State
         {
-            _state = state;
-            SetStateView(state);
+            Buy = 0,
+            Equip = 1,
+            Equipped = 2
         }
         
-        private void SetStateView(ButtonShopState state)
+        private State _state;
+        private SkinShopItem _currentItem;
+        
+        private Action<object> _onSelectSkinItem;
+        private Action<object> _onEquipSkinItem;
+
+        private void OnEnable()
+        {
+            _onSelectSkinItem = (param) => OnSelectSkinItem((SkinShopItem) param);
+            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectSkinItem);
+        }
+
+        private void OnDisable()
+        {
+            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectSkinItem);
+        }
+
+        private void OnSelectSkinItem(SkinShopItem item)
+        {
+            _currentItem = item;
+            SetState((State) item.CurrentState);
+        }
+        
+        private void SetState(State state)
+        {
+            _state = state;
+            SetUIState(state);
+        }
+        
+        private void SetUIState(State state)
         {
             stateViews.ForEach(view => view.SetActive(false));
             stateViews[(int) state].SetActive(true);
@@ -32,16 +59,26 @@ namespace _SDK.UI.Shop
         {
             switch (_state)
             {
-                case ButtonShopState.Buy:
-                    // Buy
+                case State.Buy:
+                    BuyItem();
                     break;
-                case ButtonShopState.Equip:
-                    // Equip
+                case State.Equip:
+                    EquipItem();
                     break;
-                case ButtonShopState.Equipped:
-                    // Equipped
-                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void BuyItem()
+        {
+            EquipItem();
+        }
+
+        private void EquipItem()
+        {
+            _currentItem.OnEquip();
+            SetState((State) _currentItem.CurrentState);
         }
     }
 }

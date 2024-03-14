@@ -13,7 +13,6 @@ namespace _SDK.UI.Shop.SkinShop
     {
         [SerializeField] private Transform content;
         [SerializeField] private SkinShopItem itemPrefab;
-        [SerializeField] private ShopBar shopBar;
         
         [SerializeField] private SkinShopDataSO skinShopData;
         
@@ -22,7 +21,6 @@ namespace _SDK.UI.Shop.SkinShop
         private MiniPool<SkinShopItem> _skinShopItemPool = new();
         
         private Action<object> _onSelectBar;
-        private Action<object> _onSelectItem;
         
         private void Awake()
         {
@@ -33,22 +31,17 @@ namespace _SDK.UI.Shop.SkinShop
         {
             _onSelectBar = (param) => InitShop((ButtonShopBar) param);
             this.RegisterListener(EventID.OnSelectShopBar, _onSelectBar);
-            
-            _onSelectItem = (param) => UpdateUIItems((SkinShopItem) param);
-            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectItem);
         }
 
         private void OnDisable()
         {
             this.RemoveListener(EventID.OnSelectShopBar, _onSelectBar);
-            this.RemoveListener(EventID.OnSelectSkinItem, _onSelectItem);
         }
 
         public override void Open()
         {
             base.Open();
             
-            shopBar.OnInit();
             CameraFollow.Instance.ChangeState(CameraFollow.State.Shop);
         }
         
@@ -81,7 +74,7 @@ namespace _SDK.UI.Shop.SkinShop
             
             for (int i = 0; i < listItemData.Count; i++)
             {
-                ItemShopState state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), ItemShopState.Lock);
+                SkinShopItem.State state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), SkinShopItem.State.Lock);
                 SkinShopItem item = _skinShopItemPool.Spawn();
                 
                 item.OnInit(shopType, listItemData[i], state);
@@ -92,17 +85,6 @@ namespace _SDK.UI.Shop.SkinShop
                     item.OnSelect();
                 }
             }
-        }
-        
-        private void UpdateUIItems(SkinShopItem item)
-        {
-            if (_currentSelectItem != null)
-            {
-                _currentSelectItem.SetUISelection(false);
-            }
-            
-            _currentSelectItem = item;
-            _currentSelectItem.SetUISelection(true);
         }
         
         public void OnClickBackBtn()

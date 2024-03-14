@@ -22,4 +22,5 @@ MonoBehaviour:
   playerHair: 0
   playerPant: 0
   playerShield: 0
+  playerSet: 0
   isTest: 0

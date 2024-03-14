@@ -27,62 +27,63 @@
     public enum HairType
     {
         None = 0,
-        Arrow = 1,
-        Crown = 2,
-        Ear = 3,
-        Flower = 4,
-        Hair = 5,
-        Hat = 6,
-        HatCap = 7,
-        Horn = 8,
-        Rau = 9,
+        HArrow = 1,
+        HCrown = 2,
+        HEar = 3,
+        HFlower = 4,
+        HHair = 5,
+        HHat = 6,
+        HHatCap = 7,
+        HHorn = 8,
+        HRau = 9,
     }
     
     public enum PantType
     {
         None = 0,
-        Batman = 1,
-        Chambi = 2,
-        Comy = 3,
-        Dabao = 4,
-        Onion = 5,
-        Pokemon = 6,
-        Rainbow = 7,
-        Skull = 8,
-        Vantim = 9,
+        PBatman = 1,
+        PChambi = 2,
+        PComy = 3,
+        PDabao = 4,
+        POnion = 5,
+        PPokemon = 6,
+        PRainbow = 7,
+        PSkull = 8,
+        PVantim = 9,
     }
     
     public enum ShieldType
     {
         None = 0,
-        Shield1 = 1,
-        Shield2 = 2,
+        ShShield1 = 1,
+        ShShield2 = 2,
     }
     
     public enum WeaponType
     {
-        Arrow = 0,
-        Axe1 = 1,
-        Axe2 = 2,
-        Boomerang = 3,
-        Candy0 = 4,
-        Candy1 = 5,
-        Candy2 = 6,
-        Candy3 = 7,
-        Hammer = 8,
-        Knife = 9,
-        Uzi = 10,
-        Z = 11,
+        WArrow = 0,
+        WAxe1 = 1,
+        WAxe2 = 2,
+        WBoomerang = 3,
+        WCandy0 = 4,
+        WCandy1 = 5,
+        WCandy2 = 6,
+        WCandy3 = 7,
+        WHammer = 8,
+        WKnife = 9,
+        WUzi = 10,
+        // ReSharper disable once InconsistentNaming
+        WZ = 11,
     }
     
     public enum SetType
     {
         None = 0,
-        Devil = 1,
-        Angel = 2,
-        Witch = 3,
-        DeadPool = 4,
-        Thor = 5,
+        SDevil = 1,
+        SAngel = 2,
+        SWitch = 3,
+        SDeadPool = 4,
+        SThor = 5,
     }
     
     public enum ShopType

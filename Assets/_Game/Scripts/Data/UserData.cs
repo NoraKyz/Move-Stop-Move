@@ -1,5 +1,7 @@
 ﻿using System;
 using _Game.Scripts.Other.Utils;
+using _SDK.Observer.Scripts;
+using _SDK.UI.Shop.SkinShop;
 using UnityEditor;
 using UnityEngine;
 
@@ -77,6 +79,8 @@ namespace _Game.Scripts.Data
         [SerializeField] private ShieldType playerShield;
         [SerializeField] private SetType playerSet;
 
+        private Action<object> _onEquipSkinItem;
+
         #region Getter
 
         public int Level => level;
@@ -94,6 +98,31 @@ namespace _Game.Scripts.Data
         public SetType PlayerSet => playerSet;
 
         #endregion
+
+        private void Awake()
+        {
+            _onEquipSkinItem = (param) => OnEquipSkinItem((SkinShopItem) param);
+            EventManager.Instance.RegisterListener(EventID.OnEquipSkinItem, _onEquipSkinItem);
+        }
+        
+        private void OnEquipSkinItem(SkinShopItem item)
+        {
+            switch (item.ShopType)
+            {
+                case ShopType.Hair:
+                    playerHair = (HairType) item.ItemType;
+                    break;
+                case ShopType.Pant:
+                    playerPant = (PantType) item.ItemType;
+                    break;
+                case ShopType.Shield:
+                    playerShield = (ShieldType) item.ItemType;
+                    break;
+                case ShopType.Set:
+                    playerSet = (SetType) item.ItemType;
+                    break;
+            }
+        }
 
         //Example
         // UserData.Ins.SetInt(UserData.Key_Level, ref UserData.Ins.level, 1);
@@ -193,11 +222,11 @@ namespace _Game.Scripts.Data
             soundIsOn =  PlayerPrefs.GetInt(KeySoundIsOn, 0) == 1;
             vibrateIsOn =  PlayerPrefs.GetInt(KeyVibrateIsOn, 0) == 1;
 
-            playerWeapon = GetEnumData(KeyPlayerWeapon, WeaponType.Hammer);
+            playerWeapon = GetEnumData(KeyPlayerWeapon, WeaponType.WHammer);
             playerHair = GetEnumData(KeyPlayerHair, HairType.None);
             playerPant = GetEnumData(KeyPlayerPant, PantType.None);
             playerShield = GetEnumData(KeyPlayerShield, ShieldType.None);
-            playerSet = GetEnumData(KeyPlayerSet, SetType.Angel);
+            playerSet = GetEnumData(KeyPlayerSet, SetType.SAngel);
         }
 
         public void OnResetData()
