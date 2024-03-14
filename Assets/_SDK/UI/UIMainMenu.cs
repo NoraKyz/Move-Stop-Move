@@ -1,6 +1,7 @@
 using _Game.Scripts.GamePlay.Camera;
 using _SDK.UI.Base;
 using _SDK.UI.Shop.SkinShop;
+using _SDK.UI.Shop.WeaponShop;
 
 namespace _SDK.UI
 {
@@ -13,12 +14,19 @@ namespace _SDK.UI
             CameraFollow.Instance.ChangeState(CameraFollow.State.MainMenu);
         }
 
-        public void PlayBtn()
+        public void OnClickPlayBtn()
         {
             GameManager.ChangeState(GameState.GamePlay);
         }
         
-        public void SkinShopBtn()
+        public void OnClickWeaponShopBtn()
+        {
+            CloseDirectly();
+            
+            UIManager.Instance.OpenUI<UIWeaponShop>();
+        }
+        
+        public void OnClickSkinShopBtn()
         {
             CloseDirectly();
             

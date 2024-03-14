@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73aeb486a4d849afa7553214ae2256b3, type: 3}
   m_Name: UserData
   m_EditorClassIdentifier: 
-  level: 1000
-  coin: 0
+  level: 0
+  coin: 10000
   soundIsOn: 0
   vibrateIsOn: 0
   removeAds: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   playerPant: 0
   playerShield: 0
   playerSet: 0
-  isTest: 0
+  isTest: 1

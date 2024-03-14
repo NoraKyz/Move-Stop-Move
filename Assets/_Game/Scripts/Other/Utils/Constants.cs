@@ -91,6 +91,7 @@
         Hair = 0, 
         Pant = 1, 
         Shield = 2, 
-        Set = 3, 
+        Set = 3,
+        Weapon = 4,
     }
 }

@@ -12,13 +12,13 @@ namespace _SDK.UI.Shop.SkinShop
     public class UISkinShop : UICanvas
     {
         [SerializeField] private Transform content;
-        [SerializeField] private SkinShopItem itemPrefab;
+        [SerializeField] private ItemSkinShop itemPrefab;
         
-        [SerializeField] private SkinShopDataSO skinShopData;
+        [SerializeField] private ItemShopDataSO itemShopData;
         
-        private SkinShopItem _currentSelectItem;
+        private ItemSkinShop _currentSelect;
 
-        private MiniPool<SkinShopItem> _skinShopItemPool = new();
+        private MiniPool<ItemSkinShop> _skinShopItemPool = new();
         
         private Action<object> _onSelectBar;
         
@@ -52,30 +52,30 @@ namespace _SDK.UI.Shop.SkinShop
             switch (shopType)
             {
                 case ShopType.Hair:
-                    InitShopItems(skinShopData.Hairs, shopType);
+                    InitShopItems(itemShopData.Hairs, shopType);
                     break;
                 case ShopType.Pant:
-                    InitShopItems(skinShopData.Paints, shopType);
+                    InitShopItems(itemShopData.Paints, shopType);
                     break;
                 case ShopType.Shield:
-                    InitShopItems(skinShopData.Shields, shopType);
+                    InitShopItems(itemShopData.Shields, shopType);
                     break;
                 case ShopType.Set:
-                    InitShopItems(skinShopData.Sets, shopType);
+                    InitShopItems(itemShopData.Sets, shopType);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void InitShopItems<T>(List<SkinShopData<T>> listItemData, ShopType shopType) where T : Enum
+        private void InitShopItems<T>(List<ItemShopData<T>> listItemData, ShopType shopType) where T : Enum
         {
             _skinShopItemPool.Collect();
             
             for (int i = 0; i < listItemData.Count; i++)
             {
-                SkinShopItem.State state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), SkinShopItem.State.Lock);
-                SkinShopItem item = _skinShopItemPool.Spawn();
+                ItemShop.State state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), ItemShop.State.Lock);
+                ItemSkinShop item = _skinShopItemPool.Spawn();
                 
                 item.OnInit(shopType, listItemData[i], state);
                 
@@ -87,10 +87,10 @@ namespace _SDK.UI.Shop.SkinShop
             }
         }
         
-        public void OnClickBackBtn()
+        public void OnClickCloseBtn()
         {
             CloseDirectly();
-            this.PostEvent(EventID.OnCloseShopSkin);
+            this.PostEvent(EventID.OnCloseShop);
             UIManager.Instance.OpenUI<UIMainMenu>();
         }
     }

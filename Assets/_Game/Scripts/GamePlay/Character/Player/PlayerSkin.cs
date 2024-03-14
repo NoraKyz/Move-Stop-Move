@@ -3,7 +3,7 @@ using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Character.Base;
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
-using _SDK.UI.Shop.SkinShop;
+using _SDK.UI.Shop;
 
 namespace _Game.Scripts.GamePlay.Character.Player
 {
@@ -16,17 +16,17 @@ namespace _Game.Scripts.GamePlay.Character.Player
 
         private void OnEnable()
         {
-            _onSelectSkinItem = (param) => TrySkin((SkinShopItem) param);
-            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectSkinItem);
+            _onSelectSkinItem = (param) => TrySkin((ItemShop) param);
+            this.RegisterListener(EventID.OnSelectItem, _onSelectSkinItem);
 
             _onCloseSkinShop = (_) => OnInit();
-            this.RegisterListener(EventID.OnCloseShopSkin, _onCloseSkinShop);
+            this.RegisterListener(EventID.OnCloseShop, _onCloseSkinShop);
         }
         
         private void OnDisable()
         {
-            this.RemoveListener(EventID.OnSelectSkinItem, _onSelectSkinItem);
-            this.RemoveListener(EventID.OnCloseShopSkin, _onCloseSkinShop);
+            this.RemoveListener(EventID.OnSelectItem, _onSelectSkinItem);
+            this.RemoveListener(EventID.OnCloseShop, _onCloseSkinShop);
         }
         
         public override void OnInit()
@@ -41,7 +41,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
 
         #endregion
         
-        private void TrySkin(SkinShopItem item)
+        private void TrySkin(ItemShop item)
         {
             switch (item.ShopType)
             {
@@ -58,6 +58,10 @@ namespace _Game.Scripts.GamePlay.Character.Player
                     ChangeShield((ShieldType) item.ItemType);
                     break;
                 case ShopType.Set:
+                    break;
+                case ShopType.Weapon:
+                    DespawnWeapon();
+                    ChangeWeapon((WeaponType) item.ItemType);
                     break;
             }
         }

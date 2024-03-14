@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using _Game.Scripts.Data;
 using _SDK.Observer.Scripts;
-using _SDK.UI.Shop.SkinShop;
 using UnityEngine;
 
 namespace _SDK.UI.Shop
 {
     
     
-    public class ButtonShop : MonoBehaviour
+    public class ButtonActionShop : MonoBehaviour
     {
         [SerializeField] List<GameObject> stateViews;
         
@@ -21,23 +20,22 @@ namespace _SDK.UI.Shop
         }
         
         private State _state;
-        private SkinShopItem _currentItem;
+        private ItemShop _currentItem;
         
-        private Action<object> _onSelectSkinItem;
-        private Action<object> _onEquipSkinItem;
-
+        private Action<object> _onSelectOtherItem;
+        
         private void OnEnable()
         {
-            _onSelectSkinItem = (param) => OnSelectSkinItem((SkinShopItem) param);
-            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectSkinItem);
+            _onSelectOtherItem = (param) => OnSelectSkinItem((ItemShop) param);
+            this.RegisterListener(EventID.OnSelectItem, _onSelectOtherItem);
         }
 
         private void OnDisable()
         {
-            this.RegisterListener(EventID.OnSelectSkinItem, _onSelectSkinItem);
+            this.RegisterListener(EventID.OnSelectItem, _onSelectOtherItem);
         }
 
-        private void OnSelectSkinItem(SkinShopItem item)
+        private void OnSelectSkinItem(ItemShop item)
         {
             _currentItem = item;
             SetState((State) item.CurrentState);

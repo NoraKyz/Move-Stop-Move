@@ -1,7 +1,9 @@
 using System;
 using _Game.Scripts.Data;
+using _Game.Scripts.Other.Utils;
 using _SDK.StateMachine;
 using _SDK.StateMachine.PlayerState;
+using _SDK.UI.Shop;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player
@@ -24,6 +26,8 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private void Awake()
         {
             _stateMachine = new StateMachine<Player>(this);
+            
+            UserData.Ins.SetEnumData(WeaponType.WHammer.ToString(), ItemShop.State.Equipped);
         }
 
         public override void OnInit()

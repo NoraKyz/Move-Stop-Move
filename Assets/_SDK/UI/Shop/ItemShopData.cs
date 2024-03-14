@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _SDK.UI.Shop.SkinShop
+namespace _SDK.UI.Shop
 {
     [Serializable]
-    public class SkinShopData<T> where T : Enum
+    public class ItemShopData<T> where T : Enum
     {
         [SerializeField] private T type;
         [SerializeField] private int cost;

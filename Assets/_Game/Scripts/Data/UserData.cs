@@ -1,6 +1,6 @@
 ﻿using System;
 using _Game.Scripts.Other.Utils;
-using _SDK.UI.Shop.SkinShop;
+using _SDK.UI.Shop;
 using UnityEditor;
 using UnityEngine;
 
@@ -101,10 +101,13 @@ namespace _Game.Scripts.Data
             SetIntData(KeyCoin, ref coin, value);
         }
         
-        public void SetSkinItem(SkinShopItem item)
+        public void SetItem(ItemShop item)
         {
             switch (item.ShopType)
             {
+                case ShopType.Weapon:
+                    SetEnumData(KeyPlayerWeapon, ref playerWeapon, (WeaponType) item.ItemType);
+                    break;
                 case ShopType.Hair:
                     SetEnumData(KeyPlayerHair, ref playerHair,(HairType) item.ItemType);
                     break;
