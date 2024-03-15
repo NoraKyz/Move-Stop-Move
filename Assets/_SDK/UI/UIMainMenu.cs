@@ -1,4 +1,5 @@
 using _Game.Scripts.GamePlay.Camera;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.Shop.SkinShop;
 using _SDK.UI.Shop.WeaponShop;
@@ -11,7 +12,7 @@ namespace _SDK.UI
         {
             base.Open();
             
-            CameraFollow.Instance.ChangeState(CameraFollow.State.MainMenu);
+            this.GetService<CameraFollower>().ChangeState(CameraFollower.State.MainMenu);
         }
 
         public void OnClickPlayBtn()
@@ -22,15 +23,14 @@ namespace _SDK.UI
         public void OnClickWeaponShopBtn()
         {
             CloseDirectly();
-            
-            UIManager.Instance.OpenUI<UIWeaponShop>();
+            UIManager.Ins.OpenUI<UIWeaponShop>();
         }
         
         public void OnClickSkinShopBtn()
         {
             CloseDirectly();
-            
-            UIManager.Instance.OpenUI<UISkinShop>();
+            UIManager.Ins.OpenUI<UISkinShop>();
+            this.GetService<CameraFollower>().ChangeState(CameraFollower.State.Shop);
         }
     }
 }

@@ -18,15 +18,11 @@ namespace _Game.Scripts.GamePlay.Character.Bot
         public bool IsDestination => Vector3.Distance(TF.position, _destination + (TF.position.y - _destination.y) * Vector3.up) < 0.1f;
 
         #endregion
-        
-        #region Init
-        
+
         public void OnInit()
         {
             navMeshAgent.speed = moveSpeed;
         }
-        
-        #endregion
 
         public void MoveToPosition(Vector3 position)
         {

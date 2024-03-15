@@ -17,17 +17,13 @@ namespace _SDK.UI.Revive
 
         #endregion
 
-        #region Init
-
         public void OnInit()
         {
             _currentTime = Constants.TimeToRevive;
 
             StartCoroutine(CountdownToStart());
         }
-        
-        #endregion
-        
+
         private IEnumerator CountdownToStart()
         {
             while(_currentTime >= 0)

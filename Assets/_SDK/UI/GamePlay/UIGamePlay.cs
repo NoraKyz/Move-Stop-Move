@@ -17,9 +17,10 @@ namespace _SDK.UI.GamePlay
         [SerializeField] private Text aliveText;
         [SerializeField] private GameObject tutorial;
         
+        private int _alive;
+        
         private Action<object> _onCharacterDie;
         
-        private int _alive;
 
         #endregion
         
@@ -38,7 +39,7 @@ namespace _SDK.UI.GamePlay
         {
             base.Open();
             
-            CameraFollow.Instance.ChangeState(CameraFollow.State.Gameplay);
+            this.GetService<CameraFollower>().ChangeState(CameraFollower.State.Gameplay);
             
             Level currentLevel = this.GetService<LevelManager>().CurrentLevel;
             _alive = currentLevel.TotalBots + 1;
@@ -47,15 +48,15 @@ namespace _SDK.UI.GamePlay
             SetTutorial(true);
         }
         
-        public void SetTutorial(bool isVisible)
-        {
-            tutorial.SetActive(isVisible);
-        }
-        
         private void OnCharacterDie()
         {
             _alive--;
             SetAliveText(_alive);
+        }
+        
+        public void SetTutorial(bool isVisible)
+        {
+            tutorial.SetActive(isVisible);
         }
         
         private void SetAliveText(int alive)

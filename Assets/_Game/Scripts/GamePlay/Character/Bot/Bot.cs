@@ -1,5 +1,4 @@
 using System;
-using _Game.Scripts.Other.Utils;
 using _SDK.Pool.Scripts;
 using _SDK.StateMachine;
 using _SDK.StateMachine.BotState;
@@ -20,8 +19,6 @@ namespace _Game.Scripts.GamePlay.Character.Bot
         
         #endregion
 
-        #region Init
-
         private void Awake()
         {
             _stateMachine = new StateMachine<Bot>(this);
@@ -35,8 +32,6 @@ namespace _Game.Scripts.GamePlay.Character.Bot
             _stateMachine.ChangeState(new BotIdleState());
         }
 
-        #endregion
-        
         private void Update()
         {
             _stateMachine.UpdateState(this);

@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using _Game.Scripts.GamePlay.Skin.Base;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Skin.Data
 {
     [CreateAssetMenu(fileName = "PaintData", menuName = "Data/PaintData")]
-    public class PaintDataSO : ScriptableObject
+    public class PaintDataSO : SkinDataSO<Material>
     {
-        [SerializeField] private List<Material> materials = new List<Material>();
         
-        public Material GetMaterial(int index)
-        {
-            return materials[index];
-        }
     }
 }

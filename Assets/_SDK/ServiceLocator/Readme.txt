@@ -5,6 +5,7 @@
 
 
 Ưu điểm:
++ Giảm tràn bộ nhớ do lạm dụng static
 + Cung cấp một nơi tập trung để quản lý các phần phụ thuộc và dịch vụ, giúp quản lý và sắp xếp code dễ dàng hơn.
 + Sự kết hợp tốt giữa tính đơn giản của mẫu Singleton và tính linh hoạt của Dependency Insert.
 + Dễ kiểm thử hơn Singleton

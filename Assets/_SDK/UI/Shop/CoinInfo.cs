@@ -8,13 +8,19 @@ namespace _SDK.UI.Shop
 {
     public class CoinInfo : MonoBehaviour
     {
+        #region Config
+
         [SerializeField] private Text coinText;
+        
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         private Action<object> _onChangeCoin;
 
+        #endregion
+
         private void OnEnable()
         {
-            _onChangeCoin = (param) => SetCoin((int) param);
+            _onChangeCoin = _ => OnInit();
             this.RegisterListener(EventID.OnChangeCoin, _onChangeCoin);
             
             OnInit();
@@ -27,12 +33,7 @@ namespace _SDK.UI.Shop
 
         private void OnInit()
         {
-            SetCoin(UserData.Ins.Coin);
-        }
-        
-        private void SetCoin(int coin)
-        {
-            coinText.text = coin.ToString();
+            coinText.text = PlayerData.coin.ToString();
         }
     }
 }

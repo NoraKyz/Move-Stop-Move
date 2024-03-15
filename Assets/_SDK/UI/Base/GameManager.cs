@@ -3,7 +3,6 @@ using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Level;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.Singleton;
-using _SDK.Utils;
 using UnityEngine;
 
 namespace _SDK.UI.Base
@@ -20,7 +19,8 @@ namespace _SDK.UI.Base
     
     public class GameManager : Singleton<GameManager>
     {
-        //[SerializeField] UserData userData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        
         //[SerializeField] CSVData csv;
         
         private static GameState _gameState;
@@ -29,23 +29,23 @@ namespace _SDK.UI.Base
         {
             _gameState = state;
             
-            Instance.OnChangedState(state);
+            Ins.OnChangedState(state);
         }
         
         public static bool IsState(GameState state) => _gameState == state;
         
         private void Awake()
         {
-            // Tranh viec nguoi choi cham da diem vao man hinh
+            // Tránh người chơi chạm đa điểm vào màn hình
             Input.multiTouchEnabled = false;
             
-            // Target frame rate ve 60 fps
+            // Đặt target frame rate về 60 fps
             Application.targetFrameRate = 60;
             
-            // Tranh viec tat man hinh
+            // Tránh tắt màn hình khi đang chơi game
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-            // Xu tai tho
+            // Xử lý tai thỏ
             int maxScreenHeight = 1280;
             float ratio = 1.0f * Screen.currentResolution.width / Screen.currentResolution.height;
             if (Screen.currentResolution.height > maxScreenHeight)
@@ -54,7 +54,7 @@ namespace _SDK.UI.Base
             }
             
             //csv.OnInit();
-            //userData?.OnInitData();
+            DataManager.Ins.LoadData();
         }
         
         private void Start()
@@ -78,37 +78,34 @@ namespace _SDK.UI.Base
                 case GameState.Lose:
                     OnLoseState();
                     break;
-                default:
-                    Common.LogWarning("Not handle state: " + state, this);
+                case GameState.Setting:
                     break;
             }
         }
         
         private void OnMainMenuState()
         {
-            UIManager.Instance.CloseAll();
-            UIManager.Instance.OpenUI<UIMainMenu>();
-            
-            this.GetService<LevelManager>().OnLoadLevel(UserData.Ins.Level);
+            UIManager.Ins.CloseAll();
+            UIManager.Ins.OpenUI<UIMainMenu>();
+            this.GetService<LevelManager>().OnLoadLevel(PlayerData.level);
         }
         
         private void OnGamePlayState()
         {
-            UIManager.Instance.CloseAll();
-            UIManager.Instance.OpenUI<GamePlay.UIGamePlay>();
-            
+            UIManager.Ins.CloseAll();
+            UIManager.Ins.OpenUI<GamePlay.UIGamePlay>();
             this.GetService<InputManager>().GetInputEntity();
         }
         
         private void OnReviveState()
         {
-            UIManager.Instance.OpenUI<Revive.UIRevive>();
+            UIManager.Ins.OpenUI<Revive.UIRevive>();
         }
         
         private void OnLoseState()
         {
-            UIManager.Instance.CloseUI<Revive.UIRevive>();
-            UIManager.Instance.OpenUI<UILose>();
+            UIManager.Ins.CloseUI<Revive.UIRevive>();
+            UIManager.Ins.OpenUI<UILose>();
         }
     }
 }

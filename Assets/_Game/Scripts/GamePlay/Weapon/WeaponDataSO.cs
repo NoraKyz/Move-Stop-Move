@@ -4,7 +4,7 @@ using UnityEngine;
 namespace _Game.Scripts.GamePlay.Weapon
 {
     [CreateAssetMenu(fileName = "WeaponData", menuName = "Data/WeaponData")]
-    public class WeaponDataSO : ModelDataSO<Weapon>
+    public class WeaponDataSO : SkinDataSO<Weapon>
     {
         
     }

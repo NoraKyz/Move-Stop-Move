@@ -10,8 +10,8 @@ namespace _SDK.UI.Shop
     
     public class ButtonActionShop : MonoBehaviour
     {
-        [SerializeField] List<GameObject> stateViews;
-        
+        #region Config
+
         public enum State
         {
             Buy = 0,
@@ -19,10 +19,16 @@ namespace _SDK.UI.Shop
             Equipped = 2
         }
         
+        [SerializeField] List<GameObject> stateViews;
+        
+        
         private State _state;
         private ItemShop _currentItem;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         private Action<object> _onSelectOtherItem;
+
+        #endregion
         
         private void OnEnable()
         {
@@ -63,23 +69,18 @@ namespace _SDK.UI.Shop
                 case State.Equip:
                     EquipItem();
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
         private void BuyItem()
         {
-            int currentCoin = UserData.Ins.Coin;
-            
-            if(currentCoin < _currentItem.Cost)
+            if(PlayerData.coin < _currentItem.Cost)
             {
                 return;
             }
             
-            currentCoin -= _currentItem.Cost;
-            UserData.Ins.SetCoin(currentCoin);
-            this.PostEvent(EventID.OnChangeCoin, currentCoin);
+            PlayerData.coin -= _currentItem.Cost;
+            this.PostEvent(EventID.OnChangeCoin);
             
             EquipItem();
         }
@@ -87,6 +88,7 @@ namespace _SDK.UI.Shop
         private void EquipItem()
         {
             _currentItem.OnEquip();
+            Debug.Log(_currentItem.CurrentState);
             SetState((State) _currentItem.CurrentState);
         }
     }

@@ -26,12 +26,9 @@ namespace _Game.Scripts.GamePlay.Character.Player
         public Vector3 MoveDirection => _moveDirection;
 
         #endregion
-        
-        #region Init
-        
+
         public void OnInit()
         {
-            _moveAble = false;
             _isStartMove = false;
             _moveDirection = Vector3.zero;
             _inputManager = this.GetService<InputManager>();
@@ -40,11 +37,9 @@ namespace _Game.Scripts.GamePlay.Character.Player
             TF.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
 
-        #endregion
-        
         private void Update()
         {
-            if (!_moveAble && !GameManager.IsState(GameState.GamePlay))
+            if (!GameManager.IsState(GameState.GamePlay))
             {
                 return;
             }
@@ -74,7 +69,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             if(_isStartMove == false)
             {
                 _isStartMove = true;
-                UIManager.Instance.GetUI<_SDK.UI.GamePlay.UIGamePlay>().SetTutorial(false);
+                UIManager.Ins.GetUI<_SDK.UI.GamePlay.UIGamePlay>().SetTutorial(false);
             }
         }
         public void Move()

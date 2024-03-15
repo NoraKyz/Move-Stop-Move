@@ -9,10 +9,14 @@ namespace _Game.Scripts.GamePlay.Character.Player
 {
     public class PlayerSkin : CharacterSkin
     {
+        #region Config
+
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+
         private Action<object> _onSelectSkinItem;
         private Action<object> _onCloseSkinShop;
 
-        #region Init
+        #endregion
 
         private void OnEnable()
         {
@@ -33,14 +37,12 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             base.OnInit();
             
-            ChangeWeapon(UserData.Ins.PlayerWeapon);
-            ChangeHair(UserData.Ins.PlayerHair);
-            ChangeShield(UserData.Ins.PlayerShield);
-            ChangePant(UserData.Ins.PlayerPant);
+            ChangeWeapon((WeaponType) PlayerData.playerWeapon);
+            ChangeHair((HairType) PlayerData.playerHair);
+            ChangeShield((ShieldType) PlayerData.playerShield);
+            ChangePant((PantType) PlayerData.playerPant);
         }
 
-        #endregion
-        
         private void TrySkin(ItemShop item)
         {
             switch (item.ShopType)

@@ -41,8 +41,8 @@ namespace _SDK.UI.Base
         //set up mac dinh cho UI de tranh truong hop bi nhay' hinh
         public virtual void Setup()
         {
-            UIManager.Instance.AddBackUI(this);
-            UIManager.Instance.PushBackAction(this, BackKey);
+            UIManager.Ins.AddBackUI(this);
+            UIManager.Ins.PushBackAction(this, BackKey);
         }
 
 
@@ -64,7 +64,7 @@ namespace _SDK.UI.Base
         //dong truc tiep, ngay lap tuc
         public virtual void CloseDirectly()
         {
-            UIManager.Instance.RemoveBackUI(this);
+            UIManager.Ins.RemoveBackUI(this);
             gameObject.SetActive(false);
         
             if (IsDestroyOnClose)

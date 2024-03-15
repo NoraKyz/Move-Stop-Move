@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c497e9e908ae4f3da3d26de51f177717, type: 3}
   m_Name: PaintData
   m_EditorClassIdentifier: 
-  materials:
+  prefabs:
   - {fileID: 0}
   - {fileID: 2100000, guid: 62c7f5512df154947b2b8e2479038444, type: 2}
   - {fileID: 2100000, guid: b68cb168e575c684c89459f20c43e9c1, type: 2}

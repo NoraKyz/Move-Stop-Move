@@ -8,6 +8,8 @@ namespace _SDK.UI.Shop.SkinShop
 {
     public class ButtonShopBar : MonoBehaviour
     {
+        #region Config
+
         [SerializeField] private Image background;
         [SerializeField] private Button button;
         
@@ -17,6 +19,8 @@ namespace _SDK.UI.Shop.SkinShop
         private Action<object> _onSelectShopBar;
         
         public ShopType ShopType => shopType;
+
+        #endregion
 
         private void Awake()
         {

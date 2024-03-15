@@ -65,7 +65,7 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
         
         private IEnumerator CountDownDespawn()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(Constants.TimeDespawnBullet);
             OnDespawn();
         }
         

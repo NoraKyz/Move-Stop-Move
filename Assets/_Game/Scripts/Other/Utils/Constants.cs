@@ -7,6 +7,8 @@
         public const float DefaultAttackRange = 5f;
         
         public const int MaxBotOnMap = 8;
+        
+        public const float TimeDespawnBullet = 2f;
     }
     
     public static class AnimName
@@ -61,24 +63,14 @@
     
     public enum WeaponType
     {
-        WArrow = 0,
-        WAxe1 = 1,
-        WAxe2 = 2,
-        WBoomerang = 3,
-        WCandy0 = 4,
-        WCandy1 = 5,
-        WCandy2 = 6,
-        WCandy3 = 7,
-        WHammer = 8,
-        WKnife = 9,
-        WUzi = 10,
-        // ReSharper disable once InconsistentNaming
-        WZ = 11,
+        WHammer = 0,
+        WBoomerang = 1,
+        WKnife = 2,
     }
     
     public enum SetType
     {
-        None = 0,
+        SDefault = 0,
         SDevil = 1,
         SAngel = 2,
         SWitch = 3,

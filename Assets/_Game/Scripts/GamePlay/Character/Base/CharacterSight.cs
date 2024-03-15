@@ -22,8 +22,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
         
         #endregion
 
-        #region Init
-
         private void OnEnable()
         {
             _onCharacterDie = (param) => OnEnemyExitRange((Character) param);
@@ -41,8 +39,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
             
             TF.localScale = Vector3.one * (range > 0 ? range : Constants.DefaultAttackRange);
         }
-
-        #endregion
 
         private void OnTriggerEnter(Collider other)
         {

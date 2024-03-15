@@ -4,9 +4,19 @@ namespace _SDK.Singleton
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
+        [SerializeField] protected bool dontDestroyOnLoad = false;
+        
         protected static T instance;
 
-        public static T Instance
+        private void Awake()
+        {
+            if (dontDestroyOnLoad)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+
+        public static T Ins
         {
             get
             {

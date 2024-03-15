@@ -7,11 +7,23 @@ namespace _Game.Scripts.GamePlay.Character
 {
     public class CharacterManager : GameService
     {
+        #region Config
+
         [Header("References")]
         [SerializeField] private Player.Player player;
         [SerializeField] private List<Bot.Bot> bots = new List<Bot.Bot>();
         
         private Map.Map _currentMap;
+
+        #endregion
+        
+        private void Awake()
+        {
+            if (player == null)
+            {
+                player = FindObjectOfType<Player.Player>();
+            }
+        }
         
         public void SetMap(Map.Map map) => _currentMap = map;
         

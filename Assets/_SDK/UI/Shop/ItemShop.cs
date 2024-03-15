@@ -8,8 +8,6 @@ namespace _SDK.UI.Shop
 {
     public abstract class ItemShop : MonoBehaviour
     {
-        [SerializeField] protected Image imageItem;
-        
         public enum State
         {
             Lock = ButtonActionShop.State.Buy,
@@ -17,10 +15,14 @@ namespace _SDK.UI.Shop
             Equipped = ButtonActionShop.State.Equipped
         }
         
-        public Enum ShopType { get; protected set; }
-        public Enum ItemType { get; protected set; }
-        public int Cost { get; protected set; }
-        public State CurrentState { get; protected set; }
+        [SerializeField] protected Image imageItem;
+
+        protected PlayerData PlayerData => DataManager.Ins.PlayerData;
+ 
+        public Enum ShopType { get; private set; }
+        public Enum ItemType { get; private set; }
+        public int Cost { get; private set; }
+        public State CurrentState { get; private set; }
 
         public virtual void OnInit<T>(ShopType shopType, ItemShopData<T> data, State state) where T : Enum
         {
@@ -36,13 +38,12 @@ namespace _SDK.UI.Shop
         public virtual void OnEquip()
         {
             SetState(State.Equipped);
-            UserData.Ins.SetItem(this);
         }
         
         protected virtual void SetState(State state)
         {
             CurrentState = state;
-            UserData.Ins.SetEnumData(ItemType.ToString(), state);
+            PlayerData.SetItemState(this, (int) state);
         }
     }
 }

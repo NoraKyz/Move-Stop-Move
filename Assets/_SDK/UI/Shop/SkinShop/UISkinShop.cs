@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
-using _Game.Scripts.GamePlay.Camera;
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
@@ -17,6 +16,7 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private ItemShopDataSO itemShopData;
         
         private ItemSkinShop _currentSelect;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
 
         private MiniPool<ItemSkinShop> _skinShopItemPool = new();
         
@@ -36,13 +36,6 @@ namespace _SDK.UI.Shop.SkinShop
         private void OnDisable()
         {
             this.RemoveListener(EventID.OnSelectShopBar, _onSelectBar);
-        }
-
-        public override void Open()
-        {
-            base.Open();
-            
-            CameraFollow.Instance.ChangeState(CameraFollow.State.Shop);
         }
         
         private void InitShop(ButtonShopBar btn)
@@ -74,7 +67,7 @@ namespace _SDK.UI.Shop.SkinShop
             
             for (int i = 0; i < listItemData.Count; i++)
             {
-                ItemShop.State state = UserData.Ins.GetEnumData(listItemData[i].Type.ToString(), ItemShop.State.Lock);
+                ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(shopType, listItemData[i].Type);
                 ItemSkinShop item = _skinShopItemPool.Spawn();
                 
                 item.OnInit(shopType, listItemData[i], state);
@@ -91,7 +84,7 @@ namespace _SDK.UI.Shop.SkinShop
         {
             CloseDirectly();
             this.PostEvent(EventID.OnCloseShop);
-            UIManager.Instance.OpenUI<UIMainMenu>();
+            UIManager.Ins.OpenUI<UIMainMenu>();
         }
     }
 }

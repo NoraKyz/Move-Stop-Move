@@ -18,7 +18,7 @@ MonoBehaviour:
   vibrateIsOn: 0
   removeAds: 0
   tutorialIsShow: 0
-  playerWeapon: 8
+  playerWeapon: 3
   playerHair: 0
   playerPant: 0
   playerShield: 0

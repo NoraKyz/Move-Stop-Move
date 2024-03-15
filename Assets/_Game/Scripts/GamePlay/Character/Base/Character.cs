@@ -27,8 +27,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
         
         #endregion
 
-        #region Init
-        
         public virtual void OnInit()
         {
             IsDie = false;
@@ -39,8 +37,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
             characterSkin.OnInit();
             circleTargetIndicator.OnInit();
         }
-
-        #endregion
         
         public virtual void OnHit(Action hitAction)
         {

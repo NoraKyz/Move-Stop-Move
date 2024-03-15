@@ -12,6 +12,8 @@ namespace _SDK.UI.Shop.WeaponShop
        
         [SerializeField] private ItemShopDataSO itemShopData;
         
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        
         private int _currentIndex;
 
         public override void Open()
@@ -24,7 +26,7 @@ namespace _SDK.UI.Shop.WeaponShop
 
         private void InitItem(int id)
         {
-            ItemShop.State state = UserData.Ins.GetEnumData(itemShopData.Weapons[id].Type.ToString(), ItemShop.State.Lock);
+            ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(ShopType.Weapon, itemShopData.Weapons[id].Type);
             itemPrefab.OnInit(ShopType.Weapon, itemShopData.Weapons[id], state);
             
             this.PostEvent(EventID.OnSelectItem, itemPrefab);
@@ -54,7 +56,7 @@ namespace _SDK.UI.Shop.WeaponShop
         {
             CloseDirectly();
             this.PostEvent(EventID.OnCloseShop);
-            UIManager.Instance.OpenUI<UIMainMenu>();
+            UIManager.Ins.OpenUI<UIMainMenu>();
         }
     }
 }

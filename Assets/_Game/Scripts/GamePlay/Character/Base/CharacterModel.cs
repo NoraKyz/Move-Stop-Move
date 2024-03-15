@@ -15,14 +15,10 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         #endregion
 
-        #region Init
-
         public void OnInit()
         {
             model.localRotation = Quaternion.identity;
         }
-
-        #endregion
 
         public void LookAtTarget(Vector3 targetPos)
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using _Game.Scripts.GamePlay.Skin.Base;
-using _Game.Scripts.GamePlay.Skin.Data;
 using _Game.Scripts.Other.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,29 +17,24 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] Renderer pant;
 
         [Header("Config")] 
-        [SerializeField] private ModelDataSO<Hair> hairData;
-        [SerializeField] private ModelDataSO<Weapon.Weapon> weaponData;
-        [SerializeField] private ModelDataSO<Shield> shieldData;
-        [SerializeField] private PaintDataSO pantData;
+        [SerializeField] private SkinDataSO<Hair> hairData;
+        [SerializeField] private SkinDataSO<Weapon.Weapon> weaponData;
+        [SerializeField] private SkinDataSO<Shield> shieldData;
+        [SerializeField] private SkinDataSO<Material> pantData;
         
         private Weapon.Weapon _currentWeapon;
         private Shield _currentShield;
         private Hair _currentHair;
         
         public UnityEvent<Weapon.Weapon> onWeaponChanged;
-        public Weapon.Weapon CurrentWeapon => _currentWeapon;
-
+        
         #endregion
-
-        #region Init
 
         public virtual void OnInit()
         {
             TakeOffClothes();
         }
 
-        #endregion
-        
         protected void ChangeWeapon(WeaponType weaponType)
         {
             _currentWeapon = Instantiate(weaponData.GetSkin((int)weaponType), rightHand);
@@ -67,11 +61,11 @@ namespace _Game.Scripts.GamePlay.Character.Base
         {
             if (pantType != PantType.None)
             {
-                pant.material = pantData.GetMaterial((int)pantType);
+                pant.material = pantData.GetSkin((int) pantType);
             }
         }
 
-        protected void TakeOffClothes()
+        private void TakeOffClothes()
         {
             DespawnHair();
             DespawnPant();
@@ -87,7 +81,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
             }
         }
         
-        protected void DespawnPant()
+        private void DespawnPant()
         {
             pant.materials = Array.Empty<Material>();
         }

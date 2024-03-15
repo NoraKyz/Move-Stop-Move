@@ -22,8 +22,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         #endregion
 
-        #region Init
-
         public void OnInit()
         {
             _isAttackAble = true;
@@ -31,8 +29,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
             characterSight.OnInit();
         }
 
-        #endregion
-        
         public void SetWeapon(Weapon.Weapon weapon)
         {
             currentWeapon = weapon;

@@ -1,10 +1,13 @@
-﻿using _SDK.Singleton;
+﻿using _Game.Scripts.GamePlay.Character.Player;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Camera
 {
-    public class CameraFollow : Singleton<CameraFollow>
+    public class CameraFollower : GameService
     {
+        #region Config
+
         public enum State
         {
             MainMenu = 0, 
@@ -26,7 +29,23 @@ namespace _Game.Scripts.GamePlay.Camera
         
         private Vector3 _targetOffset;
         private Quaternion _targetRotate;
-        
+
+        #endregion
+
+        private void Awake()
+        {
+            if (target == null)
+            {
+                target = FindObjectOfType<Player>().TF;
+            }
+        }
+
+        private void Start()
+        {
+            _targetOffset = offset;
+            _targetRotate = tf.rotation;
+        }
+
         private void LateUpdate()
         {
             offset = Vector3.Lerp(offset, _targetOffset, Time.deltaTime * moveSpeed);

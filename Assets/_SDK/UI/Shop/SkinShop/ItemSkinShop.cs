@@ -8,6 +8,8 @@ namespace _SDK.UI.Shop.SkinShop
 {
     public class ItemSkinShop : ItemShop
     {
+        #region Config
+
         [SerializeField] private Text iconEquipped;
         [SerializeField] private Image iconLock;
         [SerializeField] private Outline outline;
@@ -15,6 +17,8 @@ namespace _SDK.UI.Shop.SkinShop
 
         private Action<object> _onSelectSkinItem;
         private Action<object> _onEquipOtherSkinItem;
+
+        #endregion
 
         private void Awake()
         {
@@ -53,6 +57,7 @@ namespace _SDK.UI.Shop.SkinShop
         {
             base.OnEquip();
             
+            PlayerData.EquipItemShop(this);
             this.PostEvent(EventID.OnEquipSkinItem, this);
         }
         
@@ -69,10 +74,6 @@ namespace _SDK.UI.Shop.SkinShop
             }
         }
 
-        private void SetUISelection(bool isSelect)
-        {
-            outline.enabled = isSelect;
-        }
         
         protected override void SetState(State state)
         {
@@ -85,6 +86,11 @@ namespace _SDK.UI.Shop.SkinShop
         {
             iconEquipped.enabled = state == State.Equipped;
             iconLock.enabled = state == State.Lock;
+        }
+        
+        private void SetUISelection(bool isSelect)
+        {
+            outline.enabled = isSelect;
         }
     }
 }
