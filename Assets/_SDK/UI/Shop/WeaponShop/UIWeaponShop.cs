@@ -26,8 +26,8 @@ namespace _SDK.UI.Shop.WeaponShop
 
         private void InitItem(int id)
         {
-            ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(ShopType.Weapon, itemShopData.Weapons[id].Type);
-            itemPrefab.OnInit(ShopType.Weapon, itemShopData.Weapons[id], state);
+            ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(ItemType.Weapon, itemShopData.Weapons[id].Id);
+            itemPrefab.OnInit(ItemType.Weapon, itemShopData.Weapons[id], state);
             
             this.PostEvent(EventID.OnSelectItem, itemPrefab);
         }

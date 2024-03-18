@@ -33,7 +33,7 @@ namespace _SDK.UI.Shop
 
         private void OnInit()
         {
-            coinText.text = PlayerData.coin.ToString();
+            coinText.text = PlayerData.GetIntData(KeyData.Coin).ToString();
         }
     }
 }

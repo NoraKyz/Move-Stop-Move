@@ -87,7 +87,7 @@ namespace _SDK.UI.Base
         {
             UIManager.Ins.CloseAll();
             UIManager.Ins.OpenUI<UIMainMenu>();
-            this.GetService<LevelManager>().OnLoadLevel(PlayerData.level);
+            this.GetService<LevelManager>().OnLoadLevel(PlayerData.GetIntData(KeyData.Level));
         }
         
         private void OnGamePlayState()

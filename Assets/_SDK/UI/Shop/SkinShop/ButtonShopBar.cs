@@ -2,6 +2,7 @@
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _SDK.UI.Shop.SkinShop
@@ -13,12 +14,12 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private Image background;
         [SerializeField] private Button button;
         
-        [SerializeField] private ShopType shopType;
+        [FormerlySerializedAs("shopType")] [SerializeField] private ItemType itemType;
         [SerializeField] private bool defaultSelect;
         
         private Action<object> _onSelectShopBar;
         
-        public ShopType ShopType => shopType;
+        public ItemType ItemType => itemType;
 
         #endregion
 

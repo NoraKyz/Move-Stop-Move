@@ -17,6 +17,7 @@ namespace _Game.Scripts.Data
             SaveData();
             //FirebaseManager.Ins.OnSetUserProperty();
         }
+        
 
         private void OnApplicationQuit()
         {
@@ -27,6 +28,7 @@ namespace _Game.Scripts.Data
         public void LoadData()
         {
             string data = PlayerPrefs.GetString(PlayerDataKey, "");
+            
             if (data != "")
             {
                 playerData = JsonUtility.FromJson<PlayerData>(data);
@@ -35,6 +37,8 @@ namespace _Game.Scripts.Data
             {
                 playerData = new PlayerData();
             }
+            
+            playerData.OnInit();
             
             isLoaded = true;
             //FirebaseManager.Ins.OnSetUserProperty();
@@ -47,7 +51,8 @@ namespace _Game.Scripts.Data
                 return;
             }
             
-            string json = JsonUtility.ToJson(PlayerData);
+            playerData.ConvertDictionaryToListData();
+            string json = JsonUtility.ToJson(playerData);
             PlayerPrefs.SetString(PlayerDataKey, json);
         }
 
@@ -60,8 +65,15 @@ namespace _Game.Scripts.Data
         
         public void LoadDataTest()
         {
+            playerData.LoadDataTest();
+            
             isLoaded = true;
             SaveData();
+        }
+        
+        public void UploadDataOnInspector()
+        {
+            playerData.ConvertDictionaryToListData();
         }
 #endif
     }
@@ -84,6 +96,12 @@ namespace _Game.Scripts.Data
             if (GUILayout.Button("Clear Data"))
             {
                 _dataManager.ResetData();
+                EditorUtility.SetDirty(_dataManager);
+            }
+            
+            if (GUILayout.Button("Upload Data"))
+            {
+                _dataManager.UploadDataOnInspector();
                 EditorUtility.SetDirty(_dataManager);
             }
             

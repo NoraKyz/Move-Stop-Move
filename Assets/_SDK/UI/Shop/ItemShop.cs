@@ -19,18 +19,18 @@ namespace _SDK.UI.Shop
 
         protected PlayerData PlayerData => DataManager.Ins.PlayerData;
  
-        public Enum ShopType { get; private set; }
-        public Enum ItemType { get; private set; }
+        public Enum Type { get; private set; }
+        public Enum Id { get; private set; }
         public int Cost { get; private set; }
         public State CurrentState { get; private set; }
 
-        public virtual void OnInit<T>(ShopType shopType, ItemShopData<T> data, State state) where T : Enum
+        public virtual void OnInit<T>(ItemType itemType, ItemShopData<T> itemData, State state) where T : Enum
         {
-            ShopType = shopType;
+            Type = itemType;
             
-            ItemType = data.Type;
-            Cost = data.Cost;
-            imageItem.sprite = data.Sprite;
+            Id = itemData.Id;
+            Cost = itemData.Cost;
+            imageItem.sprite = itemData.Sprite;
             
             CurrentState = state;
         }        
@@ -43,7 +43,7 @@ namespace _SDK.UI.Shop
         protected virtual void SetState(State state)
         {
             CurrentState = state;
-            PlayerData.SetItemState(this, (int) state);
+            PlayerData.SetItemState((ItemType) Type, Id, (int) state);
         }
     }
 }

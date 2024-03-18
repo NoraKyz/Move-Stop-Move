@@ -78,7 +78,7 @@
         SThor = 5,
     }
     
-    public enum ShopType
+    public enum ItemType
     {
         Hair = 0, 
         Pant = 1, 

@@ -40,9 +40,9 @@ namespace _SDK.UI.Shop.SkinShop
             this.RemoveListener(EventID.OnEquipSkinItem, _onEquipOtherSkinItem);
         }
 
-        public override void OnInit<T>(ShopType shopType, ItemShopData<T> data, State state)
+        public override void OnInit<T>(ItemType itemType, ItemShopData<T> itemData, State state)
         {
-            base.OnInit(shopType, data, state);
+            base.OnInit(itemType, itemData, state);
             
             SetUIState(state);
             SetUISelection(false);
@@ -57,7 +57,7 @@ namespace _SDK.UI.Shop.SkinShop
         {
             base.OnEquip();
             
-            PlayerData.EquipItemShop(this);
+            PlayerData.OnEquipItem((ItemType) Type, Id);
             this.PostEvent(EventID.OnEquipSkinItem, this);
         }
         

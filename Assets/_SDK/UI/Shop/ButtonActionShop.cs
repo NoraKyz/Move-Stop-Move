@@ -74,12 +74,13 @@ namespace _SDK.UI.Shop
 
         private void BuyItem()
         {
-            if(PlayerData.coin < _currentItem.Cost)
+            int currentCoin = PlayerData.GetIntData(KeyData.Coin);
+            if(currentCoin < _currentItem.Cost)
             {
                 return;
             }
-            
-            PlayerData.coin -= _currentItem.Cost;
+
+            PlayerData.SetIntData(KeyData.Coin, currentCoin - _currentItem.Cost);
             this.PostEvent(EventID.OnChangeCoin);
             
             EquipItem();
@@ -88,7 +89,6 @@ namespace _SDK.UI.Shop
         private void EquipItem()
         {
             _currentItem.OnEquip();
-            Debug.Log(_currentItem.CurrentState);
             SetState((State) _currentItem.CurrentState);
         }
     }

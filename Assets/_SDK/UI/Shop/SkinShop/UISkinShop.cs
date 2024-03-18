@@ -40,37 +40,37 @@ namespace _SDK.UI.Shop.SkinShop
         
         private void InitShop(ButtonShopBar btn)
         {
-            ShopType shopType = btn.ShopType;
+            ItemType itemType = btn.ItemType;
             
-            switch (shopType)
+            switch (itemType)
             {
-                case ShopType.Hair:
-                    InitShopItems(itemShopData.Hairs, shopType);
+                case ItemType.Hair:
+                    InitShopItems(itemShopData.Hairs, itemType);
                     break;
-                case ShopType.Pant:
-                    InitShopItems(itemShopData.Paints, shopType);
+                case ItemType.Pant:
+                    InitShopItems(itemShopData.Paints, itemType);
                     break;
-                case ShopType.Shield:
-                    InitShopItems(itemShopData.Shields, shopType);
+                case ItemType.Shield:
+                    InitShopItems(itemShopData.Shields, itemType);
                     break;
-                case ShopType.Set:
-                    InitShopItems(itemShopData.Sets, shopType);
+                case ItemType.Set:
+                    InitShopItems(itemShopData.Sets, itemType);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private void InitShopItems<T>(List<ItemShopData<T>> listItemData, ShopType shopType) where T : Enum
+        private void InitShopItems<T>(List<ItemShopData<T>> listItemData, ItemType itemType) where T : Enum
         {
             _skinShopItemPool.Collect();
             
             for (int i = 0; i < listItemData.Count; i++)
             {
-                ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(shopType, listItemData[i].Type);
+                ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(itemType, listItemData[i].Id);
                 ItemSkinShop item = _skinShopItemPool.Spawn();
                 
-                item.OnInit(shopType, listItemData[i], state);
+                item.OnInit(itemType, listItemData[i], state);
                 
                 // Select first item
                 if (i == 0)

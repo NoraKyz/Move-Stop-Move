@@ -37,33 +37,33 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             base.OnInit();
             
-            ChangeWeapon((WeaponType) PlayerData.playerWeapon);
-            ChangeHair((HairType) PlayerData.playerHair);
-            ChangeShield((ShieldType) PlayerData.playerShield);
-            ChangePant((PantType) PlayerData.playerPant);
+            ChangeWeapon((WeaponType) PlayerData.GetIntData(KeyData.PlayerWeapon));
+            ChangeHair((HairType) PlayerData.GetIntData(KeyData.PlayerHair));
+            ChangeShield((ShieldType) PlayerData.GetIntData(KeyData.PlayerShield));
+            ChangePant((PantType) PlayerData.GetIntData(KeyData.PlayerPant));
         }
 
         private void TrySkin(ItemShop item)
         {
-            switch (item.ShopType)
+            switch (item.Type)
             {
-                case ShopType.Hair:
+                case ItemType.Hair:
                     DespawnHair();
-                    ChangeHair((HairType) item.ItemType);
+                    ChangeHair((HairType) item.Id);
                     break;
-                case ShopType.Pant:
+                case ItemType.Pant:
                     DespawnHair();
-                    ChangePant((PantType) item.ItemType);
+                    ChangePant((PantType) item.Id);
                     break;
-                case ShopType.Shield:
+                case ItemType.Shield:
                     DespawnShield();
-                    ChangeShield((ShieldType) item.ItemType);
+                    ChangeShield((ShieldType) item.Id);
                     break;
-                case ShopType.Set:
+                case ItemType.Set:
                     break;
-                case ShopType.Weapon:
+                case ItemType.Weapon:
                     DespawnWeapon();
-                    ChangeWeapon((WeaponType) item.ItemType);
+                    ChangeWeapon((WeaponType) item.Id);
                     break;
             }
         }

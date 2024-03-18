@@ -1,13 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Game.Scripts.Other.Utils;
-using _SDK.UI.Shop;
 using UnityEngine;
 
 namespace _Game.Scripts.Data
 {
+    public static class KeyData
+    {
+        public const string Player = "player";
+        public const string Coin = "coin";
+        public const string Level = "level";
+            
+        public const string PlayerWeapon = "playerWeapon";
+        public const string PlayerHair = "playerHair";
+        public const string PlayerShield = "playerShield";
+        public const string PlayerPant = "playerPant";
+        public const string PlayerSetSkin = "playerSetSkin";
+    }
+    
     [Serializable]
     public class PlayerData
     {
+        /// <summary>
+        ///  0 = lock , 1 = unlock , 2 = equipped
+        /// </summary>
+        [Serializable]
+        public struct Data
+        {
+            public string key;
+            public int value;
+        }
+        
         [Header("--------- Game Setting ---------")]
         public bool isNew = true;
 
@@ -16,50 +39,19 @@ namespace _Game.Scripts.Data
         public bool isVibrate = true;
         public bool isNoAds = false;
         public float volumeSound = 80f;
-        
 
-        [Header("--------- Game Params ---------")]
-        public int coin = 0;
+#if UNITY_EDITOR
+        [Header("--------- Game Param Test ---------")]
+        [SerializeField] private int coin;
+        [SerializeField] private int level;
         
-        public int level = 0; //Level hiện tại
+        [SerializeField] private int playerWeapon;
+        [SerializeField] private int playerHair;
+        [SerializeField] private int playerShield;
+        [SerializeField] private int playerPant;
+        [SerializeField] private int playerSetSkin;
+#endif
         
-        // TODO: getter, setter
-        public int playerWeapon = 0;
-        public int playerHair = 0;
-        public int playerPant = 0;
-        public int playerShield = 0;
-        public int playerSet = 0;
-
-        /// <summary>
-        ///  0 = lock , 1 = unlock , 2 = equipped
-        /// </summary>
-        
-        public int[] weaponStatus = new int[]
-        {
-           2, 0, 0
-        };
-        
-        public int[] hairStatus = new int[]
-        {
-            2, 0, 0, 0, 0, 0, 0, 0, 0, 0
-        };
-        
-        public int[] pantStatus = new int[]
-        {
-            2, 0, 0, 0, 0, 0, 0, 0, 0, 0
-        };
-        
-        public int[] shieldStatus = new int[]
-        {
-            2, 0, 0
-        };
-        
-        public int[] setStatus = new int[]
-        {
-            2, 0, 0, 0, 0, 0
-        };
-
-
         // [Header("--------- Firebase ---------")]
         // public string timeInstall; //Thời điểm cài game
         //
@@ -78,72 +70,82 @@ namespace _Game.Scripts.Data
         // public int inter_watched = 0; // Số lần xem quảng cáo interstitial
         // public int level_played_1st_day = 0; // Số level đã chơi ở ngày đầu tiên
 
-        public void EquipItemShop(ItemShop item)
+        [SerializeField] private List<Data> listData = new ();
+        
+        private Dictionary<string, int> _data = new ();
+        
+        public void OnInit()
         {
-            int idItem = Convert.ToInt32(item.ItemType);
-            
-            switch (item.ShopType)
-            {
-                case ShopType.Weapon:
-                    playerWeapon = idItem;
-                    break;
-                case ShopType.Hair:
-                    playerHair = idItem;
-                    break;
-                case ShopType.Pant:
-                    playerPant = idItem;
-                    break;
-                case ShopType.Shield:
-                    playerShield = idItem;
-                    break;
-                case ShopType.Set:
-                    playerSet = idItem;
-                    break;
-            }
+            ConvertListDataToDictionary();
         }
         
-        public int GetItemState(ShopType shopType, Enum type)
+#if UNITY_EDITOR
+        public void LoadDataTest()
         {
-            int idItem = Convert.ToInt32(type);
+            _data[KeyData.Coin] = coin;
+            _data[KeyData.Level] = level;
+            _data[KeyData.PlayerWeapon] = playerWeapon;
+            _data[KeyData.PlayerHair] = playerHair;
+            _data[KeyData.PlayerShield] = playerShield;
+            _data[KeyData.PlayerPant] = playerPant;
+            _data[KeyData.PlayerSetSkin] = playerSetSkin;
+        }
+#endif
 
-            switch (shopType)
+        public int GetItemState(ItemType itemType, Enum enumId)
+        {
+            int id = Convert.ToInt32(enumId);
+            string key = itemType.ToString() + id;
+            return GetIntData(key);
+        }
+        
+        public void SetItemState(ItemType itemType, Enum enumId, int state)
+        {
+            int id = Convert.ToInt32(enumId);
+            string key = itemType.ToString() + id;
+            _data[key] = state;
+        }
+        
+        public int GetIntData(string key, int defaultValue = 0)
+        {
+            if (_data.TryGetValue(key, out var data))
             {
-                case ShopType.Weapon:
-                    return weaponStatus[idItem];
-                case ShopType.Hair:
-                    return hairStatus[idItem];
-                case ShopType.Pant:
-                    return pantStatus[idItem];
-                case ShopType.Shield:
-                    return shieldStatus[idItem];
-                case ShopType.Set:
-                    return setStatus[idItem];
+                return data;
             }
 
-            return 0;
+            _data[key] = defaultValue;
+            return defaultValue;
+        }
+        
+        public void SetIntData(string key, int value)
+        {
+            _data[key] = value;
+        }
+        
+        public void OnEquipItem(ItemType itemType, Enum itemId, string whoEquip = KeyData.Player)
+        {
+            int id = Convert.ToInt32(itemId);
+            SetIntData(whoEquip + itemType, id);
         }
 
-        public void SetItemState(ItemShop item, int state)
+        public void ConvertDictionaryToListData()
         {
-            int idItem = Convert.ToInt32(item.ItemType);
+            listData.Clear();
             
-            switch (item.ShopType)
+            foreach (var data in _data)
             {
-                case ShopType.Weapon:
-                    weaponStatus[idItem] = state;
-                    break;
-                case ShopType.Hair:
-                    hairStatus[idItem] = state;
-                    break;
-                case ShopType.Pant:
-                    pantStatus[idItem] = state;
-                    break;
-                case ShopType.Shield:
-                    shieldStatus[idItem] = state;
-                    break;
-                case ShopType.Set:
-                    setStatus[idItem] = state;
-                    break;
+                listData.Add(new Data {
+                    key = data.Key,
+                    value = data.Value
+                });
+            }
+        }
+
+        public void ConvertListDataToDictionary()
+        {
+            foreach (var data in listData)
+            {
+                _data[data.key] = data.value;
             }
         }
     }

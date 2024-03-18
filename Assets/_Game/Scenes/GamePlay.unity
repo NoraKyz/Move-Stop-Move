@@ -557,14 +557,24 @@ MonoBehaviour:
     level: 0
     playerWeapon: 0
     playerHair: 0
-    playerPant: 0
     playerShield: 0
-    playerSet: 0
-    weaponStatus: 020000000000000000000000
-    hairStatus: 02000000000000000000000000000000000000000000000000000000000000000000000000000000
-    pantStatus: 02000000000000000000000000000000000000000000000000000000000000000000000000000000
-    shieldStatus: 020000000000000000000000
-    setStatus: 020000000000000000000000000000000000000000000000
+    playerPant: 0
+    playerSetSkin: 0
+    listData:
+    - key: coin
+      value: 10000
+    - key: level
+      value: 0
+    - key: playerWeapon
+      value: 0
+    - key: PlayerHair
+      value: 0
+    - key: playerShield
+      value: 0
+    - key: playerPant
+      value: 0
+    - key: playerSetSkin
+      value: 0
 --- !u!4 &599830526
 Transform:
   m_ObjectHideFlags: 0
