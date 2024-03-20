@@ -19,7 +19,7 @@ namespace _SDK.UI.Base
     
     public class GameManager : Singleton<GameManager>
     {
-        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
         
         //[SerializeField] CSVData csv;
         
@@ -54,7 +54,7 @@ namespace _SDK.UI.Base
             }
             
             //csv.OnInit();
-            DataManager.Ins.LoadData();
+            this.GetService<DataManager>().LoadData();
         }
         
         private void Start()

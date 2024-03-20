@@ -41,9 +41,7 @@ namespace _SDK.UI.GamePlay
             
             this.GetService<CameraFollower>().ChangeState(CameraFollower.State.Gameplay);
             
-            Level currentLevel = this.GetService<LevelManager>().CurrentLevel;
-            _alive = currentLevel.TotalBots + 1;
-
+            _alive = GetAlive();
             SetAliveText(_alive);
             SetTutorial(true);
         }
@@ -62,6 +60,12 @@ namespace _SDK.UI.GamePlay
         private void SetAliveText(int alive)
         {
             aliveText.text = alive.ToString();
+        }
+
+        private int GetAlive()
+        {
+            Level currentLevel = this.GetService<LevelManager>().CurrentLevel;
+            return currentLevel.TotalBots + 1;
         }
     }
 }

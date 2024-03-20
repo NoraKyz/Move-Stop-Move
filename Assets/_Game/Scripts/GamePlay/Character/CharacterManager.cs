@@ -17,13 +17,7 @@ namespace _Game.Scripts.GamePlay.Character
 
         #endregion
         
-        private void Awake()
-        {
-            if (player == null)
-            {
-                player = FindObjectOfType<Player.Player>();
-            }
-        }
+        public void SetPlayer(Player.Player nPlayer) => player = nPlayer;
         
         public void SetMap(Map.Map map) => _currentMap = map;
         

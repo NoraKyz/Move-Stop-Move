@@ -1,6 +1,7 @@
 ﻿using System;
 using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ namespace _SDK.UI.Shop
         
         [SerializeField] protected Image imageItem;
 
-        protected PlayerData PlayerData => DataManager.Ins.PlayerData;
+        protected PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
  
         public Enum Type { get; private set; }
         public Enum Id { get; private set; }
@@ -40,7 +41,7 @@ namespace _SDK.UI.Shop
             SetState(State.Equipped);
         }
         
-        protected virtual void SetState(State state)
+        public virtual void SetState(State state)
         {
             CurrentState = state;
             PlayerData.SetItemState((ItemType) Type, Id, (int) state);

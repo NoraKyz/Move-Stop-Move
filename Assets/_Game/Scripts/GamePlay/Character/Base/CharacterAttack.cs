@@ -17,6 +17,8 @@ namespace _Game.Scripts.GamePlay.Character.Base
         private bool _isAttackAble;
         private List<Character> EnemiesInRange => characterSight.EnemiesInRange;
         
+        protected Coroutine resetAttackCoroutine;
+        
         public bool IsAttackAble => _isAttackAble;
         public bool HasEnemyInRange => EnemiesInRange.Count > 0;
 
@@ -43,7 +45,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public void Attack(Vector3 targetPos)
         {
             currentWeapon.SpawnBullet(owner, targetPos);
-            StartCoroutine(ResetAttack());
+            resetAttackCoroutine = StartCoroutine(ResetAttack());
         }
 
         private IEnumerator ResetAttack()

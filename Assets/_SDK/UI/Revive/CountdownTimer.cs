@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _Game.Scripts.Other.Utils;
 using _SDK.UI.Base;
@@ -14,14 +15,23 @@ namespace _SDK.UI.Revive
         [SerializeField] private Text timerText;
         
         private int _currentTime;
+        private Coroutine _countdownCoroutine;
 
         #endregion
+
+        private void OnDisable()
+        {
+            if (_countdownCoroutine != null)
+            {
+                StopCoroutine(_countdownCoroutine);
+            }
+        }
 
         public void OnInit()
         {
             _currentTime = Constants.TimeToRevive;
 
-            StartCoroutine(CountdownToStart());
+            _countdownCoroutine = StartCoroutine(CountdownToStart());
         }
 
         private IEnumerator CountdownToStart()

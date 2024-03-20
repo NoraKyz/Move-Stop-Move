@@ -21,8 +21,13 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         public bool HasEnemyInRange => characterAttack.HasEnemyInRange;
         public bool IsAttackAble => characterAttack.IsAttackAble;
+
+        public float Size
+        {
+            get => size;
+            set => SetSize(value);
+        }
         
-        public float Size => size;
         public bool IsDie { get; private set; }
         
         #endregion
@@ -30,7 +35,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public virtual void OnInit()
         {
             IsDie = false;
-            SetSize(size > 0 ? size : 1);
+            SetSize(size);
             
             characterAttack.OnInit();
             characterModel.OnInit();
@@ -47,9 +52,9 @@ namespace _Game.Scripts.GamePlay.Character.Base
         
         public virtual void OnDespawn() { }
 
-        public void SetSize(float value)
+        protected virtual void SetSize(float value)
         {
-            size = value;
+            size = value > 0 ? value : 1f;
             TF.localScale = Vector3.one * size;
         } 
         

@@ -3,6 +3,7 @@ using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Character.Base;
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Shop;
 
 namespace _Game.Scripts.GamePlay.Character.Player
@@ -11,7 +12,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
     {
         #region Config
 
-        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
 
         private Action<object> _onSelectSkinItem;
         private Action<object> _onCloseSkinShop;
@@ -59,7 +60,8 @@ namespace _Game.Scripts.GamePlay.Character.Player
                     DespawnShield();
                     ChangeShield((ShieldType) item.Id);
                     break;
-                case ItemType.Set:
+                case ItemType.SetSkin:
+                    // TODO: Change set skin
                     break;
                 case ItemType.Weapon:
                     DespawnWeapon();

@@ -1,5 +1,4 @@
-﻿using _Game.Scripts.GamePlay.Character.Player;
-using _SDK.ServiceLocator.Scripts;
+﻿using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Camera
@@ -32,14 +31,6 @@ namespace _Game.Scripts.GamePlay.Camera
 
         #endregion
 
-        private void Awake()
-        {
-            if (target == null)
-            {
-                target = FindObjectOfType<Player>().TF;
-            }
-        }
-
         private void Start()
         {
             _targetOffset = offset;
@@ -62,6 +53,11 @@ namespace _Game.Scripts.GamePlay.Camera
         {
             _targetOffset = offsets[(int)state].localPosition;
             _targetRotate = offsets[(int)state].localRotation;
+        }
+
+        public void SetTarget(Transform nTarget)
+        {
+            target = nTarget;
         }
     }
 }

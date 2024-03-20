@@ -1,15 +1,15 @@
-﻿using _SDK.Singleton;
+﻿using _SDK.ServiceLocator.Scripts;
 using UnityEditor;
 using UnityEngine;
 
 namespace _Game.Scripts.Data
 {
-    public class DataManager : Singleton<DataManager>
+    public class DataManager : GameService
     {
         private const string PlayerDataKey = "PlayerData";
 
-        [SerializeField] private bool isLoaded = false;
         [SerializeField] private PlayerData playerData;
+        
         public PlayerData PlayerData => playerData;
 
         private void OnApplicationPause(bool pause)
@@ -18,7 +18,6 @@ namespace _Game.Scripts.Data
             //FirebaseManager.Ins.OnSetUserProperty();
         }
         
-
         private void OnApplicationQuit()
         {
             SaveData();
@@ -38,20 +37,15 @@ namespace _Game.Scripts.Data
                 playerData = new PlayerData();
             }
             
-            playerData.OnInit();
+            playerData.OnLoad();
             
-            isLoaded = true;
             //FirebaseManager.Ins.OnSetUserProperty();
         }
 
         public void SaveData()
         {
-            if (!isLoaded)
-            {
-                return;
-            }
+            playerData.OnSave();
             
-            playerData.ConvertDictionaryToListData();
             string json = JsonUtility.ToJson(playerData);
             PlayerPrefs.SetString(PlayerDataKey, json);
         }
@@ -59,26 +53,19 @@ namespace _Game.Scripts.Data
 #if UNITY_EDITOR
         public void ResetData()
         {
-            PlayerPrefs.DeleteAll();
             playerData = new PlayerData();
+            PlayerPrefs.DeleteAll();
         }
         
         public void LoadDataTest()
         {
             playerData.LoadDataTest();
-            
-            isLoaded = true;
             SaveData();
         }
         
-        public void UploadDataOnInspector()
-        {
-            playerData.ConvertDictionaryToListData();
-        }
-#endif
+        public void UpdateDataInspector() => playerData.ConvertDicToListData();
     }
     
-#if UNITY_EDITOR
     [CustomEditor(typeof(DataManager))]
     public class DataManagerEditor : Editor
     {
@@ -101,7 +88,7 @@ namespace _Game.Scripts.Data
             
             if (GUILayout.Button("Upload Data"))
             {
-                _dataManager.UploadDataOnInspector();
+                _dataManager.UpdateDataInspector();
                 EditorUtility.SetDirty(_dataManager);
             }
             
