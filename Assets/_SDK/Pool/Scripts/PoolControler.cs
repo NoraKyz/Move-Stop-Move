@@ -159,6 +159,7 @@ public enum PoolType
     Knife = 11,
     Uzi = 12,
     Z = 13,
+    Indicator = 14,
 }
 
 

@@ -22,7 +22,7 @@ namespace _SDK.StateMachine.PlayerState
 
         public void OnExit(Player player)
         {
-            
+            player.StopMove();
         }
     }
 }

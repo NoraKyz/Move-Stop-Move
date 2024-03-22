@@ -52,7 +52,10 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
                 
                 if (hit != null && hit != (IHit) _owner)
                 {
-                    hit.OnHit(null);
+                    hit.OnHit(() =>
+                    {
+                        _owner.AddScore();
+                    });
                     OnDespawn();
                 }
             }

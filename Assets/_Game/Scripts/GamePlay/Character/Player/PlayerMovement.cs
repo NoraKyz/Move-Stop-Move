@@ -3,6 +3,7 @@ using _SDK.Pool.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.Scripts.GamePlay.Character.Player
 {
@@ -10,8 +11,9 @@ namespace _Game.Scripts.GamePlay.Character.Player
     {
         #region Config
 
+        [FormerlySerializedAs("rd")]
         [Header("References")]
-        [SerializeField] private CharacterController controller;
+        [SerializeField] private Rigidbody rb;
         
         [Header("Config")]
         [SerializeField] private float moveSpeed = 5f;
@@ -64,6 +66,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _moveDirection.Set(_inputManager.HorizontalAxis, 0, _inputManager.VerticalAxis);
             _moveDirection.Normalize();
         }
+        
         private void OnStartMove()
         {
             if(_isStartMove == false)
@@ -72,14 +75,19 @@ namespace _Game.Scripts.GamePlay.Character.Player
                 UIManager.Ins.GetUI<_SDK.UI.GamePlay.UIGamePlay>().SetTutorial(false);
             }
         }
+        
         public void Move()
         {
-            controller.Move(_moveDirection * (Time.deltaTime * moveSpeed));
-            
+            rb.velocity = _moveDirection * moveSpeed;            
             if(_moveDirection != Vector3.zero)
             {
                 TF.forward = _moveDirection;
             }
+        }
+
+        public void StopMove()
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 }

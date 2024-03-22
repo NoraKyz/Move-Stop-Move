@@ -12,12 +12,16 @@ namespace _Game.Scripts.GamePlay.Character
         [Header("References")]
         [SerializeField] private Player.Player player;
         [SerializeField] private List<Bot.Bot> bots = new List<Bot.Bot>();
+
+        public Player.Player Player
+        {
+            get => player;
+            set => player = value;
+        }
         
         private Map.Map _currentMap;
 
         #endregion
-        
-        public void SetPlayer(Player.Player nPlayer) => player = nPlayer;
         
         public void SetMap(Map.Map map) => _currentMap = map;
         
@@ -28,7 +32,7 @@ namespace _Game.Scripts.GamePlay.Character
             Bot.Bot bot = SimplePool.Spawn<Bot.Bot>(PoolType.Bot, _currentMap.GetRandomPos(), Quaternion.identity);
             
             bot.OnInit();
-            //bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
+            bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
             
             bots.Add(bot);
         }
@@ -46,6 +50,16 @@ namespace _Game.Scripts.GamePlay.Character
             }
             
             player.OnDespawn();
+        }
+        
+        public void SetTargetIndicatorAlpha(float alpha)
+        {
+            List<PoolUnit> list = SimplePool.GetAllUnitIsActive(PoolType.Indicator);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                (list[i] as TargetIndicator)?.SetAlpha(alpha);
+            }
         }
     }
 }

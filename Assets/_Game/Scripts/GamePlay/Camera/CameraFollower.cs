@@ -24,10 +24,11 @@ namespace _Game.Scripts.GamePlay.Camera
         [SerializeField] Vector3 offsetMax;
         
         [SerializeField] Transform[] offsets;
-        [SerializeField] float moveSpeed = 5f;
+        [SerializeField] float moveSpeed;
         
         private Vector3 _targetOffset;
         private Quaternion _targetRotate;
+        private State _currentState;
 
         #endregion
 
@@ -35,22 +36,29 @@ namespace _Game.Scripts.GamePlay.Camera
         {
             _targetOffset = offset;
             _targetRotate = tf.rotation;
+            _currentState = State.MainMenu;
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
-            offset = Vector3.Lerp(offset, _targetOffset, Time.deltaTime * moveSpeed);
-            tf.rotation = Quaternion.Lerp(tf.rotation, _targetRotate, Time.deltaTime * moveSpeed);
-            tf.position = Vector3.Lerp(tf.position, target.position + _targetOffset, Time.deltaTime * moveSpeed);
+            offset = Vector3.Lerp(offset, _targetOffset, Time.fixedDeltaTime * moveSpeed);
+            tf.rotation = Quaternion.Lerp(tf.rotation, _targetRotate, Time.fixedDeltaTime * moveSpeed);
+            tf.position = Vector3.Lerp(tf.position, target.position + _targetOffset, Time.fixedDeltaTime * moveSpeed);
         }
 
         public void SetRateOffset(float rate)
         {
+            if (_currentState != State.Gameplay)
+            {
+                return;
+            }
+            
             _targetOffset = Vector3.Lerp(offsetMin, offsetMax, rate);
         }
 
         public void ChangeState(State state)
         {
+            _currentState = state;
             _targetOffset = offsets[(int)state].localPosition;
             _targetRotate = offsets[(int)state].localRotation;
         }

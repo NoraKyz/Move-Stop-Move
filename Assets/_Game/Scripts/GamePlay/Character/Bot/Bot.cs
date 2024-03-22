@@ -1,4 +1,5 @@
 using System;
+using _Game.Scripts.Other.Utils;
 using _SDK.Pool.Scripts;
 using _SDK.StateMachine;
 using _SDK.StateMachine.BotState;
@@ -29,6 +30,7 @@ namespace _Game.Scripts.GamePlay.Character.Bot
             base.OnInit();
             
             botMovement.OnInit();
+            targetIndicator.SetName(NameUtilities.GetRandomName());
             _stateMachine.ChangeState(new BotIdleState());
         }
 

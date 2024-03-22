@@ -23,6 +23,8 @@ namespace _Game.Scripts.Level
             }
             
             this.GetService<CharacterManager>().ResetPlayer();
+            
+            this.GetService<CharacterManager>().SetTargetIndicatorAlpha(0f);
         }
         
         public void BotDeath(Bot bot)

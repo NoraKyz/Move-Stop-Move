@@ -1,5 +1,6 @@
 using System;
 using _Game.Scripts.GamePlay.Camera;
+using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.Level;
 using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
@@ -40,12 +41,19 @@ namespace _SDK.UI.GamePlay
             base.Open();
             
             this.GetService<CameraFollower>().ChangeState(CameraFollower.State.Gameplay);
+            this.GetService<CharacterManager>().SetTargetIndicatorAlpha(1f);
             
             _alive = GetAlive();
             SetAliveText(_alive);
             SetTutorial(true);
         }
-        
+
+        public override void CloseDirectly()
+        {
+            base.CloseDirectly();
+            this.GetService<CharacterManager>().SetTargetIndicatorAlpha(0f);
+        }
+
         private void OnCharacterDie()
         {
             _alive--;

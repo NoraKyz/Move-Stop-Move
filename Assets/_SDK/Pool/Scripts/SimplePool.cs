@@ -40,12 +40,12 @@ namespace _SDK.Pool.Scripts
             //list object in pool
             Queue<PoolUnit> m_inactive;
             //collect obj active ingame
-            HashSet<PoolUnit> m_active;
+            List<PoolUnit> m_active;
             // The prefab that we are pooling
             PoolUnit m_prefab;
 
             public bool IsCollect { get => m_collect; }
-            public HashSet<PoolUnit> Active => m_active;
+            public List<PoolUnit> Active => m_active;
             public int Count => m_inactive.Count + m_active.Count;
             public Transform Root => m_sRoot;
 
@@ -56,7 +56,7 @@ namespace _SDK.Pool.Scripts
                 m_sRoot = parent;
                 this.m_prefab = prefab;
                 m_collect = collect;
-                if (m_collect) m_active = new HashSet<PoolUnit>();
+                if (m_collect) m_active = new List<PoolUnit>();
             }
 
             // Spawn an object from our pool with position and rotation
@@ -127,16 +127,9 @@ namespace _SDK.Pool.Scripts
             //collect all unit comeback to pool
             public void Collect()
             {
-                //while (m_active.Count > 0)
-                //{
-                //    Despawn(m_active[0]);
-                //}
-
-
-                HashSet<PoolUnit> units = new HashSet<PoolUnit>(m_active);
-                foreach (var item in units)
+                while (m_active.Count > 0)
                 {
-                    Despawn(item);
+                    Despawn(m_active[0]);
                 }
             }
         }
@@ -157,8 +150,12 @@ namespace _SDK.Pool.Scripts
             {
                 if (root == null)
                 {
-                    PoolControler controler = GameObject.FindObjectOfType<PoolControler>();
-                    root = controler != null ? controler.transform : new GameObject("Pool").transform;
+                    root = GameObject.FindObjectOfType<PoolControler>().transform;
+
+                    if (root == null)
+                    {
+                        root = new GameObject("Pool").transform;
+                    }
                 }
 
                 return root;
@@ -231,11 +228,11 @@ namespace _SDK.Pool.Scripts
 
         #region Get List object ACTIVE
         // get all member is active in game
-        public static HashSet<PoolUnit> GetAllUnitIsActive(PoolUnit obj)
+        public static List<PoolUnit> GetAllUnitIsActive(PoolUnit obj)
         {
-            return IsHasPool(obj) ? GetPool(obj).Active : new HashSet<PoolUnit>();
+            return IsHasPool(obj) ? GetPool(obj).Active : new List<PoolUnit>();
         }
-        public static HashSet<PoolUnit> GetAllUnitIsActive(PoolType poolType)
+        public static List<PoolUnit> GetAllUnitIsActive(PoolType poolType)
         {
             return GetAllUnitIsActive(GetPrefabByType(poolType));
         }  
