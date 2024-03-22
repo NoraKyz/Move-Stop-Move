@@ -38,15 +38,15 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             base.OnInit();
             
-            ChangeWeapon((WeaponType) PlayerData.GetIntData(KeyData.PlayerWeapon));
-            ChangeHair((HairType) PlayerData.GetIntData(KeyData.PlayerHair));
-            ChangeShield((ShieldType) PlayerData.GetIntData(KeyData.PlayerShield));
-            ChangePant((PantType) PlayerData.GetIntData(KeyData.PlayerPant));
+            ChangeWeapon((WeaponType) PlayerData.GetItemEquipped(ItemType.Weapon));
+            ChangeHair((HairType) PlayerData.GetItemEquipped(ItemType.Hair));
+            ChangeShield((ShieldType) PlayerData.GetItemEquipped(ItemType.Shield));
+            ChangePant((PantType) PlayerData.GetItemEquipped(ItemType.Pant));
         }
 
         private void TrySkin(ItemShop item)
         {
-            switch (item.Type)
+            switch (item.ItemType)
             {
                 case ItemType.Hair:
                     DespawnHair();

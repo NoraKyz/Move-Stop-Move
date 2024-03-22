@@ -5,28 +5,9 @@ using UnityEngine;
 
 namespace _Game.Scripts.Data
 {
-    public enum KeyData
-    {
-        Coin = 0,
-        Level = 1,
-        PlayerWeapon = 2,
-        PlayerHair = 3,
-        PlayerShield = 4,
-        PlayerPant = 5,
-        PlayerSetSkin = 6
-    }
-
     [Serializable]
     public class PlayerData
     {
-        [Serializable]
-        public struct Data
-        {
-            public KeyData key;
-            // Kiểu object nếu muốn lưu nhiều kiểu dữ liệu
-            public int value; 
-        }
-
         [Header("--------- Game Setting ---------")]
         [SerializeField] private bool isNew = true;
         [SerializeField] private bool isSound = true;
@@ -86,108 +67,74 @@ namespace _Game.Scripts.Data
         // public int inter_watched = 0; // Số lần xem quảng cáo interstitial
         // public int level_played_1st_day = 0; // Số level đã chơi ở ngày đầu tiên
 
-#if UNITY_EDITOR
-        [Header("--------- Game Param Test ---------")]
-        [SerializeField] private int coin;
-        [SerializeField] private int level;
-#endif
-
-        // To save data in json
-        [SerializeField] private List<Data> listData = new ();
-
-        private Dictionary<KeyData, int> _data = new ();
-
-        public void OnLoad() => ConvertListDataToDic();
         
-        public void OnSave() => ConvertDicToListData();
-
-#if UNITY_EDITOR
-        public void LoadDataTest()
+        [Header("Game Params")]
+        [SerializeField] private int level;
+        [SerializeField] private int coin;
+        
+        #region Getter/Setter Game Params
+        
+        public int Level
         {
-            SetIntData(KeyData.Coin, coin);
-            SetIntData(KeyData.Level, level);
+            get => level;
+            set => level = value;
         }
-#endif
 
-        // Set data for list, array
-        public int GetItemState(ItemType itemType, Enum enumId)
+        public int Coin
+        {
+            get => coin;
+            set => coin = value;
+        }
+        
+        #endregion
+
+        #region Equipment
+
+        private Dictionary<SlotType, int> _equippedItems = new ();
+        
+        public int GetItemEquipped(ItemType itemType)
+        {
+            return _equippedItems.GetValueOrDefault((SlotType) itemType, 0);
+        }
+
+        public void SetItemEquipped(ItemType itemType, Enum enumId)
         {
             int id = Convert.ToInt32(enumId);
-            KeyData key = (KeyData) Enum.Parse(typeof(KeyData), itemType.ToString() + id);
-            return GetIntData(key);
+            _equippedItems[(SlotType)itemType] = id;
+        }
+
+        #endregion
+
+        #region Shopping
+        
+        private Dictionary<ShopType, List<int>> _itemStates = new Dictionary<ShopType, List<int>>()
+        {
+            {ShopType.Weapon, new List<int>(){1,0,0}},
+            {ShopType.Hair, new List<int>(){1,0,0,0,0,0,0,0,0,0}},
+            {ShopType.Pant, new List<int>(){1,0,0,0,0,0,0,0,0,0}},
+            {ShopType.Shield, new List<int>(){1,0,0}},
+            {ShopType.SetSkin, new List<int>(){1,0,0,0,0,0}},
+        };
+        
+        public int GetItemState(ItemType itemType, Enum itemIds)
+        {
+            int id = Convert.ToInt32(itemIds);
+            return _itemStates[(ShopType)itemType][id];
         }
         
         /// <summary>
-        /// State: 0 = lock , 1 = unlock , 2 = equipped
+        /// state = 0: locked, state = 1: unlocked
         /// </summary>
-        /// 
-        public void SetItemState(ItemType itemType, Enum enumId, int state)
+        /// <param name="itemType"></param>
+        /// <param name="itemIds"></param>
+        /// <param name="state"></param>
+        public void SetItemState(ItemType itemType, Enum itemIds, int state)
         {
-            int id = Convert.ToInt32(enumId);
-            KeyData key = (KeyData) Enum.Parse(typeof(KeyData), itemType.ToString() + id);
-            SetIntData(key, state);
+            int id = Convert.ToInt32(itemIds);
+            _itemStates[(ShopType)itemType][id] = state;
         }
 
-        public int GetIntData(KeyData key, int defaultValue = 0)
-        {
-            if (_data.TryGetValue(key, out var data))
-            {
-                return data;
-            }
+        #endregion
 
-            _data[key] = defaultValue;
-            return defaultValue;
-        }
-
-        public void SetIntData(KeyData key, int value)
-        {
-            _data[key] = value;
-        }
-
-        public void OnEquipItem(ItemType itemType, Enum enumId)
-        {
-            int id = Convert.ToInt32(enumId);
-            
-            switch (itemType)
-            {
-                case ItemType.Weapon:
-                    SetIntData(KeyData.PlayerWeapon, id);
-                    break;
-                case ItemType.Hair:
-                    SetIntData(KeyData.PlayerHair, id);
-                    break;
-                case ItemType.Shield:
-                    SetIntData(KeyData.PlayerShield, id);
-                    break;
-                case ItemType.Pant:
-                    SetIntData(KeyData.PlayerPant, id);
-                    break;
-                case ItemType.SetSkin:
-                    SetIntData(KeyData.PlayerSetSkin, id);
-                    break;
-            }
-        }
-
-        public void ConvertDicToListData()
-        {
-            listData.Clear();
-
-            foreach (var data in _data)
-            {
-                listData.Add(new Data
-                {
-                    key = data.Key,
-                    value = data.Value
-                });
-            }
-        }
-
-        private void ConvertListDataToDic()
-        {
-            foreach (var data in listData)
-            {
-                _data[data.key] = data.value;
-            }
-        }
     }
 }

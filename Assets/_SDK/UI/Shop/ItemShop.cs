@@ -11,40 +11,36 @@ namespace _SDK.UI.Shop
     {
         public enum State
         {
-            Lock = ButtonActionShop.State.Buy,
-            Unlock = ButtonActionShop.State.Equip,
-            Equipped = ButtonActionShop.State.Equipped
+            Lock = 0,
+            Unlock = 1, 
         }
         
         [SerializeField] protected Image imageItem;
-
+        
         protected PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
  
-        public Enum Type { get; private set; }
+        public ItemType ItemType { get; private set; }
         public Enum Id { get; private set; }
         public int Cost { get; private set; }
-        public State CurrentState { get; private set; }
+        public State CurrentState { get; protected set; }
 
         public virtual void OnInit<T>(ItemType itemType, ItemShopData<T> itemData, State state) where T : Enum
         {
-            Type = itemType;
+            ItemType = itemType;
             
             Id = itemData.Id;
             Cost = itemData.Cost;
             imageItem.sprite = itemData.Sprite;
             
             CurrentState = state;
-        }        
+        } 
         
-        public virtual void OnEquip()
+        public bool IsEquipped()
         {
-            SetState(State.Equipped);
-        }
-        
-        public virtual void SetState(State state)
-        {
-            CurrentState = state;
-            PlayerData.SetItemState((ItemType) Type, Id, (int) state);
+            int idItemEquipped = PlayerData.GetItemEquipped(ItemType);
+            int idItem = Convert.ToInt32(Id);
+            
+            return idItem == idItemEquipped;
         }
     }
 }

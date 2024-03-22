@@ -68,7 +68,7 @@
         WKnife = 2,
     }
     
-    public enum SetType
+    public enum SetSkinType
     {
         SDefault = 0,
         SDevil = 1,
@@ -85,5 +85,23 @@
         Shield = 2, 
         SetSkin = 3,
         Weapon = 4,
+    }
+    
+    public enum ShopType
+    {
+        Weapon = ItemType.Weapon,
+        Hair = ItemType.Hair,
+        Pant = ItemType.Pant,
+        Shield = ItemType.Shield,
+        SetSkin = ItemType.SetSkin
+    }
+    
+    public enum SlotType
+    {
+        Weapon = ItemType.Weapon,
+        Hair = ItemType.Hair,
+        Pant = ItemType.Pant,
+        Shield = ItemType.Shield,
+        SetSkin = ItemType.SetSkin,
     }
 }

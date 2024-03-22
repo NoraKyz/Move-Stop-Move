@@ -157,8 +157,9 @@ Transform:
   - {fileID: 2096968521}
   - {fileID: 1426700469}
   - {fileID: 963194228}
+  - {fileID: 599830526}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &13396874
 MonoBehaviour:
@@ -545,36 +546,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4355794e6bf4c75a886731e2338c257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  isLoaded: 1
   playerData:
     isNew: 1
     isSound: 1
     isVibrate: 1
     isNoAds: 0
     volumeSound: 80
-    coin: 10000
     level: 0
-    playerWeapon: 0
-    playerHair: 0
-    playerShield: 0
-    playerPant: 0
-    playerSetSkin: 0
-    listData:
-    - key: coin
-      value: 10000
-    - key: level
-      value: 0
-    - key: playerWeapon
-      value: 0
-    - key: PlayerHair
-      value: 0
-    - key: playerShield
-      value: 0
-    - key: playerPant
-      value: 0
-    - key: playerSetSkin
-      value: 0
+    coin: 10000
 --- !u!4 &599830526
 Transform:
   m_ObjectHideFlags: 0
@@ -582,13 +561,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599830524}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 13396873}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &599863159
 GameObject:
@@ -626,6 +605,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3303069809532683400, guid: 5702b1dc5d7f9454384e868ebd54ba4f, type: 3}
   m_PrefabInstance: {fileID: 1927877675}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &699053941 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1383687488476345052, guid: 5702b1dc5d7f9454384e868ebd54ba4f, type: 3}
+  m_PrefabInstance: {fileID: 1927877675}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 772c4e2b2dc3064479efdf441564ece2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +815,7 @@ Transform:
   - {fileID: 1696760455}
   - {fileID: 1597770496}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &802946736
 MonoBehaviour:
@@ -1004,7 +994,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929356220
 GameObject:
@@ -1421,7 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2ed950fc984fbaafc9eec54b1043bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 699053941}
   bots: []
 --- !u!1 &1597770495
 GameObject:

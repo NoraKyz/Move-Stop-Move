@@ -9,7 +9,7 @@ namespace _Game.Scripts.Data
         private const string PlayerDataKey = "PlayerData";
 
         [SerializeField] private PlayerData playerData;
-        
+
         public PlayerData PlayerData => playerData;
 
         private void OnApplicationPause(bool pause)
@@ -17,7 +17,7 @@ namespace _Game.Scripts.Data
             SaveData();
             //FirebaseManager.Ins.OnSetUserProperty();
         }
-        
+
         private void OnApplicationQuit()
         {
             SaveData();
@@ -27,7 +27,7 @@ namespace _Game.Scripts.Data
         public void LoadData()
         {
             string data = PlayerPrefs.GetString(PlayerDataKey, "");
-            
+
             if (data != "")
             {
                 playerData = JsonUtility.FromJson<PlayerData>(data);
@@ -37,35 +37,17 @@ namespace _Game.Scripts.Data
                 playerData = new PlayerData();
             }
             
-            playerData.OnLoad();
-            
             //FirebaseManager.Ins.OnSetUserProperty();
         }
 
         public void SaveData()
         {
-            playerData.OnSave();
-            
             string json = JsonUtility.ToJson(playerData);
             PlayerPrefs.SetString(PlayerDataKey, json);
         }
+    }
 
 #if UNITY_EDITOR
-        public void ResetData()
-        {
-            playerData = new PlayerData();
-            PlayerPrefs.DeleteAll();
-        }
-        
-        public void LoadDataTest()
-        {
-            playerData.LoadDataTest();
-            SaveData();
-        }
-        
-        public void UpdateDataInspector() => playerData.ConvertDicToListData();
-    }
-    
     [CustomEditor(typeof(DataManager))]
     public class DataManagerEditor : Editor
     {
@@ -82,19 +64,14 @@ namespace _Game.Scripts.Data
             
             if (GUILayout.Button("Clear Data"))
             {
-                _dataManager.ResetData();
+                PlayerPrefs.DeleteAll();
                 EditorUtility.SetDirty(_dataManager);
             }
-            
-            if (GUILayout.Button("Upload Data"))
-            {
-                _dataManager.UpdateDataInspector();
-                EditorUtility.SetDirty(_dataManager);
-            }
-            
+
             if (GUILayout.Button("Load Data Test"))
             {
-                _dataManager.LoadDataTest();
+                PlayerPrefs.DeleteAll();
+                _dataManager.SaveData();
                 EditorUtility.SetDirty(_dataManager);
             }
         }

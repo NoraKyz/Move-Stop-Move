@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 9183610195661009875}
   - component: {fileID: 9183610195661009873}
   - component: {fileID: 9183610195661009886}
-  - component: {fileID: 8328532621504540789}
+  - component: {fileID: -6151808400886867827}
   m_Layer: 5
   m_Name: SkinShopItem
   m_TagString: Untagged
@@ -355,7 +355,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8328532621504540789
+--- !u!114 &-6151808400886867827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

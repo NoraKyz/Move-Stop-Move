@@ -1,6 +1,7 @@
 ﻿using System;
 using _Game.Scripts.Data;
 using _SDK.Observer.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ namespace _SDK.UI.Shop
 
         [SerializeField] private Text coinText;
         
-        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
         
         private Action<object> _onChangeCoin;
 
@@ -33,7 +34,7 @@ namespace _SDK.UI.Shop
 
         private void OnInit()
         {
-            coinText.text = PlayerData.GetIntData(KeyData.Coin).ToString();
+            coinText.text = PlayerData.Coin.ToString();
         }
     }
 }

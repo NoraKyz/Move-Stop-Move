@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
 
@@ -9,10 +10,11 @@ namespace _SDK.UI.Shop.WeaponShop
     public class UIWeaponShop : UICanvas
     {
         [SerializeField] private ItemWeaponShop itemPrefab;
+        [SerializeField] private ButtonActionShop buttonActionShop;
        
         [SerializeField] private ItemShopDataSO itemShopData;
         
-        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
         
         private int _currentIndex;
 
@@ -29,6 +31,8 @@ namespace _SDK.UI.Shop.WeaponShop
             ItemShop.State state = (ItemShop.State) PlayerData.GetItemState(ItemType.Weapon, itemShopData.Weapons[id].Id);
             itemPrefab.OnInit(ItemType.Weapon, itemShopData.Weapons[id], state);
             
+            buttonActionShop.OnSelectItem(itemPrefab);
+            
             this.PostEvent(EventID.OnSelectItem, itemPrefab);
         }
 
@@ -39,6 +43,7 @@ namespace _SDK.UI.Shop.WeaponShop
             {
                 _currentIndex = 0;
             }
+            
             InitItem(_currentIndex);
         }
         
@@ -49,6 +54,7 @@ namespace _SDK.UI.Shop.WeaponShop
             {
                 _currentIndex = itemShopData.Weapons.Count - 1;
             }
+            
             InitItem(_currentIndex);
         }
         

@@ -11,12 +11,12 @@ namespace _SDK.UI.Shop
         [SerializeField] private List<ItemShopData<HairType>> hairs;
         [SerializeField] private List<ItemShopData<PantType>> paints;
         [SerializeField] private List<ItemShopData<ShieldType>> shields;
-        [SerializeField] private List<ItemShopData<SetType>> sets;
+        [SerializeField] private List<ItemShopData<SetSkinType>> sets;
         
         public List<ItemShopData<WeaponType>> Weapons => weapons;
         public List<ItemShopData<HairType>> Hairs => hairs;
         public List<ItemShopData<PantType>> Paints => paints;
         public List<ItemShopData<ShieldType>> Shields => shields;
-        public List<ItemShopData<SetType>> Sets => sets;
+        public List<ItemShopData<SetSkinType>> Sets => sets;
     }
 }

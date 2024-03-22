@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Game.Scripts.Data;
 using _SDK.Observer.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _SDK.UI.Shop
 {
-    
-    
     public class ButtonActionShop : MonoBehaviour
     {
         #region Config
@@ -20,33 +19,29 @@ namespace _SDK.UI.Shop
         }
         
         [SerializeField] List<GameObject> stateViews;
-        
+        [SerializeField] private UnityEvent onReloadUIShop;
         
         private State _state;
         private ItemShop _currentItem;
-        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
-        private Action<object> _onSelectOtherItem;
-
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        
         #endregion
         
-        private void OnEnable()
-        {
-            _onSelectOtherItem = (param) => OnSelectSkinItem((ItemShop) param);
-            this.RegisterListener(EventID.OnSelectItem, _onSelectOtherItem);
-        }
-
-        private void OnDisable()
-        {
-            this.RegisterListener(EventID.OnSelectItem, _onSelectOtherItem);
-        }
-
-        private void OnSelectSkinItem(ItemShop item)
+        public void OnSelectItem(ItemShop item)
         {
             _currentItem = item;
-            SetState((State) item.CurrentState);
+            
+            if (_currentItem.IsEquipped())
+            {
+                SetState(State.Equipped);
+            }
+            else
+            {
+                SetState((State) _currentItem.CurrentState);
+            }
         }
-        
+
         private void SetState(State state)
         {
             _state = state;
@@ -74,22 +69,23 @@ namespace _SDK.UI.Shop
 
         private void BuyItem()
         {
-            int currentCoin = PlayerData.GetIntData(KeyData.Coin);
-            if(currentCoin < _currentItem.Cost)
+            if(PlayerData.Coin < _currentItem.Cost)
             {
                 return;
             }
 
-            PlayerData.SetIntData(KeyData.Coin, currentCoin - _currentItem.Cost);
+            PlayerData.Coin -= _currentItem.Cost;
             this.PostEvent(EventID.OnChangeCoin);
+            PlayerData.SetItemState(_currentItem.ItemType, _currentItem.Id, (int) ItemShop.State.Unlock);
             
             EquipItem();
         }
 
         private void EquipItem()
         {
-            _currentItem.OnEquip();
-            SetState((State) _currentItem.CurrentState);
+            SetState(State.Equipped);
+            PlayerData.SetItemEquipped(_currentItem.ItemType, _currentItem.Id);
+            onReloadUIShop?.Invoke();
         }
     }
 }
