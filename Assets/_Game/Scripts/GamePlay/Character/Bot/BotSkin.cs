@@ -5,9 +5,9 @@ namespace _Game.Scripts.GamePlay.Character.Bot
 {
     public class BotSkin : CharacterSkin
     {
-        public override void OnInit()
+        public override void OnInit(Base.Character character)
         {
-            base.OnInit();
+            base.OnInit(character);
             
             ChangeWeapon(Utilities.RandomEnumValue<WeaponType>());
             ChangeShield(Utilities.RandomEnumValue<ShieldType>());

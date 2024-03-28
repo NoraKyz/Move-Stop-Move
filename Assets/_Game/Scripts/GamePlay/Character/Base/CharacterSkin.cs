@@ -1,12 +1,12 @@
 ﻿using System;
 using _Game.Scripts.GamePlay.Skin.Base;
 using _Game.Scripts.Other.Utils;
+using _SDK.Pool.Scripts;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace _Game.Scripts.GamePlay.Character.Base
 {
-    public abstract class CharacterSkin : MonoBehaviour
+    public abstract class CharacterSkin : GameUnit
     {
         #region Config
         
@@ -15,6 +15,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] Transform rightHand;
         [SerializeField] Transform leftHand;
         [SerializeField] Renderer pant;
+        [SerializeField] private Animator anim;
 
         [Header("Config")] 
         [SerializeField] private SkinDataSO<Hair> hairData;
@@ -22,23 +23,31 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] private SkinDataSO<Shield> shieldData;
         [SerializeField] private SkinDataSO<Material> pantData;
         
+        
         private Weapon.Weapon _currentWeapon;
         private Shield _currentShield;
         private Hair _currentHair;
         
-        public UnityEvent<Weapon.Weapon> onWeaponChanged;
+        private string _currentAnimName;
+
+        protected Character owner;
+        private CharacterAttack _characterAttack;
         
         #endregion
 
-        public virtual void OnInit()
+        public virtual void OnInit(Character character)
         {
             TakeOffClothes();
+            
+            owner = character;
+            _characterAttack = character.CharacterAttack;
+            TF.localRotation = Quaternion.identity;
         }
 
         protected void ChangeWeapon(WeaponType weaponType)
         {
             _currentWeapon = Instantiate(weaponData.GetSkin((int)weaponType), rightHand);
-            onWeaponChanged.Invoke(_currentWeapon);
+            _characterAttack.SetWeapon(_currentWeapon);
         }
 
         protected void ChangeShield(ShieldType shieldType)
@@ -81,7 +90,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
             }
         }
         
-        private void DespawnPant()
+        protected void DespawnPant()
         {
             pant.materials = Array.Empty<Material>();
         }
@@ -100,6 +109,25 @@ namespace _Game.Scripts.GamePlay.Character.Base
             {
                 Destroy(_currentWeapon.gameObject);
             }
+        }
+        
+        public void LookAtTarget(Vector3 targetPos)
+        {
+            Vector3 lookPos = targetPos - TF.position;
+            lookPos.y = 0;
+            owner.TF.forward = lookPos.normalized;
+        }
+        
+        public void ChangeAnim(string animName)
+        {
+            if (_currentAnimName == animName)
+            { 
+                return;
+            }
+        
+            anim.ResetTrigger(animName);
+            _currentAnimName = animName;
+            anim.SetTrigger(animName);
         }
     }
 }

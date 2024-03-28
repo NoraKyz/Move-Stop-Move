@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using _Game.Scripts.Other.Utils;
 using _SDK.UI.Base;

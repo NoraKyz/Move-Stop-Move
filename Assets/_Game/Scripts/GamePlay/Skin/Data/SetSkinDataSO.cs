@@ -5,7 +5,7 @@ using UnityEngine;
 namespace _Game.Scripts.GamePlay.Skin.Data
 {
     [CreateAssetMenu(fileName = "SetSkinData", menuName = "Data/SetSkinData")]
-    public class SetSkinDataSO : SkinDataSO<Player>
+    public class SetSkinDataSO : SkinDataSO<PlayerSkin>
     {
         
     }

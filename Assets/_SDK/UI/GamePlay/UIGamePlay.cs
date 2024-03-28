@@ -22,6 +22,7 @@ namespace _SDK.UI.GamePlay
         
         private Action<object> _onCharacterDie;
         
+        public int Alive => _alive;
 
         #endregion
         

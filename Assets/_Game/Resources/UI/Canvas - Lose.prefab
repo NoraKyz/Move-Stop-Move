@@ -463,6 +463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
+  rankText: {fileID: 6787208442799537911}
+  killerName: {fileID: 4095190369442270285}
 --- !u!1 &1829982689380536722
 GameObject:
   m_ObjectHideFlags: 0

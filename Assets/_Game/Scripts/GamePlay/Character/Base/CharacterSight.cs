@@ -16,9 +16,11 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] private Character owner;
         [SerializeField] private float range;
         [SerializeField] private List<Character> enemiesInRange = new List<Character>();
-
+        
         private Action<object> _onCharacterDie;
         public List<Character> EnemiesInRange => enemiesInRange;
+        
+        public float Range => range;                                                                                       
         
         #endregion
 

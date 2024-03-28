@@ -1,4 +1,5 @@
 ﻿using _SDK.ServiceLocator.Scripts;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace _Game.Scripts.Data
 
             if (data != "")
             {
-                playerData = JsonUtility.FromJson<PlayerData>(data);
+                playerData = JsonConvert.DeserializeObject<PlayerData>(data);
             }
             else
             {
@@ -42,7 +43,7 @@ namespace _Game.Scripts.Data
 
         public void SaveData()
         {
-            string json = JsonUtility.ToJson(playerData);
+            string json = JsonConvert.SerializeObject(playerData);
             PlayerPrefs.SetString(PlayerDataKey, json);
         }
     }

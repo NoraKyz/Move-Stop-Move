@@ -1,8 +1,14 @@
 using System;
+using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Camera;
+using _Game.Scripts.GamePlay.Skin.Base;
+using _Game.Scripts.Other.Utils;
+using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.StateMachine;
 using _SDK.StateMachine.PlayerState;
+using _SDK.UI.Base;
+using _SDK.UI.GamePlay;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player
@@ -11,14 +17,25 @@ namespace _Game.Scripts.GamePlay.Character.Player
     {
         #region Config
         
-        public const string PlayerName = "You";
+        private const string PlayerName = "You";
         
         [Header("References")]
         [SerializeField] private PlayerMovement playerMovement;
         
+        [Header("Config")]
+        [SerializeField] protected SkinDataSO<PlayerSkin> skinData;
+        
         private StateMachine<Player> _stateMachine;
         
         public bool IsMoving => playerMovement.IsMoving;
+        
+        public string KillerName { get; private set; }
+        
+        public int Rank { get; private set; }
+        
+        private Action<object> _onCloseSkinShop;
+
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
         
         #endregion
 
@@ -26,16 +43,47 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             _stateMachine = new StateMachine<Player>(this);
         }
+        
+
+        private void OnEnable()
+        {
+            _onCloseSkinShop = (_) => SetCurrentSkin();
+            this.RegisterListener(EventID.OnCloseShop, _onCloseSkinShop);
+        }
+
+        private void OnDisable()
+        {
+            this.RemoveListener(EventID.OnCloseShop, _onCloseSkinShop);
+        }
 
         public override void OnInit()
         {
             base.OnInit();
             
             SetSize(MinSize);
+            SetName(PlayerName);
+            
+            SetCurrentSkin();
             
             playerMovement.OnInit();
-            targetIndicator.SetName(PlayerName);
             _stateMachine.ChangeState(new PlayerIdleState());
+        }
+        
+        private void SetCurrentSkin()
+        {
+            int currentSetSkinId = PlayerData.GetItemEquipped(ItemType.SetSkin); 
+            SetSkin((SetSkinType) currentSetSkinId);
+        }
+
+        public void SetSkin(SetSkinType setSkinType)
+        {
+            if (characterSkin != null)
+            {
+                Destroy(characterSkin.gameObject);
+            }
+                
+            characterSkin = Instantiate(skinData.GetSkin((int)setSkinType), TF);
+            characterSkin.OnInit(this);
         }
 
         private void Update()
@@ -43,10 +91,12 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _stateMachine.UpdateState(this);
         }
         
-        public override void OnHit(Action hitAction)
+        public override void OnHit(Action hitAction, Base.Character killer)
         {
-            base.OnHit(hitAction);
+            base.OnHit(hitAction, killer);
             
+            KillerName = killer.CharName;
+            Rank = UIManager.Ins.GetUI<UIGamePlay>().Alive + 1;
             ChangeState(new PlayerDieState());
         }
 

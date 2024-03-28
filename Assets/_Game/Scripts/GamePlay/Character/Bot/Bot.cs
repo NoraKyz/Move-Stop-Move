@@ -29,8 +29,10 @@ namespace _Game.Scripts.GamePlay.Character.Bot
         {
             base.OnInit();
             
+            SetName(NameUtilities.GetRandomName());
+            
+            characterSkin.OnInit(this);
             botMovement.OnInit();
-            targetIndicator.SetName(NameUtilities.GetRandomName());
             _stateMachine.ChangeState(new BotIdleState());
         }
 
@@ -38,11 +40,12 @@ namespace _Game.Scripts.GamePlay.Character.Bot
         {
             _stateMachine.UpdateState(this);
         }
-        
-        public override void OnHit(Action hitAction)
+
+        public override void OnHit(Action hitAction, Base.Character killer)
         {
-            base.OnHit(hitAction);
+            base.OnHit(hitAction, killer);
             
+            characterSkin.OnInit(this);
             ChangeState(new BotDieState());
         }
         

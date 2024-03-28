@@ -15,7 +15,7 @@ namespace _Game.Scripts.GamePlay.Weapon
         public void SpawnBullet(Character.Base.Character owner, Vector3 targetPos)
         {
             Bullet.Bullet newBullet = SimplePool.Spawn<Bullet.Bullet>(bulletType, TF.position, Quaternion.identity);
-            newBullet.OnInit(owner, targetPos, owner.Size);
+            newBullet.OnInit(owner, targetPos);
         }
 
         public void SetVisible(bool isVisible)

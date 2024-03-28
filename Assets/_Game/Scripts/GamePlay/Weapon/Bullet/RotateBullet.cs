@@ -20,6 +20,7 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
             
             Rotate();
         }
+        
         private void Rotate()
         {
             model.Rotate(Vector3.forward, -rotateSpeed * Time.deltaTime);

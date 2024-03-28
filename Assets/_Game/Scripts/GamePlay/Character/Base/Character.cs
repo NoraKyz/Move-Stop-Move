@@ -9,31 +9,31 @@ namespace _Game.Scripts.GamePlay.Character.Base
     public class Character : PoolUnit, IHit
     {
         #region Config
-        
-        public const float MinSize = 1f;
-        public const float MaxSize = 3f;
+
+        protected const float MinSize = 1f;
+        protected const float MaxSize = 3f;
 
         [Header("References")] 
-        [SerializeField] private CharacterAttack characterAttack;
-        [SerializeField] private CharacterModel characterModel;
-        [SerializeField] private CharacterSkin characterSkin;
-        [SerializeField] private CircleTargetIndicator circleTargetIndicator;
+        [SerializeField] protected CharacterAttack characterAttack;
+        [SerializeField] protected CharacterSkin characterSkin;
+        [SerializeField] protected CircleTargetIndicator circleTargetIndicator;
         [SerializeField] protected Transform targetIndicatorPos;
         
         [Header("Config")]  
         [SerializeField] private float size;
         [SerializeField] private int score;
+        [SerializeField] private string charName;
 
-        protected TargetIndicator targetIndicator;
+        private TargetIndicator _targetIndicator;
         
         public bool HasEnemyInRange => characterAttack.HasEnemyInRange;
         public bool IsAttackAble => characterAttack.IsAttackAble;
 
         public float Size => size;
-        
         public int Score => score;
-        
+        public string CharName => charName;
         public bool IsDie { get; private set; }
+        public CharacterAttack CharacterAttack => characterAttack;
         
         #endregion
 
@@ -41,18 +41,20 @@ namespace _Game.Scripts.GamePlay.Character.Base
         {
             IsDie = false;
             score = 0;
-            
+         
             characterAttack.OnInit();
-            characterModel.OnInit();
-            characterSkin.OnInit();
             circleTargetIndicator.OnInit();
-            
-            targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.Indicator);
-            targetIndicator.SetTarget(targetIndicatorPos);
+            _targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.Indicator);
+            _targetIndicator.SetTarget(targetIndicatorPos);
         }
         
-        public virtual void OnHit(Action hitAction)
+        public virtual void OnHit(Action hitAction, Character killer)
         {
+            if (IsDie)
+            {
+                return;
+            }
+            
             IsDie = true;
             hitAction?.Invoke();
             this.PostEvent(EventID.OnCharacterDie, this);
@@ -60,14 +62,14 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         public virtual void OnDespawn()
         {
-            SimplePool.Despawn(targetIndicator);
+            SimplePool.Despawn(_targetIndicator);
         }
 
-        protected virtual void SetSize(float value)
+        protected void SetName(string value)
         {
-            size = Mathf.Clamp(value, MinSize, MaxSize);
-            TF.localScale = Vector3.one * size;
-        }
+            charName = value;
+            _targetIndicator.SetName(charName);
+        }   
         
         public void AddScore(int amount = 1)
         {
@@ -78,17 +80,23 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public void SetScore(int value)
         {
             score = value > 0 ? value : 0;
-            targetIndicator.SetScore(score);
+            _targetIndicator.SetScore(score);
             SetSize(MinSize + score * 0.1f);
+        }
+        
+        protected virtual void SetSize(float value)
+        {
+            size = Mathf.Clamp(value, MinSize, MaxSize);
+            TF.localScale = Vector3.one * size;
         }
         
         public void Attack(Vector3 targetPos) => characterAttack.Attack(targetPos);
         
         public Character GetEnemy() => characterAttack.GetRandomEnemyInRange();
         
-        public void LookAtTarget(Vector3 target) => characterModel.LookAtTarget(target);
+        public void LookAtTarget(Vector3 target) => characterSkin.LookAtTarget(target);
         
-        public void ChangeAnim(string animName) => characterModel.ChangeAnim(animName);
+        public void ChangeAnim(string animName) => characterSkin.ChangeAnim(animName);
         
         public void SetCircleTargetIndicator(bool isVisible) => circleTargetIndicator.SetVisible(isVisible);
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Other.Utils;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace _Game.Scripts.Data
@@ -90,6 +91,7 @@ namespace _Game.Scripts.Data
 
         #region Equipment
 
+        [JsonProperty]
         private Dictionary<SlotType, int> _equippedItems = new ();
         
         public int GetItemEquipped(ItemType itemType)
@@ -107,6 +109,7 @@ namespace _Game.Scripts.Data
 
         #region Shopping
         
+        [JsonProperty]
         private Dictionary<ShopType, List<int>> _itemStates = new Dictionary<ShopType, List<int>>()
         {
             {ShopType.Weapon, new List<int>(){1,0,0}},

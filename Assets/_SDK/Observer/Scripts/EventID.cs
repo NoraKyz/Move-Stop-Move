@@ -4,8 +4,9 @@
     {
         None = 0,
         OnCharacterDie = 1,
-        OnSelectItem = 3,
-        OnCloseShop = 4,
-        OnChangeCoin = 6,
+        OnSelectItem = 2,
+        OnCloseShop = 3,
+        OnChangeCoin = 4,
+        OnChangeSetSkin = 5,
     }
 }

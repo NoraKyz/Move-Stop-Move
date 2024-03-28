@@ -23,5 +23,10 @@ namespace _SDK.UI.Revive
         {
             GameManager.ChangeState(GameState.Lose);
         }
+        
+        public void ReviveBtn()
+        {
+            
+        }
     }
 }

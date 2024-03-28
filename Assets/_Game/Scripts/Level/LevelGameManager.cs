@@ -8,7 +8,7 @@ namespace _Game.Scripts.Level
     public class LevelGameManager : GameService
     {
         private int _totalBots;
-    
+        
         public void SetUpLevel(Level level)
         {
             _totalBots = level.TotalBots;
@@ -30,7 +30,6 @@ namespace _Game.Scripts.Level
         public void BotDeath(Bot bot)
         {
             this.GetService<CharacterManager>().RemoveBot(bot);
-
             
             if (_totalBots > 0)
             {

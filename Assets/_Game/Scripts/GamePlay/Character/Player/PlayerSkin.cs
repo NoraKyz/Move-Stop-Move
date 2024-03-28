@@ -15,7 +15,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
 
         private Action<object> _onSelectSkinItem;
-        private Action<object> _onCloseSkinShop;
 
         #endregion
 
@@ -23,27 +22,23 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             _onSelectSkinItem = (param) => TrySkin((ItemShop) param);
             this.RegisterListener(EventID.OnSelectItem, _onSelectSkinItem);
-
-            _onCloseSkinShop = (_) => OnInit();
-            this.RegisterListener(EventID.OnCloseShop, _onCloseSkinShop);
         }
         
         private void OnDisable()
         {
             this.RemoveListener(EventID.OnSelectItem, _onSelectSkinItem);
-            this.RemoveListener(EventID.OnCloseShop, _onCloseSkinShop);
         }
         
-        public override void OnInit()
+        public override void OnInit(Base.Character character)
         {
-            base.OnInit();
+            base.OnInit(character);
             
             ChangeWeapon((WeaponType) PlayerData.GetItemEquipped(ItemType.Weapon));
             ChangeHair((HairType) PlayerData.GetItemEquipped(ItemType.Hair));
             ChangeShield((ShieldType) PlayerData.GetItemEquipped(ItemType.Shield));
             ChangePant((PantType) PlayerData.GetItemEquipped(ItemType.Pant));
         }
-
+        
         private void TrySkin(ItemShop item)
         {
             switch (item.ItemType)
@@ -61,7 +56,9 @@ namespace _Game.Scripts.GamePlay.Character.Player
                     ChangeShield((ShieldType) item.Id);
                     break;
                 case ItemType.SetSkin:
-                    // TODO: Change set skin
+                    DespawnWeapon();
+                    Player player = (Player) owner;
+                    player.SetSkin((SetSkinType) item.Id);
                     break;
                 case ItemType.Weapon:
                     DespawnWeapon();

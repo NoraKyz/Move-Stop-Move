@@ -1,4 +1,3 @@
-using System.Collections;
 using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
 using _SDK.Pool.Scripts;
@@ -10,28 +9,35 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
     public class Bullet : PoolUnit
     {
         #region Config
+        
+        private const float RangeCoefficient = 1.3f;
 
         [Header("Config")]
-        [SerializeField] private float moveSpeed;
+        [SerializeField] protected float moveSpeed;
+
+        [SerializeField] protected float range;
 
         private GamePlay.Character.Base.Character _owner;
         
-        private Vector3 _startPos;
-        private Vector3 _moveDirection;
+        protected Vector3 startPos;
+        protected Vector3 moveDirection;
         
         #endregion
 
         #region Init
 
-        public void OnInit(GamePlay.Character.Base.Character owner, Vector3 targetPos, float size)
+        public virtual void OnInit(GamePlay.Character.Base.Character owner, Vector3 targetPos)
         {
             _owner = owner;
             
-            _moveDirection = (targetPos - TF.position).normalized;
-            _moveDirection.y = 0;
+            startPos = TF.position;
+            moveDirection = (targetPos - TF.position).normalized;
+            moveDirection.y = 0;
             
-            TF.rotation = Quaternion.LookRotation(_moveDirection);
-            TF.localScale = Vector3.one * size;
+            TF.rotation = Quaternion.LookRotation(moveDirection);
+            TF.localScale = Vector3.one * owner.Size;
+            
+            range = Constants.DefaultAttackRange * owner.Size * RangeCoefficient;
         }
 
         #endregion
@@ -39,9 +45,11 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
         private void Update()
         {
             Move();
-            
-            // TODO: replace with distance check
-            StartCoroutine(CountDownDespawn());
+
+            if (CanDespawn())
+            {
+                Despawn();
+            }
         }
         
         private void OnTriggerEnter(Collider other)
@@ -52,29 +60,28 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
                 
                 if (hit != null && hit != (IHit) _owner)
                 {
-                    hit.OnHit(() =>
+                    hit.OnHit(() => 
                     {
                         _owner.AddScore();
-                    });
-                    OnDespawn();
+                    }, _owner);
+                    Despawn();
                 }
             }
         }
         
-        private void OnDespawn()
+        private void Despawn()
         {
             SimplePool.Despawn(this);
         }
         
-        private IEnumerator CountDownDespawn()
-        {
-            yield return new WaitForSeconds(Constants.TimeDespawnBullet);
-            OnDespawn();
-        }
-        
         protected virtual void Move()
         {
-            TF.position += _moveDirection * (moveSpeed * Time.deltaTime);
+            TF.position += moveDirection * (moveSpeed * Time.deltaTime);
+        }
+
+        protected virtual bool CanDespawn()
+        {
+            return Vector3.Distance(startPos, TF.position) >= range;
         }
     }
 }

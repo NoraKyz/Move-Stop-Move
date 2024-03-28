@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4400887073359251674}
   - component: {fileID: 671193954635593150}
-  - component: {fileID: 7384040555649707265}
+  - component: {fileID: 6453064472713773611}
   m_Layer: 8
   m_Name: BommerangBullet
   m_TagString: Untagged
@@ -47,7 +47,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.26
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7384040555649707265
+--- !u!114 &6453064472713773611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,11 +56,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4400887073359251676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73653f3eec8a420dbad5e9023eb7a9fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2bf9f172e34f009e5f76fa4eba0bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 5
   moveSpeed: 12
+  range: 0
   model: {fileID: 4222597460689861774}
   rotateSpeed: 1000
 --- !u!1001 &4400887072942971749
