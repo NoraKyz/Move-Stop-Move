@@ -21,7 +21,10 @@ namespace _SDK.UI.Revive
 
         public void CloseBtn()
         {
-            GameManager.ChangeState(GameState.Lose);
+            GameManager.ChangeState(GameState.Finish);
+            
+            CloseDirectly();
+            UIManager.Ins.OpenUI<UILose>();
         }
         
         public void ReviveBtn()

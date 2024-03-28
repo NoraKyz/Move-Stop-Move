@@ -11,7 +11,7 @@ namespace _Game.Scripts.Level
         
         public void SetUpLevel(Level level)
         {
-            _totalBots = level.TotalBots;
+            _totalBots = level.TotalBots + Constants.MaxBotOnMap;
             
             for(int i = 0; i < Constants.MaxBotOnMap; i++)
             {
@@ -23,7 +23,6 @@ namespace _Game.Scripts.Level
             }
             
             this.GetService<CharacterManager>().ResetPlayer();
-            
             this.GetService<CharacterManager>().SetTargetIndicatorAlpha(0f);
         }
         
@@ -35,7 +34,7 @@ namespace _Game.Scripts.Level
             {
                 _totalBots--;
                 this.GetService<CharacterManager>().NewBot();
-            }
+            } 
             else if (_totalBots == 0)
             {
                 Victory();

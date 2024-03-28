@@ -1702,6 +1702,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1233633942515024871, guid: 5702b1dc5d7f9454384e868ebd54ba4f, type: 3}
+      propertyPath: skinData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a6e522dcf9e6fb4baf2feba4d557d28, type: 2}
     - target: {fileID: 1233633942515024878, guid: 5702b1dc5d7f9454384e868ebd54ba4f, type: 3}
       propertyPath: m_IsTrigger
       value: 0

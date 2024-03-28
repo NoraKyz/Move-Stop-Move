@@ -4,6 +4,7 @@ using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace _SDK.UI.Shop
 {
@@ -20,6 +21,7 @@ namespace _SDK.UI.Shop
         
         [SerializeField] List<GameObject> stateViews;
         [SerializeField] private UnityEvent onReloadUIShop;
+        [SerializeField] private Text textCost;
         
         private State _state;
         private ItemShop _currentItem;
@@ -52,6 +54,11 @@ namespace _SDK.UI.Shop
         {
             stateViews.ForEach(view => view.SetActive(false));
             stateViews[(int) state].SetActive(true);
+            
+            if(state == State.Buy)
+            {
+                textCost.text = _currentItem.Cost.ToString();
+            }
         }
         
         public void OnClick()

@@ -45,7 +45,6 @@ namespace _Game.Scripts.GamePlay.Character.Bot
         {
             base.OnHit(hitAction, killer);
             
-            characterSkin.OnInit(this);
             ChangeState(new BotDieState());
         }
         

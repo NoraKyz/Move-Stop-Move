@@ -44,7 +44,10 @@ namespace _SDK.UI.Revive
                 _currentTime--;
             }
             
-            GameManager.ChangeState(GameState.Lose);
+            GameManager.ChangeState(GameState.Finish);
+            
+            UIManager.Ins.CloseUI<UIRevive>();
+            UIManager.Ins.OpenUI<UILose>();
         }
     }
 }

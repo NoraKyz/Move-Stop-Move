@@ -1,5 +1,7 @@
+using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.GamePlay.Character.Player;
+using _Game.Scripts.Level;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
@@ -24,12 +26,22 @@ namespace _SDK.UI
 
         public void OnClickContinueBtn()
         {
-            GameManager.ChangeState(GameState.MainMenu);
+            GoToMainMenu();
         }
 
         public void OnClickAdsBtn()
         {
+            GoToMainMenu();
+        }
+        
+        private void GoToMainMenu()
+        {
             GameManager.ChangeState(GameState.MainMenu);
+            
+            UIManager.Ins.CloseAll();
+            UIManager.Ins.OpenUI<UIMainMenu>();
+            PlayerData playerData = this.GetService<DataManager>().PlayerData;
+            this.GetService<LevelManager>().OnLoadLevel(playerData.Level);
         }
     }
 }

@@ -1,4 +1,7 @@
+using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Camera;
+using _Game.Scripts.GamePlay.Input;
+using _Game.Scripts.Level;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.Shop.SkinShop;
@@ -18,6 +21,10 @@ namespace _SDK.UI
         public void OnClickPlayBtn()
         {
             GameManager.ChangeState(GameState.GamePlay);
+            
+            UIManager.Ins.CloseAll();
+            UIManager.Ins.OpenUI<GamePlay.UIGamePlay>();
+            this.GetService<InputManager>().GetInputEntity();
         }
         
         public void OnClickWeaponShopBtn()

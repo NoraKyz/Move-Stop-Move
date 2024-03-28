@@ -9,12 +9,7 @@ namespace _SDK.UI.Base
 {
     public enum GameState
     {
-        MainMenu = 0,
-        GamePlay = 1,
-        Lose = 2,
-        Revive = 3,
-        Setting = 4,
-        Win = 5,
+        MainMenu, GamePlay, Finish, Revive, Setting
     }
     
     public class GameManager : Singleton<GameManager>
@@ -28,8 +23,6 @@ namespace _SDK.UI.Base
         public static void ChangeState(GameState state)
         {
             _gameState = state;
-            
-            Ins.OnChangedState(state);
         }
         
         public static bool IsState(GameState state) => _gameState == state;
@@ -60,52 +53,9 @@ namespace _SDK.UI.Base
         private void Start()
         {
             ChangeState(GameState.MainMenu);
-        }
-        
-        private void OnChangedState(GameState state)
-        {
-            switch (state)
-            {
-                case GameState.MainMenu:
-                    OnMainMenuState();
-                    break;
-                case GameState.GamePlay:
-                    OnGamePlayState();
-                    break;
-                case GameState.Revive:
-                    OnReviveState();
-                    break;
-                case GameState.Lose:
-                    OnLoseState();
-                    break;
-                case GameState.Setting:
-                    break;
-            }
-        }
-        
-        private void OnMainMenuState()
-        {
-            UIManager.Ins.CloseAll();
             UIManager.Ins.OpenUI<UIMainMenu>();
-            this.GetService<LevelManager>().OnLoadLevel(PlayerData.Level);
-        }
-        
-        private void OnGamePlayState()
-        {
-            UIManager.Ins.CloseAll();
-            UIManager.Ins.OpenUI<GamePlay.UIGamePlay>();
-            this.GetService<InputManager>().GetInputEntity();
-        }
-        
-        private void OnReviveState()
-        {
-            UIManager.Ins.OpenUI<Revive.UIRevive>();
-        }
-        
-        private void OnLoseState()
-        {
-            UIManager.Ins.CloseUI<Revive.UIRevive>();
-            UIManager.Ins.OpenUI<UILose>();
+            PlayerData playerData = this.GetService<DataManager>().PlayerData;
+            this.GetService<LevelManager>().OnLoadLevel(playerData.Level);
         }
     }
 }

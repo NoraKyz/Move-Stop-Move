@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
 using _SDK.UI.Base;
+using _SDK.UI.Revive;
 using UnityEngine;
 
 namespace _SDK.StateMachine.PlayerState
@@ -45,7 +46,9 @@ namespace _SDK.StateMachine.PlayerState
             _isDespawn = true;
             
             player.OnDespawn();
+            
             GameManager.ChangeState(GameState.Revive);
+            UIManager.Ins.OpenUI<UIRevive>();
         }
     }
 }

@@ -7,6 +7,5 @@
         OnSelectItem = 2,
         OnCloseShop = 3,
         OnChangeCoin = 4,
-        OnChangeSetSkin = 5,
     }
 }

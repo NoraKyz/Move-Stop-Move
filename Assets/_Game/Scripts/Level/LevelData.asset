@@ -15,3 +15,7 @@ MonoBehaviour:
   levels:
   - mapId: 0
     totalBots: 19
+  - mapId: 0
+    totalBots: 49
+  - mapId: 0
+    totalBots: 49
