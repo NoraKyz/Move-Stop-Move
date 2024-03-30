@@ -29,9 +29,10 @@ namespace _Game.Scripts.GamePlay.Character.Base
         private Hair _currentHair;
         
         private string _currentAnimName;
+        
+        private CharacterAttack _characterAttack;
 
         protected Character owner;
-        private CharacterAttack _characterAttack;
         
         #endregion
 
@@ -41,7 +42,16 @@ namespace _Game.Scripts.GamePlay.Character.Base
             
             owner = character;
             _characterAttack = character.CharacterAttack;
+            // reset rotation
             TF.localRotation = Quaternion.identity;
+        }
+        
+        private void TakeOffClothes()
+        {
+            DespawnHair();
+            DespawnPant();
+            DespawnShield();
+            DespawnWeapon();
         }
 
         protected void ChangeWeapon(WeaponType weaponType)
@@ -72,14 +82,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
             {
                 pant.material = pantData.GetSkin((int) pantType);
             }
-        }
-
-        private void TakeOffClothes()
-        {
-            DespawnHair();
-            DespawnPant();
-            DespawnShield();
-            DespawnWeapon();
         }
 
         protected void DespawnHair()

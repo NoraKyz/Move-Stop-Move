@@ -1,10 +1,11 @@
 using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
 using _SDK.Pool.Scripts;
+using _SDK.UI.Base;
 using _SDK.Utils;
 using UnityEngine;
 
-namespace _Game.Scripts.GamePlay.Weapon.Bullet
+namespace _Game.Scripts.GamePlay.Bullet
 {
     public class Bullet : PoolUnit
     {
@@ -31,19 +32,24 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
             _owner = owner;
             
             startPos = TF.position;
-            moveDirection = (targetPos - TF.position).normalized;
+            moveDirection = (targetPos - startPos).normalized;
             moveDirection.y = 0;
+            
+            range = Constants.DefaultAttackRange * owner.Size * RangeCoefficient;
             
             TF.rotation = Quaternion.LookRotation(moveDirection);
             TF.localScale = Vector3.one * owner.Size;
-            
-            range = Constants.DefaultAttackRange * owner.Size * RangeCoefficient;
         }
 
         #endregion
 
         private void Update()
         {
+            if (GameManager.IsState(GameState.GamePlay) == false)
+            {
+                return;
+            }
+            
             Move();
 
             if (CanDespawn())
@@ -63,7 +69,9 @@ namespace _Game.Scripts.GamePlay.Weapon.Bullet
                     hit.OnHit(() => 
                     {
                         _owner.AddScore();
+                        ParticlePool.Play(ParticleType.Hit, TF.position);
                     }, _owner);
+                    
                     Despawn();
                 }
             }

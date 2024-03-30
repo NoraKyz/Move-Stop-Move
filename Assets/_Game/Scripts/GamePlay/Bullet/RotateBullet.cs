@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace _Game.Scripts.GamePlay.Weapon.Bullet
+namespace _Game.Scripts.GamePlay.Bullet
 {
-    public class RotateBullet : Bullet
+    public class RotateBullet : GamePlay.Bullet.Bullet
     {
         #region Config
         

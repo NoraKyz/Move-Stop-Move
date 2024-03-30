@@ -51,6 +51,7 @@ namespace _Game.Scripts.GamePlay.Character.Bot
         public override void OnDespawn()
         {
             base.OnDespawn();
+            
             SimplePool.Despawn(this);
         }
         

@@ -7,8 +7,8 @@ using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.StateMachine;
 using _SDK.StateMachine.PlayerState;
+using _SDK.UI;
 using _SDK.UI.Base;
-using _SDK.UI.GamePlay;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player
@@ -25,17 +25,15 @@ namespace _Game.Scripts.GamePlay.Character.Player
         [Header("Config")]
         [SerializeField] protected SkinDataSO<PlayerSkin> skinData;
         
+        private SetSkinType _currentSkinType;
         private StateMachine<Player> _stateMachine;
+        private Action<object> _onCloseSkinShop;
+        
+        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
         
         public bool IsMoving => playerMovement.IsMoving;
-        
         public string KillerName { get; private set; }
-        
         public int Rank { get; private set; }
-        
-        private Action<object> _onCloseSkinShop;
-
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
         
         #endregion
 
@@ -44,7 +42,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _stateMachine = new StateMachine<Player>(this);
         }
         
-
         private void OnEnable()
         {
             _onCloseSkinShop = (_) => SetCurrentSkin();
@@ -62,7 +59,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
             
             SetSize(MinSize);
             SetName(PlayerName);
-            
             SetCurrentSkin();
             
             playerMovement.OnInit();
@@ -71,7 +67,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         
         private void SetCurrentSkin()
         {
-            int currentSetSkinId = PlayerData.GetItemEquipped(ItemType.SetSkin); 
+            int currentSetSkinId = PlayerData.GetItemEquipped(ItemType.SetSkin);
             SetSkin((SetSkinType) currentSetSkinId);
         }
 
@@ -79,9 +75,16 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             if (characterSkin != null)
             {
+                if (_currentSkinType == setSkinType)
+                {
+                    return;
+                }
+                
                 Destroy(characterSkin.gameObject);
             }
-                
+            
+            _currentSkinType = setSkinType;
+            
             characterSkin = Instantiate(skinData.GetSkin((int)setSkinType), TF);
             characterSkin.OnInit(this);
         }
@@ -100,9 +103,17 @@ namespace _Game.Scripts.GamePlay.Character.Player
             ChangeState(new PlayerDieState());
         }
 
+        public override void AddScore(int amount = 1)
+        {
+            base.AddScore(amount);
+            
+            ParticlePool.Play(ParticleType.Uplevel, TF.position);
+        }
+
         protected override void SetSize(float value)
         {
             base.SetSize(value);
+            
             this.GetService<CameraFollower>().SetRateOffset((Size - MinSize) / (MaxSize - MinSize));
         }
 

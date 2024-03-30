@@ -62,10 +62,5 @@ namespace _Game.Scripts.GamePlay.Camera
             _targetOffset = offsets[(int)state].localPosition;
             _targetRotate = offsets[(int)state].localRotation;
         }
-
-        public void SetTarget(Transform nTarget)
-        {
-            target = nTarget;
-        }
     }
 }

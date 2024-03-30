@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Game.Scripts.GamePlay.Weapon.Bullet
+namespace _Game.Scripts.GamePlay.Bullet
 {
     public class BoomerangBullet : RotateBullet
     {

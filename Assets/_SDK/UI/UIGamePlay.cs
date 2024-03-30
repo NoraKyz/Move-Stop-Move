@@ -8,7 +8,7 @@ using _SDK.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _SDK.UI.GamePlay
+namespace _SDK.UI
 {
     public class UIGamePlay : UICanvas
     {
@@ -52,6 +52,7 @@ namespace _SDK.UI.GamePlay
         public override void CloseDirectly()
         {
             base.CloseDirectly();
+            
             this.GetService<CharacterManager>().SetTargetIndicatorAlpha(0f);
         }
 
@@ -73,8 +74,13 @@ namespace _SDK.UI.GamePlay
 
         private int GetAlive()
         {
-            Level currentLevel = this.GetService<LevelManager>().CurrentLevel;
-            return currentLevel.TotalBots + 1;
+            return this.GetService<LevelGameManager>().TotalBotsAlive + 1;
+        }
+        
+        public void OnClickSetting()
+        {
+            UIManager.Ins.OpenUI<UISetting>();
+            CloseDirectly();
         }
     }
 }

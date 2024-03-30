@@ -16,13 +16,11 @@ namespace _Game.Scripts.Data
         private void OnApplicationPause(bool pause)
         {
             SaveData();
-            //FirebaseManager.Ins.OnSetUserProperty();
         }
 
         private void OnApplicationQuit()
         {
             SaveData();
-            //FirebaseManager.Ins.OnSetUserProperty();
         }
 
         public void LoadData()
@@ -37,8 +35,6 @@ namespace _Game.Scripts.Data
             {
                 playerData = new PlayerData();
             }
-            
-            //FirebaseManager.Ins.OnSetUserProperty();
         }
 
         public void SaveData()

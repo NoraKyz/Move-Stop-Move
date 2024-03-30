@@ -8,7 +8,7 @@ namespace _SDK.StateMachine.BotState
 {
     public class BotDieState : IState<Bot>
     {
-        private const float DespawnTime = 3f;
+        private const float DespawnTime = 1.5f;
         
         private float _timer;
         private bool _isDespawn;

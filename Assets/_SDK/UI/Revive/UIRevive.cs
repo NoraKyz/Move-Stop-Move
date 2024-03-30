@@ -1,4 +1,7 @@
-﻿using _SDK.UI.Base;
+﻿using _Game.Scripts.GamePlay.Character;
+using _Game.Scripts.GamePlay.Character.Player;
+using _SDK.ServiceLocator.Scripts;
+using _SDK.UI.Base;
 using UnityEngine;
 
 namespace _SDK.UI.Revive
@@ -29,7 +32,10 @@ namespace _SDK.UI.Revive
         
         public void ReviveBtn()
         {
+            GameManager.ChangeState(GameState.GamePlay);
+            this.GetService<CharacterManager>().ResetPlayer();
             
+            CloseDirectly();
         }
     }
 }

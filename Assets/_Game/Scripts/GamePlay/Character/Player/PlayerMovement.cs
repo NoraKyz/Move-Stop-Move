@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Input;
 using _SDK.Pool.Scripts;
 using _SDK.ServiceLocator.Scripts;
+using _SDK.UI;
 using _SDK.UI.Base;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -25,7 +26,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private InputManager _inputManager;
         
         public bool IsMoving => _moveDirection != Vector3.zero;
-        public Vector3 MoveDirection => _moveDirection;
 
         #endregion
 
@@ -41,13 +41,14 @@ namespace _Game.Scripts.GamePlay.Character.Player
 
         private void Update()
         {
-            if (!GameManager.IsState(GameState.GamePlay))
+            if (GameManager.IsState(GameState.GamePlay) == false)
             {
                 return;
             }
             
             GetInput();
         }
+        
         private void GetInput()
         {
             if (_inputManager.HasInput())
@@ -61,6 +62,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
                 _moveDirection = Vector3.zero;
             }
         }
+        
         private void GetDirectionFromInput()
         {
             _moveDirection.Set(_inputManager.HorizontalAxis, 0, _inputManager.VerticalAxis);
@@ -69,16 +71,19 @@ namespace _Game.Scripts.GamePlay.Character.Player
         
         private void OnStartMove()
         {
-            if(_isStartMove == false)
+            if (_isStartMove)
             {
-                _isStartMove = true;
-                UIManager.Ins.GetUI<_SDK.UI.GamePlay.UIGamePlay>().SetTutorial(false);
+                return;
             }
+            
+            _isStartMove = true;
+            UIManager.Ins.GetUI<UIGamePlay>().SetTutorial(false);
         }
         
         public void Move()
         {
-            rb.velocity = _moveDirection * moveSpeed;            
+            rb.velocity = _moveDirection * moveSpeed;  
+            
             if(_moveDirection != Vector3.zero)
             {
                 TF.forward = _moveDirection;

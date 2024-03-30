@@ -2,22 +2,28 @@ using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.GamePlay.Character.Bot;
 using _Game.Scripts.Other.Utils;
 using _SDK.ServiceLocator.Scripts;
+using _SDK.UI;
+using _SDK.UI.Base;
 
 namespace _Game.Scripts.Level
 {
     public class LevelGameManager : GameService
     {
-        private int _totalBots;
+        private int _totalBotsAlive;
+        private int _totalBotsValid;
+        
+        public int TotalBotsAlive => _totalBotsAlive;
         
         public void SetUpLevel(Level level)
         {
-            _totalBots = level.TotalBots + Constants.MaxBotOnMap;
+            _totalBotsAlive = level.TotalBots;
+            _totalBotsValid = level.TotalBots;
             
             for(int i = 0; i < Constants.MaxBotOnMap; i++)
             {
-                if (_totalBots > 0)
+                if (_totalBotsValid > 0)
                 {
-                    _totalBots--;
+                    _totalBotsValid--;
                     this.GetService<CharacterManager>().NewBot();
                 }
             }
@@ -30,12 +36,15 @@ namespace _Game.Scripts.Level
         {
             this.GetService<CharacterManager>().RemoveBot(bot);
             
-            if (_totalBots > 0)
+            if (_totalBotsValid > 0)
             {
-                _totalBots--;
+                _totalBotsValid--;
                 this.GetService<CharacterManager>().NewBot();
-            } 
-            else if (_totalBots == 0)
+            }
+
+            _totalBotsAlive--;
+            
+            if (_totalBotsAlive == 0)
             {
                 Victory();
             }   
@@ -43,7 +52,8 @@ namespace _Game.Scripts.Level
 
         private void Victory()
         {
-            
+            GameManager.ChangeState(GameState.Finish);
+            UIManager.Ins.OpenUI<UIVictory>();
         }
     }
 }

@@ -11,13 +11,10 @@ namespace _Game.Scripts.GamePlay.Character
 
         [Header("References")]
         [SerializeField] private Player.Player player;
-        [SerializeField] private List<Bot.Bot> bots = new List<Bot.Bot>();
+        [SerializeField] private List<Bot.Bot> listBots = new List<Bot.Bot>();
 
-        public Player.Player Player
-        {
-            get => player;
-            set => player = value;
-        }
+        public Player.Player Player => player;
+        public List<Bot.Bot> ListBots => listBots;
         
         private Map.Map _currentMap;
 
@@ -34,18 +31,18 @@ namespace _Game.Scripts.GamePlay.Character
             bot.OnInit();
             bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
             
-            bots.Add(bot);
+            listBots.Add(bot);
         }
         
-        public void RemoveBot(Bot.Bot bot) => bots.Remove(bot);
+        public void RemoveBot(Bot.Bot bot) => listBots.Remove(bot);
         
-        public void ClearAll()
+        public void ClearAllCharacter()
         {
-            for (int i = 0; i < bots.Count; i++)
+            for (int i = 0; i < listBots.Count; i++)
             {
-                if (bots[i] != null)
+                if (listBots[i] != null)
                 {
-                    bots[i].OnDespawn();
+                    listBots[i].OnDespawn();
                 }
             }
             

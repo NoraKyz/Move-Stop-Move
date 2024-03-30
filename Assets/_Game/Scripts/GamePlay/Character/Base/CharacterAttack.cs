@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using _SDK.UI.Base;
+using _SDK.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,6 +8,8 @@ namespace _Game.Scripts.GamePlay.Character.Base
 {
     public class CharacterAttack : MonoBehaviour
     {
+        private const float AttackCoolDown = 1.5f;
+        
         #region Config
 
         [Header("References")] 
@@ -15,9 +18,9 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] private Weapon.Weapon currentWeapon;
 
         private bool _isAttackAble;
+        private CountDownTimer _countDownTimer = new();
         private List<Character> EnemiesInRange => characterSight.EnemiesInRange;
         
-        protected Coroutine resetAttackCoroutine;
         
         public bool IsAttackAble => _isAttackAble;
         public bool HasEnemyInRange => EnemiesInRange.Count > 0;
@@ -29,6 +32,16 @@ namespace _Game.Scripts.GamePlay.Character.Base
             _isAttackAble = true;
             
             characterSight.OnInit();
+        }
+
+        private void Update()
+        {
+            if (GameManager.IsState(GameState.GamePlay) == false)
+            {
+                return;
+            }
+            
+            _countDownTimer.Execute();
         }
 
         public void SetWeapon(Weapon.Weapon weapon)
@@ -45,18 +58,18 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public void Attack(Vector3 targetPos)
         {
             currentWeapon.SpawnBullet(owner, targetPos);
-            resetAttackCoroutine = StartCoroutine(ResetAttack());
+            ResetAttack();
         }
 
-        private IEnumerator ResetAttack()
+        private void ResetAttack()
         {
             _isAttackAble = false;
             currentWeapon.SetVisible(false);
             
-            yield return new WaitForSeconds(1.5f);
-
-            _isAttackAble = true;
-            currentWeapon.SetVisible(true);
+            _countDownTimer.Start(() => {
+                _isAttackAble = true;
+                currentWeapon.SetVisible(true);
+            }, AttackCoolDown);
         }
     }
 }

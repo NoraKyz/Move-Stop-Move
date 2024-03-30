@@ -32,15 +32,15 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public float Size => size;
         public int Score => score;
         public string CharName => charName;
-        public bool IsDie { get; private set; }
         public CharacterAttack CharacterAttack => characterAttack;
+        public bool IsDie { get; private set; }
         
         #endregion
 
         public virtual void OnInit()
         {
-            IsDie = false;
             score = 0;
+            IsDie = false;
          
             characterAttack.OnInit();
             circleTargetIndicator.OnInit();
@@ -71,10 +71,9 @@ namespace _Game.Scripts.GamePlay.Character.Base
             _targetIndicator.SetName(charName);
         }   
         
-        public void AddScore(int amount = 1)
+        public virtual void AddScore(int amount = 1)
         {
             SetScore(score + amount);
-            //ParticlePool.Play(Utilities.RandomInMember(ParticleType.LevelUp_1, ParticleType.LevelUp_2, ParticleType.LevelUp_3), TF.position);
         }
 
         public void SetScore(int value)

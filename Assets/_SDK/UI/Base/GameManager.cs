@@ -55,7 +55,7 @@ namespace _SDK.UI.Base
             ChangeState(GameState.MainMenu);
             UIManager.Ins.OpenUI<UIMainMenu>();
             PlayerData playerData = this.GetService<DataManager>().PlayerData;
-            this.GetService<LevelManager>().OnLoadLevel(playerData.Level);
+            this.GetService<LevelManager>().LoadLevel(playerData.Level);
         }
     }
 }

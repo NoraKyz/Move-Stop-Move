@@ -1,4 +1,5 @@
-﻿using _Game.Scripts.GamePlay.Character;
+﻿using _Game.Scripts.Data;
+using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.GamePlay.Map;
 using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
@@ -21,12 +22,12 @@ namespace _Game.Scripts.Level
 
         #endregion
         
-        public void OnLoadLevel(int levelId)
+        public void LoadLevel(int levelId)
         {
             if (_currentMap != null)
             {
                 Destroy(_currentMap.gameObject);
-                this.GetService<CharacterManager>().ClearAll();
+                this.GetService<CharacterManager>().ClearAllCharacter();
             }
             
             _currentLevel = levelData.GetLevel(levelId);
@@ -34,6 +35,13 @@ namespace _Game.Scripts.Level
             
             this.GetService<CharacterManager>().SetMap(_currentMap);
             this.GetService<LevelGameManager>().SetUpLevel(_currentLevel);
+        }
+        
+        public void LoadNextLevel()
+        {
+            PlayerData playerData = this.GetService<DataManager>().PlayerData;
+            playerData.Level++;
+            LoadLevel(playerData.Level);
         }
     }
 }
