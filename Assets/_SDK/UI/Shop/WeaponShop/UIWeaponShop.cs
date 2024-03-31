@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
+using _Game.Scripts.Setting.Sound;
 using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
@@ -46,6 +47,7 @@ namespace _SDK.UI.Shop.WeaponShop
             }
             
             InitItem(_currentIndex);
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
         
         public void OnClickBackBtn()
@@ -57,13 +59,15 @@ namespace _SDK.UI.Shop.WeaponShop
             }
             
             InitItem(_currentIndex);
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
         
         public void OnClickCloseBtn()
         {
             CloseDirectly();
-            this.PostEvent(EventID.OnCloseShop);
             UIManager.Ins.OpenUI<UIMainMenu>();
+            this.PostEvent(EventID.OnCloseShop);
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
     }
 }

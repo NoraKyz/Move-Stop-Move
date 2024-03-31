@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
+using _Game.Scripts.Setting.Sound;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Utils;
 
@@ -32,6 +33,7 @@ namespace _SDK.UI.MainMenu
         {
             PlayerData.IsSound = 1;
             SetState(SettingState.On);
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
         
         private void TurnOffSound()

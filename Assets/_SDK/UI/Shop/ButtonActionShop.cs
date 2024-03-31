@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Data;
+using _Game.Scripts.Setting.Sound;
 using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
@@ -72,6 +73,8 @@ namespace _SDK.UI.Shop
                     EquipItem();
                     break;
             }
+            
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
 
         private void BuyItem()

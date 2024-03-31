@@ -10,7 +10,7 @@ namespace _Game.Scripts.Setting.Vibrate
 
         public void Vibrate()
         {
-            if (PlayerData.IsVibrate == 0)
+            if (PlayerData.IsVibrate == 0 && SystemInfo.supportsVibration)
             {
                 return;
             }

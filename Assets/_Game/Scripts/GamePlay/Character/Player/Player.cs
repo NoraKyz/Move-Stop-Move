@@ -76,17 +76,18 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             if (characterSkin != null)
             {
-                if (_currentSkinType == setSkinType)
+                if (_currentSkinType != setSkinType)
                 {
-                    return;
+                    Destroy(characterSkin.gameObject);
+                    characterSkin = Instantiate(skinData.GetSkin((int)setSkinType), TF);
                 }
-                
-                Destroy(characterSkin.gameObject);
+            }
+            else
+            {
+                characterSkin = Instantiate(skinData.GetSkin((int)setSkinType), TF);
             }
             
             _currentSkinType = setSkinType;
-            
-            characterSkin = Instantiate(skinData.GetSkin((int)setSkinType), TF);
             characterSkin.OnInit(this);
         }
 

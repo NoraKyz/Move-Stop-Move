@@ -35,12 +35,14 @@ namespace _SDK.UI
         {
             UpdateCoins(Constants.CoinPerGame);
             GoToMainMenu();
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
 
         public void OnClickAdsBtn()
         {
             UpdateCoins(Constants.CoinPerGame * 3);
             GoToMainMenu();
+            this.GetService<SoundManager>().Play(SoundType.ClickButton);
         }
         
         private void GoToMainMenu()

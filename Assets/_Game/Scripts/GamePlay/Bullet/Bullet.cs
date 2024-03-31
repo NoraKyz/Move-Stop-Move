@@ -34,16 +34,17 @@ namespace _Game.Scripts.GamePlay.Bullet
         {
             _owner = owner;
             
+            // Set hướng bay
             startPos = TF.position;
             moveDirection = (targetPos - startPos).normalized;
             moveDirection.y = 0;
             
+            // Set tầm bay
             range = Constants.DefaultAttackRange * owner.Size * RangeCoefficient;
             
+            // Set Model
             TF.rotation = Quaternion.LookRotation(moveDirection);
             TF.localScale = Vector3.one * owner.Size;
-            
-            
         }
 
         #endregion
