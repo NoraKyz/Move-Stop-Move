@@ -1,5 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
+using _Game.Scripts.Setting.Sound;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.Revive;
 using UnityEngine;
@@ -19,6 +21,8 @@ namespace _SDK.StateMachine.PlayerState
             _isDespawn = false;
 
             player.ChangeAnim(AnimName.Die);
+            
+            player.GetService<SoundManager>().Play(SoundType.Dead);
         }
         
         public void OnExecute(Player bot)

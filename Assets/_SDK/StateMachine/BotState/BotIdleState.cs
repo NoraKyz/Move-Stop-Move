@@ -20,16 +20,16 @@ namespace _SDK.StateMachine.BotState
 
         public void OnExecute(Bot bot)
         {
-            if (GameManager.IsState(GameState.GamePlay) == false)
-            {
-                return;
-            }
-            
             _timer += Time.deltaTime;
             
             if (_timer >= _idleTime)
             {
                 bot.ChangeState(new BotPatrolState());
+            }
+            
+            if (GameManager.IsState(GameState.GamePlay) == false)
+            {
+                return;
             }
             
             if (bot.HasEnemyInRange && bot.IsAttackAble)

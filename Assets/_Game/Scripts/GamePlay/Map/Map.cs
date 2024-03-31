@@ -11,6 +11,7 @@ namespace _Game.Scripts.GamePlay.Map
     {
         private const float MinDistance = 8f;
         
+        [SerializeField] private float maxDistance;
         [SerializeField] private List<Transform> spawnPoints;
         
         private CharacterManager CharacterManager => this.GetService<CharacterManager>();
@@ -26,6 +27,11 @@ namespace _Game.Scripts.GamePlay.Map
 #endif
 
         public Vector3 GetRandomPos()
+        {
+            return Utilities.GetRandomPosOnNavMesh(Vector3.zero, maxDistance);
+        }
+        
+        public Vector3 GetRandomSpawnPos()
         {
             for (int i = 0; i < spawnPoints.Count; i++)
             {

@@ -26,7 +26,7 @@ namespace _Game.Scripts.GamePlay.Character
         
         public void NewBot()
         {
-            Bot.Bot bot = SimplePool.Spawn<Bot.Bot>(PoolType.Bot, _currentMap.GetRandomPos(), Quaternion.identity);
+            Bot.Bot bot = SimplePool.Spawn<Bot.Bot>(PoolType.Bot, _currentMap.GetRandomSpawnPos(), Quaternion.identity);
             
             bot.OnInit();
             bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);

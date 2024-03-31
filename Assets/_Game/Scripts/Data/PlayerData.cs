@@ -10,33 +10,33 @@ namespace _Game.Scripts.Data
     public class PlayerData
     {
         [Header("--------- Game Setting ---------")]
-        [SerializeField] private bool isNew = true;
-        [SerializeField] private bool isSound = true;
-        [SerializeField] private bool isVibrate = true;
-        [SerializeField] private bool isNoAds = false;
+        [SerializeField] private int isNew = 1;
+        [SerializeField] private int isSound = 1;
+        [SerializeField] private int isVibrate = 1;
+        [SerializeField] private int isNoAds = 0;
         [SerializeField] private float volumeSound = 80f;
 
         #region Getter/Setter Game Setting
 
-        public bool IsNew
+        public int IsNew
         {
             get => isNew;
             set => isNew = value;
         }
         
-        public bool IsSound
+        public int IsSound
         {
             get => isSound;
             set => isSound = value;
         }
         
-        public bool IsVibrate
+        public int IsVibrate
         {
             get => isVibrate;
             set => isVibrate = value;
         }
         
-        public bool IsNoAds
+        public int IsNoAds
         {
             get => isNoAds;
             set => isNoAds = value;

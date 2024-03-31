@@ -3,6 +3,7 @@ using _Game.Scripts.GamePlay.Map;
 using _Game.Scripts.Level;
 using _Game.Scripts.Other.Utils;
 using _SDK.ServiceLocator.Scripts;
+using _SDK.UI.Base;
 using UnityEngine;
 
 namespace _SDK.StateMachine.BotState
@@ -32,6 +33,11 @@ namespace _SDK.StateMachine.BotState
             if (bot.IsDestination)
             {
                 bot.ChangeState(new BotIdleState());
+            }
+            
+            if (GameManager.IsState(GameState.GamePlay) == false)
+            {
+                return;
             }
             
             if (bot.HasEnemyInRange && _attackIfEnemyInRange)

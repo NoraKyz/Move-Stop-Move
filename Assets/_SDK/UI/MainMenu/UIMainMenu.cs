@@ -1,21 +1,19 @@
-using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Camera;
 using _Game.Scripts.GamePlay.Input;
-using _Game.Scripts.Level;
-using _Game.Scripts.Sound;
+using _Game.Scripts.Setting.Sound;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.Shop.SkinShop;
 using _SDK.UI.Shop.WeaponShop;
 
-namespace _SDK.UI
+namespace _SDK.UI.MainMenu
 {
     public class UIMainMenu : UICanvas
     {
         public override void Open()
         {
             base.Open();
-            
+
             this.GetService<CameraFollower>().ChangeState(CameraFollower.State.MainMenu);
         }
 

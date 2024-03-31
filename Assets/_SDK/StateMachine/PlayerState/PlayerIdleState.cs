@@ -13,7 +13,7 @@ namespace _SDK.StateMachine.PlayerState
 
         public void OnExecute(Player player)
         {
-            if (player.IsMoving)
+            if (player.IsMoving && GameManager.IsState(GameState.GamePlay))
             {
                 player.ChangeState(new PlayerRunState());
             }

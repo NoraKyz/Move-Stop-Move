@@ -1,6 +1,9 @@
+using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
+using _Game.Scripts.Setting.Sound;
 using _SDK.Pool.Scripts;
+using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.Utils;
 using UnityEngine;
@@ -39,6 +42,8 @@ namespace _Game.Scripts.GamePlay.Bullet
             
             TF.rotation = Quaternion.LookRotation(moveDirection);
             TF.localScale = Vector3.one * owner.Size;
+            
+            
         }
 
         #endregion
@@ -70,6 +75,13 @@ namespace _Game.Scripts.GamePlay.Bullet
                     {
                         _owner.AddScore();
                         ParticlePool.Play(ParticleType.Hit, TF.position);
+                        
+                        // Nếu là đạn của Player thì mới phát âm thanh
+                        if (_owner == this.GetService<CharacterManager>().Player)
+                        {
+                            this.GetService<SoundManager>().Play(SoundType.WeaponHit);
+                        }
+                        
                     }, _owner);
                     
                     Despawn();

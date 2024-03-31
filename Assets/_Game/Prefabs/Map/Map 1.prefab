@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6491b783f1c41b9a3ac33802043697d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDistance: 50
   spawnPoints:
   - {fileID: 6354695566003004248}
   - {fileID: 3701267975984269007}

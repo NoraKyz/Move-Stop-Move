@@ -3,6 +3,7 @@ using _Game.Scripts.Other.Utils;
 using _SDK.Observer.Scripts;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
+using _SDK.UI.MainMenu;
 using UnityEngine;
 
 namespace _SDK.UI.Shop.WeaponShop

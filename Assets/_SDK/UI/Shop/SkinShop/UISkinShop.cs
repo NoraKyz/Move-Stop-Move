@@ -1,5 +1,6 @@
 ﻿using _SDK.Observer.Scripts;
 using _SDK.UI.Base;
+using _SDK.UI.MainMenu;
 using UnityEngine;
 
 namespace _SDK.UI.Shop.SkinShop

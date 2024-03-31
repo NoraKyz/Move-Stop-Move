@@ -3,8 +3,10 @@ using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Level;
 using _Game.Scripts.Other.Utils;
+using _Game.Scripts.Setting.Sound;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
+using _SDK.UI.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +21,8 @@ namespace _SDK.UI
         public override void Open()
         {
             base.Open();
+            
+            this.GetService<SoundManager>().Play(SoundType.Lose);
             
             Player player = this.GetService<CharacterManager>().Player;
     

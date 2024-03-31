@@ -102,4 +102,10 @@
         Shield = ItemType.Shield,
         SetSkin = ItemType.SetSkin,
     }
+    
+    public enum SettingState
+    {
+        Off = 0,
+        On = 1
+    }
 }

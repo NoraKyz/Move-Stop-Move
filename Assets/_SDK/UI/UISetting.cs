@@ -2,6 +2,7 @@ using _Game.Scripts.Data;
 using _Game.Scripts.Level;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
+using _SDK.UI.MainMenu;
 
 namespace _SDK.UI
 {

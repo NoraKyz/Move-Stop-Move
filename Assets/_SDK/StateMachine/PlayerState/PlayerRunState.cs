@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
+using _SDK.UI.Base;
 
 namespace _SDK.StateMachine.PlayerState
 {
@@ -12,7 +13,7 @@ namespace _SDK.StateMachine.PlayerState
 
         public void OnExecute(Player player)
         {
-            if (player.IsMoving == false)
+            if (player.IsMoving == false || GameManager.IsState(GameState.GamePlay) == false)
             {
                 player.ChangeState(new PlayerIdleState());
             }

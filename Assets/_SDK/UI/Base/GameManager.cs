@@ -3,6 +3,7 @@ using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Level;
 using _SDK.ServiceLocator.Scripts;
 using _SDK.Singleton;
+using _SDK.UI.MainMenu;
 using UnityEngine;
 
 namespace _SDK.UI.Base
