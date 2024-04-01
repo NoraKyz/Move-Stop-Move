@@ -25,7 +25,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         
         private InputManager _inputManager;
         
-        public bool IsMoving => _moveDirection != Vector3.zero;
+        public bool IsMoving => Vector3.Distance(_moveDirection, Vector3.zero) > 0.01f;
 
         #endregion
 
@@ -43,6 +43,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             if (GameManager.IsState(GameState.GamePlay) == false)
             {
+                _moveDirection = Vector3.zero;  
                 return;
             }
             

@@ -11,7 +11,7 @@ namespace _Game.Scripts.Level
     {
         private int _totalBotsAlive;
         private int _totalBotsValid;
-        
+
         public int TotalBotsAlive => _totalBotsAlive;
         
         public void SetUpLevel(Level level)

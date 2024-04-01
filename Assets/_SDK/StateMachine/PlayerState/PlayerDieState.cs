@@ -21,7 +21,6 @@ namespace _SDK.StateMachine.PlayerState
             _isDespawn = false;
 
             player.ChangeAnim(AnimName.Die);
-            
             player.GetService<SoundManager>().Play(SoundType.Dead);
         }
         
@@ -51,7 +50,6 @@ namespace _SDK.StateMachine.PlayerState
             
             player.OnDespawn();
             
-            GameManager.ChangeState(GameState.Revive);
             UIManager.Ins.OpenUI<UIRevive>();
         }
     }

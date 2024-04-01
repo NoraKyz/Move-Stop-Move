@@ -21,6 +21,7 @@ namespace _SDK.UI
         private int _alive;
         
         private Action<object> _onCharacterDie;
+        private Action<object> _onPlayerRevive;
         
         public int Alive => _alive;
 
@@ -30,11 +31,14 @@ namespace _SDK.UI
         {
             _onCharacterDie = _ => OnCharacterDie();
             this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
+            _onPlayerRevive = _ => OnPlayerRevive();
+            this.RegisterListener(EventID.OnPlayerRevive, _onPlayerRevive);
         }
         
         private void OnDisable()
         {
             this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
+            this.RemoveListener(EventID.OnPlayerRevive, _onPlayerRevive);
         }
         
         public override void Open()
@@ -54,6 +58,12 @@ namespace _SDK.UI
             base.CloseDirectly();
             
             this.GetService<CharacterManager>().SetTargetIndicatorAlpha(0f);
+        }
+        
+        public void OnPlayerRevive()
+        {
+            _alive++;
+            SetAliveText(_alive);
         }
 
         private void OnCharacterDie()

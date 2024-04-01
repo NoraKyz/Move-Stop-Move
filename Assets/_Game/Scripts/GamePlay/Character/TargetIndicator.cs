@@ -4,6 +4,7 @@ using _SDK.UI.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.GamePlay.Character
 {
@@ -34,7 +35,7 @@ namespace _Game.Scripts.GamePlay.Character
         private bool IsInCamera => _viewPoint.x > _viewPointInCameraX.x && _viewPoint.x < _viewPointInCameraX.y && _viewPoint.y > _viewPointInCameraY.x && _viewPoint.y < _viewPointInCameraY.y;
 
         private Player.Player _player;
-        
+
         private void LateUpdate()
         {
             _viewPoint = Camera.WorldToViewportPoint(_target.position);

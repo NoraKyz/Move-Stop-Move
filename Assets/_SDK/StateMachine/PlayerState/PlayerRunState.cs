@@ -1,6 +1,7 @@
 ﻿using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Other.Utils;
 using _SDK.UI.Base;
+using UnityEngine;
 
 namespace _SDK.StateMachine.PlayerState
 {

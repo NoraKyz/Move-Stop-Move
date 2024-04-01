@@ -13,17 +13,20 @@ namespace _SDK.StateMachine.PlayerState
 
         public void OnExecute(Player player)
         {
-            if (player.IsMoving && GameManager.IsState(GameState.GamePlay))
+            if (GameManager.IsState(GameState.GamePlay) == false)
+            {
+                return;
+            }
+                
+            
+            if (player.IsMoving)
             {
                 player.ChangeState(new PlayerRunState());
             }
 
-            if (GameManager.IsState(GameState.GamePlay))
+            if (player.HasEnemyInRange && player.IsAttackAble)
             {
-                if (player.HasEnemyInRange && player.IsAttackAble)
-                {
-                    player.ChangeState(new PlayerAttackState());
-                }
+                player.ChangeState(new PlayerAttackState());
             }
         }
 
