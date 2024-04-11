@@ -22,8 +22,16 @@ namespace _Game.Scripts.GamePlay.Character
         #endregion
         
         public void SetMap(Map.Map map) => _currentMap = map;
-        
-        public void ResetPlayer() => player.OnInit();
+
+        public void ResetPlayer(bool isRevive = false)
+        {
+            player.OnInit();
+            
+            if (isRevive)
+            {
+                player.TF.position = _currentMap.GetRandomSpawnPos();
+            }
+        }
         
         public void NewBot()
         {

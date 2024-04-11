@@ -38,7 +38,7 @@ namespace _SDK.UI.Revive
             CloseDirectly();
             OnPlayerRevive?.Invoke();
             GameManager.ChangeState(GameState.GamePlay);
-            CharacterManager.Ins.ResetPlayer();
+            CharacterManager.Ins.ResetPlayer(true);
             SoundManager.Ins.Play(SoundType.ClickButton);
         }
     }
