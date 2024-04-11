@@ -1,40 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using _SDK.Observer.Scripts;
+﻿using System.Collections.Generic;
 using _SDK.Pool.Scripts;
-using _SDK.ServiceLocator.Scripts;
+using _SDK.Singleton;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.GamePlay.Character
 {
-    public class CharacterManager : GameService
+    public class CharacterManager : Singleton<CharacterManager>
     {
         #region Config
 
         [Header("References")]
         [SerializeField] private Player.Player player;
-        [SerializeField] private List<Bot.Bot> listBots = new List<Bot.Bot>();
+        [SerializeField] private List<Bot.Bot> listBots = new ();
 
         public Player.Player Player => player;
         public List<Bot.Bot> ListBots => listBots;
         
         private Map.Map _currentMap;
-        
-        private Action<object> _onPlayerRevive;
 
         #endregion
-        
-        private void OnEnable()
-        {
-            _onPlayerRevive = _ => ResetPlayer();
-            this.RegisterListener(EventID.OnPlayerRevive, _onPlayerRevive);
-        }
-        
-        private void OnDisable()
-        {
-            this.RemoveListener(EventID.OnPlayerRevive, _onPlayerRevive);
-        }
         
         public void SetMap(Map.Map map) => _currentMap = map;
         
@@ -45,7 +30,7 @@ namespace _Game.Scripts.GamePlay.Character
             Bot.Bot bot = SimplePool.Spawn<Bot.Bot>(PoolType.Bot, _currentMap.GetRandomSpawnPos(), Quaternion.identity);
             
             bot.OnInit();
-            bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 7, player.Score + 7) : 1);
+            bot.SetScore(player.Score > 0 ? Random.Range(player.Score - 4, player.Score + 4) : 1);
             
             listBots.Add(bot);
         }

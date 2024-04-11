@@ -1,5 +1,4 @@
 using _SDK.Pool.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using TMPro;
 using UnityEngine;
@@ -61,7 +60,7 @@ namespace _Game.Scripts.GamePlay.Character
         {
             if (_player == null)
             {
-                _player = this.GetService<CharacterManager>().Player;
+                _player = CharacterManager.Ins.Player;
             }
             
             SetScore(0);

@@ -1,7 +1,6 @@
-﻿using _Game.Scripts.GamePlay.Character;
+﻿using System;
+using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.Setting.Sound;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using UnityEngine;
 
@@ -9,6 +8,8 @@ namespace _SDK.UI.Revive
 {
     public class UIRevive : UICanvas
     {
+        public static event Action OnPlayerRevive;
+        
         #region Config
 
         [Header("References")]
@@ -21,6 +22,7 @@ namespace _SDK.UI.Revive
             base.Open();
             
             timer.OnInit();
+            UIManager.Ins.CloseUI<UISetting>();
         }
 
         public void CloseBtn()
@@ -28,15 +30,16 @@ namespace _SDK.UI.Revive
             CloseDirectly();
             GameManager.ChangeState(GameState.Finish);
             UIManager.Ins.OpenUI<UILose>();
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         public void ReviveBtn()
         {
             CloseDirectly();
+            OnPlayerRevive?.Invoke();
             GameManager.ChangeState(GameState.GamePlay);
-            this.PostEvent(EventID.OnPlayerRevive);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            CharacterManager.Ins.ResetPlayer();
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
     }
 }

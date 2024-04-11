@@ -1,14 +1,13 @@
 ﻿using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
 using _Game.Scripts.Setting.Sound;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Utils;
 
 namespace _SDK.UI.MainMenu
 {
     public class SoundButton : ToggleMultipleButton<SettingState>
     {
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         protected override void OnSetup()
         {
@@ -33,7 +32,7 @@ namespace _SDK.UI.MainMenu
         {
             PlayerData.IsSound = 1;
             SetState(SettingState.On);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         private void TurnOffSound()

@@ -4,7 +4,6 @@ using _Game.Scripts.GamePlay.Character.Player;
 using _Game.Scripts.Level;
 using _Game.Scripts.Other.Utils;
 using _Game.Scripts.Setting.Sound;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.MainMenu;
 using UnityEngine;
@@ -22,43 +21,42 @@ namespace _SDK.UI
         {
             base.Open();
             
-            this.GetService<SoundManager>().Play(SoundType.Lose);
+            SoundManager.Ins.Play(SoundType.Lose);
             
-            Player player = this.GetService<CharacterManager>().Player;
+            Player player = CharacterManager.Ins.Player;
     
             rankText.text = "#" + player.Rank;
             killerName.text = player.KillerName;
-            coinsGetText.text = Constants.CoinPerGame.ToString();
+            coinsGetText.text = Constants.COIN_PER_GAME.ToString();
         }
 
         public void OnClickContinueBtn()
         {
-            UpdateCoins(Constants.CoinPerGame);
+            UpdateCoins(Constants.COIN_PER_GAME);
             GoToMainMenu();
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
 
         public void OnClickAdsBtn()
         {
-            UpdateCoins(Constants.CoinPerGame * 3);
+            UpdateCoins(Constants.COIN_PER_GAME * 3);
             GoToMainMenu();
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         private void GoToMainMenu()
         {
             GameManager.ChangeState(GameState.MainMenu);
-            
             UIManager.Ins.CloseAll();
             UIManager.Ins.OpenUI<UIMainMenu>();
             
-            PlayerData playerData = this.GetService<DataManager>().PlayerData;
-            this.GetService<LevelManager>().LoadLevel(playerData.Level);
+            PlayerData playerData = DataManager.Ins.PlayerData;
+            LevelManager.Ins.LoadLevel(playerData.Level);
         }
         
         private void UpdateCoins(int value)
         {
-            PlayerData playerData = this.GetService<DataManager>().PlayerData;
+            PlayerData playerData = DataManager.Ins.PlayerData;
             playerData.Coin += value;
         }
     }

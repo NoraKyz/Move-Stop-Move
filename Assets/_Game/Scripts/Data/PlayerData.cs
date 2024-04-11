@@ -9,20 +9,16 @@ namespace _Game.Scripts.Data
     [Serializable]
     public class PlayerData
     {
+        public static event Action<int> OnCoinChanged; 
+        
         [Header("--------- Game Setting ---------")]
-        [SerializeField] private int isNew = 1;
+        //[SerializeField] private int isNew = 1;
         [SerializeField] private int isSound = 1;
         [SerializeField] private int isVibrate = 1;
         [SerializeField] private int isNoAds = 0;
-        [SerializeField] private float volumeSound = 80f;
+        //[SerializeField] private float volumeSound = 80f;
 
         #region Getter/Setter Game Setting
-
-        public int IsNew
-        {
-            get => isNew;
-            set => isNew = value;
-        }
         
         public int IsSound
         {
@@ -40,12 +36,6 @@ namespace _Game.Scripts.Data
         {
             get => isNoAds;
             set => isNoAds = value;
-        }
-        
-        public float VolumeSound
-        {
-            get => volumeSound;
-            set => volumeSound = value;
         }
 
         #endregion
@@ -74,7 +64,7 @@ namespace _Game.Scripts.Data
         [SerializeField] private int coin;
         
         #region Getter/Setter Game Params
-        
+
         public int Level
         {
             get => level;
@@ -84,7 +74,13 @@ namespace _Game.Scripts.Data
         public int Coin
         {
             get => coin;
-            set => coin = value;
+            set => SetCoin(value);
+        }
+        
+        private void SetCoin(int value)
+        {
+            coin = value;
+            OnCoinChanged?.Invoke(coin);
         }
         
         #endregion
@@ -138,6 +134,5 @@ namespace _Game.Scripts.Data
         }
 
         #endregion
-
     }
 }

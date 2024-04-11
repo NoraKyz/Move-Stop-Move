@@ -1,6 +1,5 @@
 using System;
 using _Game.Scripts.Interface;
-using _SDK.Observer.Scripts;
 using _SDK.Pool.Scripts;
 using UnityEngine;
 
@@ -9,9 +8,10 @@ namespace _Game.Scripts.GamePlay.Character.Base
     public class Character : PoolUnit, IHit
     {
         #region Config
+        public static event Action<Character> OnDeathAction;
 
-        protected const float MinSize = 1f;
-        protected const float MaxSize = 3f;
+        protected const float MIN_SIZE = 1f;
+        protected const float MAX_SIZE = 3f;
 
         [Header("References")] 
         [SerializeField] protected CharacterAttack characterAttack;
@@ -25,6 +25,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         [SerializeField] private string charName;
 
         private TargetIndicator _targetIndicator;
+
         
         public bool HasEnemyInRange => characterAttack.HasEnemyInRange;
         public bool IsAttackAble => characterAttack.IsAttackAble;
@@ -32,7 +33,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
         public float Size => size;
         public int Score => score;
         public string CharName => charName;
-        public CharacterAttack CharacterAttack => characterAttack;
         public bool IsDie { get; private set; }
         
         #endregion
@@ -44,25 +44,22 @@ namespace _Game.Scripts.GamePlay.Character.Base
          
             characterAttack.OnInit();
             circleTargetIndicator.OnInit();
+            
+            // Init target indicator
             _targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.Indicator);
             _targetIndicator.SetTarget(targetIndicatorPos);
         }
-        
-        public virtual void OnHit(Action hitAction, Character killer)
+
+        public virtual void OnHit()
         {
-            if (IsDie)
-            {
-                return;
-            }
-            
             IsDie = true;
-            hitAction?.Invoke();
-            this.PostEvent(EventID.OnCharacterDie, this);
+            OnDeathAction?.Invoke(this);
         }
 
         public virtual void OnDespawn()
         {
             SimplePool.Despawn(_targetIndicator);
+            characterSkin.OnDespawn();
         }
 
         protected void SetName(string value)
@@ -80,23 +77,43 @@ namespace _Game.Scripts.GamePlay.Character.Base
         {
             score = value > 0 ? value : 0;
             _targetIndicator.SetScore(score);
-            SetSize(MinSize + score * 0.1f);
+            SetSize(MIN_SIZE + score * 0.1f);
         }
         
         protected virtual void SetSize(float value)
         {
-            size = Mathf.Clamp(value, MinSize, MaxSize);
+            size = Mathf.Clamp(value, MIN_SIZE, MAX_SIZE);
             TF.localScale = Vector3.one * size;
         }
+
+        public void Attack(Vector3 targetPos)
+        {
+            characterAttack.Attack(targetPos);
+        }
+
+        public Character GetEnemy()
+        {
+            return characterAttack.GetEnemyNearest();
+        }
         
-        public void Attack(Vector3 targetPos) => characterAttack.Attack(targetPos);
-        
-        public Character GetEnemy() => characterAttack.GetRandomEnemyInRange();
-        
-        public void LookAtTarget(Vector3 target) => characterSkin.LookAtTarget(target);
-        
-        public void ChangeAnim(string animName) => characterSkin.ChangeAnim(animName);
-        
-        public void SetCircleTargetIndicator(bool isVisible) => circleTargetIndicator.SetVisible(isVisible);
+        public void SetWeapon(Weapon.Weapon currentWeapon)
+        {
+            characterAttack.SetWeapon(currentWeapon);
+        }
+
+        public void LookAtTarget(Vector3 target)
+        {
+            characterSkin.LookAtTarget(target);
+        }
+
+        public void ChangeAnim(string animName)
+        {
+            characterSkin.ChangeAnim(animName);
+        }
+
+        public void SetCircleTargetIndicator(bool isVisible)
+        {
+            circleTargetIndicator.SetVisible(isVisible);
+        }
     }
 }

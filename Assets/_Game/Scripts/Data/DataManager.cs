@@ -1,11 +1,11 @@
-﻿using _SDK.ServiceLocator.Scripts;
+﻿using _SDK.Singleton;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
 namespace _Game.Scripts.Data
 {
-    public class DataManager : GameService
+    public class DataManager : Singleton<DataManager>
     {
         private const string PlayerDataKey = "PlayerData";
 

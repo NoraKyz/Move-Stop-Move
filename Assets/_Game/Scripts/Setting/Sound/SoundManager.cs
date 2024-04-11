@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Data;
-using _SDK.ServiceLocator.Scripts;
+using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.Setting.Sound
 {
-    public class SoundManager : GameService
+    public class SoundManager : Singleton<SoundManager>
     {
          [Header("References")]
          [SerializeField] private AudioSource audioSource;
@@ -15,7 +15,7 @@ namespace _Game.Scripts.Setting.Sound
         
          private Dictionary<SoundType, SoundData> _sounds = new();
          
-         private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+         private PlayerData PlayerData => DataManager.Ins.PlayerData;
 
          private void Awake()
          {

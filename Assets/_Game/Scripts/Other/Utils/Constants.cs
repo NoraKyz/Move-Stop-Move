@@ -1,27 +1,26 @@
 ﻿namespace _Game.Scripts.Other.Utils
 {
-    public static class Constants
+    public class Constants
     {
-        public const int TimeToRevive = 5;
-        public const float DefaultAttackRange = 5f;
-        public const int MaxBotOnMap = 8;
-        public const float TimeDespawnBullet = 2f;
-        public const int CoinPerGame = 100;
+        public const int TIME_TO_REVIVE = 5;
+        public const float DEFAULT_ATTACK_RANGE = 5f;
+        public const int MAX_BOT_ON_MAP = 8;
+        public const int COIN_PER_GAME = 100;
     }
     
-    public static class AnimName
+    public class AnimName
     {
-        public const string Idle = "Idle";
-        public const string Run = "Run";
-        public const string Attack = "Attack";
-        public const string Die = "Die";
-        public const string Win = "Win";
-        public const string Dance = "Dance";
+        public const string IDLE = "Idle";
+        public const string RUN = "Run";
+        public const string ATTACK = "Attack";
+        public const string ANIM_DIE = "Die";
+        public const string WIN = "Win";
+        public const string DANCE = "Dance";
     }
     
-    public static class TagName
+    public class TagName
     {
-        public const string Character = "Character";
+        public const string CHARACTER = "Character";
     }
 
     public enum HairType

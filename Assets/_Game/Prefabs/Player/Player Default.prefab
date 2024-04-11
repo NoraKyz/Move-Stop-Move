@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 1233633942051342395}
   - component: {fileID: 1233633942051342393}
   - component: {fileID: 1233633942051342392}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

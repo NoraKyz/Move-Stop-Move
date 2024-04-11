@@ -1,7 +1,6 @@
 ﻿using System;
 using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
-using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,8 +15,8 @@ namespace _SDK.UI.Shop
         }
         
         [SerializeField] protected Image imageItem;
-        
-        protected PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
  
         public ItemType ItemType { get; private set; }
         public Enum Id { get; private set; }

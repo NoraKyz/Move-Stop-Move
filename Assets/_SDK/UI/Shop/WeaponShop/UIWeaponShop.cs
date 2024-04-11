@@ -1,8 +1,7 @@
-﻿using _Game.Scripts.Data;
+﻿using System;
+using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
 using _Game.Scripts.Setting.Sound;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.MainMenu;
 using UnityEngine;
@@ -11,12 +10,15 @@ namespace _SDK.UI.Shop.WeaponShop
 {
     public class UIWeaponShop : UICanvas
     {
+        public static event Action OnCloseWeaponShop;
+        public static event Action<ItemShop> OnSelectedItemShopWeapon; 
+        
         [SerializeField] private ItemWeaponShop itemPrefab;
         [SerializeField] private ButtonActionShop buttonActionShop;
        
         [SerializeField] private ItemShopDataSO itemShopData;
         
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         private int _currentIndex;
 
@@ -35,7 +37,7 @@ namespace _SDK.UI.Shop.WeaponShop
             
             buttonActionShop.OnSelectItem(itemPrefab);
             
-            this.PostEvent(EventID.OnSelectItem, itemPrefab);
+            OnSelectedItemShopWeapon?.Invoke(itemPrefab);
         }
 
         public void OnClickNextBtn()
@@ -47,7 +49,7 @@ namespace _SDK.UI.Shop.WeaponShop
             }
             
             InitItem(_currentIndex);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         public void OnClickBackBtn()
@@ -59,15 +61,15 @@ namespace _SDK.UI.Shop.WeaponShop
             }
             
             InitItem(_currentIndex);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         public void OnClickCloseBtn()
         {
             CloseDirectly();
+            OnCloseWeaponShop?.Invoke();
             UIManager.Ins.OpenUI<UIMainMenu>();
-            this.PostEvent(EventID.OnCloseShop);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
     }
 }

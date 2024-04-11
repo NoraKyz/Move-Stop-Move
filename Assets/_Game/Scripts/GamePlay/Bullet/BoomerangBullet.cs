@@ -36,12 +36,7 @@ namespace _Game.Scripts.GamePlay.Bullet
 
         protected override bool CanDespawn()
         {
-            if(Vector3.Distance(startPos, TF.position) <= 0.1f && _isReturning)
-            {
-                return true;
-            }
-
-            return false;
+            return Vector3.Distance(startPos, TF.position) <= 0.1f && _isReturning;
         }
     }
 }

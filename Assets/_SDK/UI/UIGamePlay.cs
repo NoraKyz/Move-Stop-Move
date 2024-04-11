@@ -1,10 +1,9 @@
-using System;
 using _Game.Scripts.GamePlay.Camera;
 using _Game.Scripts.GamePlay.Character;
+using _Game.Scripts.GamePlay.Character.Base;
 using _Game.Scripts.Level;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
+using _SDK.UI.Revive;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,44 +19,32 @@ namespace _SDK.UI
         
         private int _alive;
         
-        private Action<object> _onCharacterDie;
-        private Action<object> _onPlayerRevive;
-        
         public int Alive => _alive;
 
         #endregion
-        
-        private void OnEnable()
-        {
-            _onCharacterDie = _ => OnCharacterDie();
-            this.RegisterListener(EventID.OnCharacterDie, _onCharacterDie);
-            _onPlayerRevive = _ => OnPlayerRevive();
-            this.RegisterListener(EventID.OnPlayerRevive, _onPlayerRevive);
-        }
-        
-        private void OnDisable()
-        {
-            this.RemoveListener(EventID.OnCharacterDie, _onCharacterDie);
-            this.RemoveListener(EventID.OnPlayerRevive, _onPlayerRevive);
-        }
         
         public override void Open()
         {
             base.Open();
             
-            this.GetService<CameraFollower>().ChangeState(CameraFollower.State.Gameplay);
-            this.GetService<CharacterManager>().SetTargetIndicatorAlpha(1f);
+            CameraFollower.Ins.ChangeState(CameraFollower.State.Gameplay);
+            CharacterManager.Ins.SetTargetIndicatorAlpha(1f);
             
             _alive = GetAlive();
             SetAliveText(_alive);
             SetTutorial(true);
+            
+            Character.OnDeathAction += OnCharacterDie;
+            UIRevive.OnPlayerRevive += OnPlayerRevive;
         }
 
         public override void CloseDirectly()
         {
             base.CloseDirectly();
             
-            this.GetService<CharacterManager>().SetTargetIndicatorAlpha(0f);
+            CharacterManager.Ins.SetTargetIndicatorAlpha(0f);
+            Character.OnDeathAction -= OnCharacterDie;
+            UIRevive.OnPlayerRevive -= OnPlayerRevive;
         }
         
         public void OnPlayerRevive()
@@ -66,7 +53,7 @@ namespace _SDK.UI
             SetAliveText(_alive);
         }
 
-        private void OnCharacterDie()
+        private void OnCharacterDie(Character character)
         {
             _alive--;
             SetAliveText(_alive);
@@ -84,7 +71,7 @@ namespace _SDK.UI
 
         private int GetAlive()
         {
-            return this.GetService<LevelGameManager>().TotalBotsAlive + 1;
+            return LevelGameManager.Ins.TotalBotsAlive + 1;
         }
         
         public void OnClickSetting()

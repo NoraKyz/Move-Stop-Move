@@ -1,7 +1,6 @@
 using _Game.Scripts.GamePlay.Camera;
 using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Setting.Sound;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.UI.Shop.SkinShop;
 using _SDK.UI.Shop.WeaponShop;
@@ -14,7 +13,7 @@ namespace _SDK.UI.MainMenu
         {
             base.Open();
 
-            this.GetService<CameraFollower>().ChangeState(CameraFollower.State.MainMenu);
+            CameraFollower.Ins.ChangeState(CameraFollower.State.MainMenu);
         }
 
         public void OnClickPlayBtn()
@@ -23,23 +22,23 @@ namespace _SDK.UI.MainMenu
             
             UIManager.Ins.CloseAll();
             UIManager.Ins.OpenUI<UIGamePlay>();
-            this.GetService<InputManager>().GetInputEntity();
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            InputManager.Ins.GetInputEntity();
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         public void OnClickWeaponShopBtn()
         {
             CloseDirectly();
             UIManager.Ins.OpenUI<UIWeaponShop>();
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
         
         public void OnClickSkinShopBtn()
         {
             CloseDirectly();
             UIManager.Ins.OpenUI<UISkinShop>();
-            this.GetService<CameraFollower>().ChangeState(CameraFollower.State.Shop);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            CameraFollower.Ins.ChangeState(CameraFollower.State.Shop);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
     }
 }

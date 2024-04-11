@@ -10,27 +10,16 @@
             _owner = owner;
         }
 
-        public void ChangeState<TState>(TState state) where TState : IState<T>
+        public void ChangeState(IState<T> state)
         {
-            if (_currentState != null)
-            {
-                _currentState.OnExit(_owner);
-            }
-
+            _currentState?.OnExit(_owner);
             _currentState = state;
-
-            if (_currentState != null)
-            {
-                _currentState.OnEnter(_owner);
-            }
+            _currentState?.OnEnter(_owner);
         }
 
         public void UpdateState(T owner)
         {
-            if (_currentState != null)
-            {
-                _currentState.OnExecute(owner);
-            }
+                _currentState?.OnExecute(owner);
         }
     }
 }

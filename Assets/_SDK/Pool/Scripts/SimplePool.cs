@@ -173,7 +173,7 @@ namespace _SDK.Pool.Scripts
                 poolTypes.Add(prefab.poolType, prefab);
             }
 
-            if (prefab == null)
+            if (prefab is null)
             {
                 Debug.LogError(parent.name + " : IS EMPTY!!!");
                 return;

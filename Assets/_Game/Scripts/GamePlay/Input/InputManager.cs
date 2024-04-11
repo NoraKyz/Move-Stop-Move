@@ -1,9 +1,9 @@
-using _SDK.ServiceLocator.Scripts;
+using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Input
 {
-    public class InputManager : GameService
+    public class InputManager : Singleton<InputManager>
     {
         #region Config
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.Other.Utils;
-using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,17 +8,17 @@ namespace _Game.Scripts.GamePlay.Map
 {
     public class Map : MonoBehaviour
     {
-        private const float MinDistance = 8f;
+        private const float MIN_DISTANCE = 8f;
         
         [SerializeField] private float maxDistance;
         [SerializeField] private List<Transform> spawnPoints;
         
-        private CharacterManager CharacterManager => this.GetService<CharacterManager>();
-
+        private CharacterManager CharacterManager => CharacterManager.Ins;
+        
 #if UNITY_EDITOR
         private void Awake()
         {
-            if (spawnPoints.Count < Constants.MaxBotOnMap)
+            if (spawnPoints.Count < Constants.MAX_BOT_ON_MAP)
             {
                 Debug.LogWarning("Not enough spawn points for bots");
             }
@@ -46,25 +45,22 @@ namespace _Game.Scripts.GamePlay.Map
         
         private bool HasEnemyNear(Vector3 pos)
         {
-            if (IsNear(pos, CharacterManager.Player.TF.position))
-            {
-                return true;
-            }
+            bool isNear = IsNear(pos, CharacterManager.Player.TF.position);
             
-            for(int i = 0; i < CharacterManager.ListBots.Count; i++)
+            for (int i = 0; i < CharacterManager.ListBots.Count; i++)
             {
                 if (IsNear(pos, CharacterManager.ListBots[i].TF.position))
                 {
-                    return true;
+                    isNear = true;
                 }
             }
 
-            return false;
+            return isNear;
         }
         
         private bool IsNear(Vector3 pos1, Vector3 pos2)
         {
-            return Vector3.Distance(pos1, pos2) < MinDistance;
+            return Vector3.Distance(pos1, pos2) < MIN_DISTANCE;
         }
     }
 }

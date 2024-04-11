@@ -1,12 +1,11 @@
 ﻿using _Game.Scripts.Data;
-using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _SDK.UI.MainMenu
 {
     public class RemoveAdsButton : MonoBehaviour
     {
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         private void OnEnable()
         {

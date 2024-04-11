@@ -1,7 +1,5 @@
 ﻿using _Game.Scripts.Data;
-using _Game.Scripts.GamePlay.Input;
 using _Game.Scripts.Level;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.Singleton;
 using _SDK.UI.MainMenu;
 using UnityEngine;
@@ -15,8 +13,6 @@ namespace _SDK.UI.Base
     
     public class GameManager : Singleton<GameManager>
     {
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
-        
         //[SerializeField] CSVData csv;
         
         private static GameState _gameState;
@@ -48,15 +44,14 @@ namespace _SDK.UI.Base
             }
             
             //csv.OnInit();
-            this.GetService<DataManager>().LoadData();
+            DataManager.Ins.LoadData();
         }
         
         private void Start()
         {
             ChangeState(GameState.MainMenu);
             UIManager.Ins.OpenUI<UIMainMenu>();
-            PlayerData playerData = this.GetService<DataManager>().PlayerData;
-            this.GetService<LevelManager>().LoadLevel(playerData.Level);
+            LevelManager.Ins.LoadCurrentLevel();
         }
     }
 }

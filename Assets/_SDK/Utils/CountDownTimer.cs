@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
+﻿using System;
+using UnityEngine;
 
 namespace _SDK.Utils
 {
     public class CountDownTimer
     {
-        private UnityAction _doneAction;
+        private Action _doneAction;
         private float _time;
 
-        public void Start(UnityAction doneAction, float time)
+        public void Start(Action doneAction, float time)
         {
             _doneAction = doneAction;
             _time = time;

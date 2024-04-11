@@ -30,8 +30,6 @@ namespace _Game.Scripts.GamePlay.Character.Base
         
         private string _currentAnimName;
         
-        private CharacterAttack _characterAttack;
-
         protected Character owner;
         
         #endregion
@@ -40,10 +38,16 @@ namespace _Game.Scripts.GamePlay.Character.Base
         {
             TakeOffClothes();
             
+            // set owner
             owner = character;
-            _characterAttack = character.CharacterAttack;
+            
             // reset rotation
             TF.localRotation = Quaternion.identity;
+        }
+        
+        public virtual void OnDespawn()
+        {
+            TakeOffClothes();
         }
         
         private void TakeOffClothes()
@@ -57,7 +61,7 @@ namespace _Game.Scripts.GamePlay.Character.Base
         protected void ChangeWeapon(WeaponType weaponType)
         {
             _currentWeapon = Instantiate(weaponData.GetSkin((int)weaponType), rightHand);
-            _characterAttack.SetWeapon(_currentWeapon);
+            owner.SetWeapon(_currentWeapon);
         }
 
         protected void ChangeShield(ShieldType shieldType)
@@ -91,8 +95,8 @@ namespace _Game.Scripts.GamePlay.Character.Base
                 Destroy(_currentHair.gameObject);
             }
         }
-        
-        protected void DespawnPant()
+
+        private void DespawnPant()
         {
             pant.materials = Array.Empty<Material>();
         }
@@ -127,9 +131,9 @@ namespace _Game.Scripts.GamePlay.Character.Base
                 return;
             }
         
-            anim.ResetTrigger(animName);
+            anim.ResetTrigger(_currentAnimName);
             _currentAnimName = animName;
-            anim.SetTrigger(animName);
+            anim.SetTrigger(_currentAnimName);
         }
     }
 }

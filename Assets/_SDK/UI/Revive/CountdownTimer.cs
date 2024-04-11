@@ -28,7 +28,7 @@ namespace _SDK.UI.Revive
 
         public void OnInit()
         {
-            _currentTime = Constants.TimeToRevive;
+            _currentTime = Constants.TIME_TO_REVIVE;
 
             _countdownCoroutine = StartCoroutine(CountdownToStart());
         }

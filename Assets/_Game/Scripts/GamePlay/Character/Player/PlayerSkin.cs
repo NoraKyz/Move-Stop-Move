@@ -1,10 +1,9 @@
-﻿using System;
-using _Game.Scripts.Data;
+﻿using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Character.Base;
 using _Game.Scripts.Other.Utils;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Shop;
+using _SDK.UI.Shop.SkinShop;
+using _SDK.UI.Shop.WeaponShop;
 
 namespace _Game.Scripts.GamePlay.Character.Player
 {
@@ -12,23 +11,22 @@ namespace _Game.Scripts.GamePlay.Character.Player
     {
         #region Config
 
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
-
-        private Action<object> _onSelectSkinItem;
-
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
+        
         #endregion
 
-        private void OnEnable()
+        public void Awake()
         {
-            _onSelectSkinItem = (param) => TrySkin((ItemShop) param);
-            this.RegisterListener(EventID.OnSelectItem, _onSelectSkinItem);
+            ShopSkin.OnSelectedItemShopSkin += TrySkin;
+            UIWeaponShop.OnSelectedItemShopWeapon += TrySkin;
         }
-        
-        private void OnDisable()
+
+        public void OnDestroy()
         {
-            this.RemoveListener(EventID.OnSelectItem, _onSelectSkinItem);
+            ShopSkin.OnSelectedItemShopSkin -= TrySkin;
+            UIWeaponShop.OnSelectedItemShopWeapon -= TrySkin;
         }
-        
+
         public override void OnInit(Base.Character character)
         {
             base.OnInit(character);
@@ -39,7 +37,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
             ChangePant((PantType) PlayerData.GetItemEquipped(ItemType.Pant));
         }
         
-        private void TrySkin(ItemShop item)
+        public void TrySkin(ItemShop item)
         {
             switch (item.ItemType)
             {

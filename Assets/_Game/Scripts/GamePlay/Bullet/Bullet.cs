@@ -1,9 +1,6 @@
-using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
-using _Game.Scripts.Setting.Sound;
 using _SDK.Pool.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI.Base;
 using _SDK.Utils;
 using UnityEngine;
@@ -14,15 +11,14 @@ namespace _Game.Scripts.GamePlay.Bullet
     {
         #region Config
         
-        private const float RangeCoefficient = 1.3f;
+        private const float RANGE_COEFFICIENT = 1.3f;
 
         [Header("Config")]
         [SerializeField] protected float moveSpeed;
-
-        [SerializeField] protected float range;
-
+        
         private GamePlay.Character.Base.Character _owner;
         
+        protected float range;
         protected Vector3 startPos;
         protected Vector3 moveDirection;
         
@@ -34,17 +30,21 @@ namespace _Game.Scripts.GamePlay.Bullet
         {
             _owner = owner;
             
-            // Set hướng bay
+            SetDirection(targetPos);
+            
+            // Set khoang cach bay
+            range = Constants.DEFAULT_ATTACK_RANGE * _owner.Size * RANGE_COEFFICIENT;
+            
+            // Set transform model
+            TF.rotation = Quaternion.LookRotation(moveDirection);
+            TF.localScale = Vector3.one * _owner.Size;
+        }
+        
+        private void SetDirection(Vector3 targetPos)
+        {
             startPos = TF.position;
             moveDirection = (targetPos - startPos).normalized;
             moveDirection.y = 0;
-            
-            // Set tầm bay
-            range = Constants.DefaultAttackRange * owner.Size * RangeCoefficient;
-            
-            // Set Model
-            TF.rotation = Quaternion.LookRotation(moveDirection);
-            TF.localScale = Vector3.one * owner.Size;
         }
 
         #endregion
@@ -66,27 +66,15 @@ namespace _Game.Scripts.GamePlay.Bullet
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(TagName.Character))
+            IHit hit = Cache<IHit>.GetComponent(other);
+            
+            if (hit is not null && !hit.IsDie && hit != (IHit) _owner)
             {
-                IHit hit = Cache<IHit>.GetComponent(other);
-                
-                if (hit != null && hit != (IHit) _owner)
-                {
-                    hit.OnHit(() => 
-                    {
-                        _owner.AddScore();
-                        ParticlePool.Play(ParticleType.Hit, TF.position);
-                        
-                        // Nếu là đạn của Player thì mới phát âm thanh
-                        if (_owner == this.GetService<CharacterManager>().Player)
-                        {
-                            this.GetService<SoundManager>().Play(SoundType.WeaponHit);
-                        }
-                        
-                    }, _owner);
-                    
-                    Despawn();
-                }
+                _owner.AddScore();
+                hit.OnHit();
+                ParticlePool.Play(ParticleType.Hit, TF.position);
+
+                Despawn();
             }
         }
         

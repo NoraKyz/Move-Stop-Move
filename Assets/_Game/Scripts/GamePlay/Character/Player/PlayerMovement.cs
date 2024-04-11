@@ -1,18 +1,15 @@
 ﻿using _Game.Scripts.GamePlay.Input;
 using _SDK.Pool.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.UI;
 using _SDK.UI.Base;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Game.Scripts.GamePlay.Character.Player
 {
     public class PlayerMovement : GameUnit
     {
         #region Config
-
-        [FormerlySerializedAs("rd")]
+        
         [Header("References")]
         [SerializeField] private Rigidbody rb;
         
@@ -23,8 +20,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private bool _isStartMove;
         private Vector3 _moveDirection;
         
-        private InputManager _inputManager;
-        
+        public InputManager InputManager => InputManager.Ins;
         public bool IsMoving => Vector3.Distance(_moveDirection, Vector3.zero) > 0.1f;
 
         #endregion
@@ -33,7 +29,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             _isStartMove = false;
             _moveDirection = Vector3.zero;
-            _inputManager = this.GetService<InputManager>();
             
             TF.position = Vector3.zero;
             TF.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
@@ -52,7 +47,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         
         private void GetInput()
         {
-            if (_inputManager.HasInput())
+            if (InputManager.HasInput())
             {
                 GetDirectionFromInput();
 
@@ -66,7 +61,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         
         private void GetDirectionFromInput()
         {
-            _moveDirection.Set(_inputManager.HorizontalAxis, 0, _inputManager.VerticalAxis);
+            _moveDirection.Set(InputManager.HorizontalAxis, 0, InputManager.VerticalAxis);
             _moveDirection.Normalize();
         }
         

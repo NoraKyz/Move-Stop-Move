@@ -1,10 +1,7 @@
-using System;
+using _Game.Scripts.GamePlay.Character.State.BotState;
 using _Game.Scripts.Other.Utils;
-using _Game.Scripts.Setting.Sound;
 using _SDK.Pool.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.StateMachine;
-using _SDK.StateMachine.BotState;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Bot
@@ -43,9 +40,9 @@ namespace _Game.Scripts.GamePlay.Character.Bot
             _stateMachine.UpdateState(this);
         }
 
-        public override void OnHit(Action hitAction, Base.Character killer)
+        public override void OnHit()
         {
-            base.OnHit(hitAction, killer);
+            base.OnHit();
             
             ChangeState(new BotDieState());
         }
@@ -56,11 +53,20 @@ namespace _Game.Scripts.GamePlay.Character.Bot
             
             SimplePool.Despawn(this);
         }
-        
-        public void MoveToPosition(Vector3 position) => botMovement.MoveToPosition(position);
-        
-        public void StopMove() => botMovement.StopMove();
-        
-        public void ChangeState(IState<Bot> state) => _stateMachine.ChangeState(state);
+
+        public void MoveToPosition(Vector3 position)
+        {
+            botMovement.MoveToPosition(position);
+        }
+
+        public void StopMove()
+        {
+            botMovement.StopMove();
+        }
+
+        public void ChangeState(IState<Bot> state)
+        {
+            _stateMachine.ChangeState(state);
+        }
     }
 } 

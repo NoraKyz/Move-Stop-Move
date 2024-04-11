@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using _Game.Scripts.Data;
 using _Game.Scripts.Other.Utils;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _SDK.UI.Shop.SkinShop
 {
     public class ShopSkin : MonoBehaviour
     {
+        public static event Action<ItemSkin> OnSelectedItemShopSkin;
+        
         [SerializeField] private Transform content;
         [SerializeField] private ItemSkin itemSkinPrefab;
         [SerializeField] private ButtonActionShop buttonActionShop;
@@ -18,7 +18,7 @@ namespace _SDK.UI.Shop.SkinShop
         [SerializeField] private ShopType shopType;
         [SerializeField] private List<ItemSkin> items;
         
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         private MiniPool<ItemSkin> _skinShopItemPool = new();
         
@@ -71,9 +71,9 @@ namespace _SDK.UI.Shop.SkinShop
         
         private void OnSelectItem(ItemSkin itemSkin)
         {
+            OnSelectedItemShopSkin?.Invoke(itemSkin);
             buttonActionShop.OnSelectItem(itemSkin);
             ReloadUISelection(itemSkin);
-            this.PostEvent(EventID.OnSelectItem, itemSkin);
         }
 
         public void ReloadUI()

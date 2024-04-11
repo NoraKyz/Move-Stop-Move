@@ -31,7 +31,7 @@ namespace _SDK.UI.Shop.SkinShop
             OnDespawn();
         }
 
-        public void OnDespawn()
+        private void OnDespawn()
         {
             button.onClick.RemoveAllListeners();
         }

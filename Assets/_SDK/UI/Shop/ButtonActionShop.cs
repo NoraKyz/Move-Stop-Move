@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Data;
 using _Game.Scripts.Setting.Sound;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -27,7 +25,7 @@ namespace _SDK.UI.Shop
         private State _state;
         private ItemShop _currentItem;
         
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         #endregion
         
@@ -74,7 +72,7 @@ namespace _SDK.UI.Shop
                     break;
             }
             
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
 
         private void BuyItem()
@@ -85,7 +83,6 @@ namespace _SDK.UI.Shop
             }
 
             PlayerData.Coin -= _currentItem.Cost;
-            this.PostEvent(EventID.OnChangeCoin);
             PlayerData.SetItemState(_currentItem.ItemType, _currentItem.Id, (int) ItemShop.State.Unlock);
             
             EquipItem();

@@ -2,13 +2,12 @@
 using _SDK.UI.Base;
 using _SDK.Utils;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace _Game.Scripts.GamePlay.Character.Base
 {
     public class CharacterAttack : MonoBehaviour
     {
-        private const float AttackCoolDown = 1.5f;
+        private const float ATTACK_COOLDOWN = 2f;
         
         #region Config
 
@@ -49,10 +48,20 @@ namespace _Game.Scripts.GamePlay.Character.Base
             currentWeapon = weapon;
         }
         
-        public Character GetRandomEnemyInRange()
+        public Character GetEnemyNearest()
         {
-            int randomIndex = Random.Range(0, EnemiesInRange.Count);
-            return EnemiesInRange[randomIndex];
+            Character enemyNearest = EnemiesInRange[0];
+            
+            for (int i = 1; i < EnemiesInRange.Count; i++)
+            {
+                if (Vector3.Distance(owner.TF.position, EnemiesInRange[i].TF.position) <
+                    Vector3.Distance(owner.TF.position, enemyNearest.TF.position))
+                {
+                    enemyNearest = EnemiesInRange[i];
+                }
+            }
+            
+            return enemyNearest;
         }
         
         public void Attack(Vector3 targetPos)
@@ -63,13 +72,19 @@ namespace _Game.Scripts.GamePlay.Character.Base
 
         private void ResetAttack()
         {
-            _isAttackAble = false;
-            currentWeapon.SetVisible(false);
-            
-            _countDownTimer.Start(() => {
-                _isAttackAble = true;
-                currentWeapon.SetVisible(true);
-            }, AttackCoolDown);
+            SetAttackAble(false);
+            _countDownTimer.Start(EnableAttack, ATTACK_COOLDOWN);
+        }
+        
+        private void SetAttackAble(bool isAttackAble)
+        {
+            _isAttackAble = isAttackAble;
+            currentWeapon.SetVisible(_isAttackAble);
+        }
+        
+        private void EnableAttack()
+        {
+            SetAttackAble(true);
         }
     }
 }

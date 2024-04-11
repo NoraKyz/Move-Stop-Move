@@ -1,9 +1,9 @@
-﻿using _SDK.ServiceLocator.Scripts;
+﻿using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Camera
 {
-    public class CameraFollower : GameService
+    public class CameraFollower : Singleton<CameraFollower>
     {
         #region Config
 

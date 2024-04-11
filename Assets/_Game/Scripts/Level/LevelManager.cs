@@ -1,12 +1,12 @@
 ﻿using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Character;
 using _Game.Scripts.GamePlay.Map;
-using _SDK.ServiceLocator.Scripts;
+using _SDK.Singleton;
 using UnityEngine;
 
 namespace _Game.Scripts.Level
 {
-    public class LevelManager : GameService
+    public class LevelManager : Singleton<LevelManager>
     {
         #region Config
         
@@ -27,21 +27,26 @@ namespace _Game.Scripts.Level
             if (_currentMap != null)
             {
                 Destroy(_currentMap.gameObject);
-                this.GetService<CharacterManager>().ClearAllCharacter();
+                CharacterManager.Ins.ClearAllCharacter();
             }
             
             _currentLevel = levelData.GetLevel(levelId);
             _currentMap = Instantiate(mapData.GetMap(_currentLevel.MapId));
             
-            this.GetService<CharacterManager>().SetMap(_currentMap);
-            this.GetService<LevelGameManager>().SetUpLevel(_currentLevel);
+            CharacterManager.Ins.SetMap(_currentMap);
+            LevelGameManager.Ins.SetUpLevel(_currentLevel);
         }
         
         public void LoadNextLevel()
         {
-            PlayerData playerData = this.GetService<DataManager>().PlayerData;
+            PlayerData playerData = DataManager.Ins.PlayerData;
             playerData.Level++;
             LoadLevel(playerData.Level);
+        }
+        
+        public void LoadCurrentLevel()
+        {
+            LoadLevel(DataManager.Ins.PlayerData.Level);
         }
     }
 }

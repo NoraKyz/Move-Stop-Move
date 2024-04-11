@@ -1,15 +1,15 @@
 using System;
 using _Game.Scripts.Data;
 using _Game.Scripts.GamePlay.Camera;
+using _Game.Scripts.GamePlay.Character.State.PlayerState;
 using _Game.Scripts.GamePlay.Skin.Base;
 using _Game.Scripts.Other.Utils;
 using _Game.Scripts.Setting.Sound;
-using _SDK.Observer.Scripts;
-using _SDK.ServiceLocator.Scripts;
 using _SDK.StateMachine;
-using _SDK.StateMachine.PlayerState;
 using _SDK.UI;
 using _SDK.UI.Base;
+using _SDK.UI.Shop.SkinShop;
+using _SDK.UI.Shop.WeaponShop;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Character.Player
@@ -18,7 +18,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
     {
         #region Config
         
-        private const string PlayerName = "You";
+        private const string PLAYER_NAME = "You";
         
         [Header("References")]
         [SerializeField] private PlayerMovement playerMovement;
@@ -28,9 +28,8 @@ namespace _Game.Scripts.GamePlay.Character.Player
         
         private SetSkinType _currentSkinType;
         private StateMachine<Player> _stateMachine;
-        private Action<object> _onCloseSkinShop;
         
-        private PlayerData PlayerData => this.GetService<DataManager>().PlayerData;
+        private PlayerData PlayerData => DataManager.Ins.PlayerData;
         
         public bool IsMoving => playerMovement.IsMoving;
         public string KillerName { get; private set; }
@@ -41,31 +40,34 @@ namespace _Game.Scripts.GamePlay.Character.Player
         private void Awake()
         {
             _stateMachine = new StateMachine<Player>(this);
-        }
-        
-        private void OnEnable()
-        {
-            _onCloseSkinShop = (_) => SetCurrentSkin();
-            this.RegisterListener(EventID.OnCloseShop, _onCloseSkinShop);
+            
+            UISkinShop.OnCloseShopSkin += SetCurrentSkin;
+            UIWeaponShop.OnCloseWeaponShop += SetCurrentSkin;
         }
 
-        private void OnDisable()
+        public void OnDestroy()
         {
-            this.RemoveListener(EventID.OnCloseShop, _onCloseSkinShop);
+            UISkinShop.OnCloseShopSkin += SetCurrentSkin;
+            UIWeaponShop.OnCloseWeaponShop += SetCurrentSkin;
         }
 
         public override void OnInit()
         {
             base.OnInit();
             
-            SetSize(MinSize);
-            SetName(PlayerName);
+            SetSize(MIN_SIZE);
+            SetName(PLAYER_NAME);
             SetCurrentSkin();
             
             playerMovement.OnInit();
             _stateMachine.ChangeState(new PlayerIdleState());
         }
-        
+
+        public override void OnDespawn()
+        {
+            base.OnDespawn();
+        }
+
         private void SetCurrentSkin()
         {
             int currentSetSkinId = PlayerData.GetItemEquipped(ItemType.SetSkin);
@@ -96,11 +98,10 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _stateMachine.UpdateState(this);
         }
         
-        public override void OnHit(Action hitAction, Base.Character killer)
+        public override void OnHit()
         {
-            base.OnHit(hitAction, killer);
+            base.OnHit();
             
-            KillerName = killer.CharName;
             Rank = UIManager.Ins.GetUI<UIGamePlay>().Alive + 1;
             ChangeState(new PlayerDieState());
         }
@@ -109,7 +110,7 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             base.AddScore(amount);
             
-            this.GetService<SoundManager>().Play(SoundType.SizeUp);
+            SoundManager.Ins.Play(SoundType.SizeUp);
             ParticlePool.Play(ParticleType.Uplevel, TF.position);
         }
 
@@ -117,13 +118,22 @@ namespace _Game.Scripts.GamePlay.Character.Player
         {
             base.SetSize(value);
             
-            this.GetService<CameraFollower>().SetRateOffset((Size - MinSize) / (MaxSize - MinSize));
+            CameraFollower.Ins.SetRateOffset((Size - MIN_SIZE) / (MAX_SIZE - MIN_SIZE));
         }
 
-        public void Move() => playerMovement.Move();
-        
-        public void StopMove() => playerMovement.StopMove();
-        
-        public void ChangeState(IState<Player> state) => _stateMachine.ChangeState(state);
+        public void Move()
+        {
+            playerMovement.Move();
+        }
+
+        public void StopMove()
+        {
+            playerMovement.StopMove();
+        }
+
+        public void ChangeState(IState<Player> state)
+        {
+            _stateMachine.ChangeState(state);
+        }
     }
 }

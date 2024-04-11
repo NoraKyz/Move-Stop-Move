@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Game.Scripts.Other.Utils;
 using _Game.Scripts.Setting.Sound;
-using _SDK.ServiceLocator.Scripts;
 using UnityEngine;
 
 namespace _SDK.UI.Shop.SkinShop
@@ -35,7 +34,7 @@ namespace _SDK.UI.Shop.SkinShop
         {
             shopSkin.InitShop((ItemType) button.Type);
             ReloadUISelection(button.Type);
-            this.GetService<SoundManager>().Play(SoundType.ClickButton);
+            SoundManager.Ins.Play(SoundType.ClickButton);
         }
 
         private void ReloadUISelection(ButtonBarSkin.ButtonType buttonType)
