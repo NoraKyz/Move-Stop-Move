@@ -43,8 +43,9 @@ namespace _Game.Scripts.GamePlay.Bullet
         private void SetDirection(Vector3 targetPos)
         {
             startPos = TF.position;
-            moveDirection = (targetPos - startPos).normalized;
+            moveDirection = (targetPos - startPos);
             moveDirection.y = 0;
+            moveDirection.Normalize();
         }
 
         #endregion
