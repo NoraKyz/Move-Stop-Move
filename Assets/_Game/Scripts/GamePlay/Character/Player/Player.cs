@@ -63,11 +63,6 @@ namespace _Game.Scripts.GamePlay.Character.Player
             _stateMachine.ChangeState(new PlayerIdleState());
         }
 
-        public override void OnDespawn()
-        {
-            base.OnDespawn();
-        }
-
         private void SetCurrentSkin()
         {
             int currentSetSkinId = PlayerData.GetItemEquipped(ItemType.SetSkin);

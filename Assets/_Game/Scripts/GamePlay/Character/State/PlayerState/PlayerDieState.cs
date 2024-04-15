@@ -21,6 +21,7 @@ namespace _Game.Scripts.GamePlay.Character.State.PlayerState
 
             player.ChangeAnim(AnimName.ANIM_DIE);
             SoundManager.Ins.Play(SoundType.Dead);
+            GameManager.ChangeState(GameState.Revive);
         }
         
         public void OnExecute(Player.Player bot)
