@@ -1305,7 +1305,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   tf: {fileID: 963194228}
   target: {fileID: 699053940}
-  offset: {x: 0, y: 1.8, z: -5.5}
+  targetOffset: {x: 0, y: 1.8, z: -5.5}
   offsetMin: {x: 0, y: 16, z: -10}
   offsetMax: {x: 0, y: 45, z: -27}
   offsets:
