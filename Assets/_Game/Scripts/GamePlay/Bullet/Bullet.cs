@@ -52,16 +52,16 @@ namespace _Game.Scripts.GamePlay.Bullet
 
         private void Update()
         {
-            if (GameManager.IsState(GameState.GamePlay) == false)
+            if (GameManager.IsState(GameState.GamePlay) ||
+                GameManager.IsState(GameState.Revive) ||
+                GameManager.IsState(GameState.Finish))
             {
-                return;
-            }
-            
-            Move();
+                Move();
 
-            if (CanDespawn())
-            {
-                Despawn();
+                if (CanDespawn())
+                {
+                    Despawn();
+                }
             }
         }
         
