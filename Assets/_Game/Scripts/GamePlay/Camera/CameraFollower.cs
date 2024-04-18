@@ -1,4 +1,5 @@
 ﻿using _SDK.Singleton;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Camera
@@ -28,6 +29,8 @@ namespace _Game.Scripts.GamePlay.Camera
         
         private Quaternion _targetRotate;
         private State _currentState;
+        
+        private UnityEngine.Camera _camera;
 
         #endregion
 
@@ -35,6 +38,7 @@ namespace _Game.Scripts.GamePlay.Camera
         {
             _targetRotate = tf.rotation;
             _currentState = State.MainMenu;
+            _camera = UnityEngine.Camera.main;
         }
 
         private void FixedUpdate()
@@ -58,6 +62,17 @@ namespace _Game.Scripts.GamePlay.Camera
             _currentState = state;
             targetOffset = offsets[(int)state].localPosition;
             _targetRotate = offsets[(int)state].localRotation;
+        }
+        
+        public void Vibrate()
+        {
+            tf.DOShakePosition(0.5f, 0.5f, 10, 90);
+        }
+        
+        public bool IsOnScreen(Vector3 pos)
+        {
+            Vector3 screenPos = _camera.WorldToScreenPoint(pos);
+            return screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using _SDK.Pool.Scripts;
+﻿using _Game.Scripts.GamePlay.Bullet;
+using _SDK.Pool.Scripts;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Weapon
@@ -14,7 +15,7 @@ namespace _Game.Scripts.GamePlay.Weapon
         
         public void SpawnBullet(Character.Base.Character owner, Vector3 targetPos)
         {
-            GamePlay.Bullet.Bullet newBullet = SimplePool.Spawn<GamePlay.Bullet.Bullet>(bulletType, TF.position, Quaternion.identity);
+            BulletBase newBullet = SimplePool.Spawn<BulletBase>(bulletType, TF.position, Quaternion.identity);
             newBullet.OnInit(owner, targetPos);
         }
 

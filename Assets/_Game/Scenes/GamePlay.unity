@@ -405,6 +405,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   joystick: {fileID: 0}
+--- !u!1 &434946014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 434946015}
+  m_Layer: 0
+  m_Name: RocketExplosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &434946015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434946014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1883381782}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &471180792
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +745,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718814406}
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 16, z: -10}
+  m_LocalPosition: {x: 0, y: 20, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -825,6 +856,10 @@ MonoBehaviour:
     prefab: {fileID: 6453064472713773611, guid: df8dd33d4a3f1cc40afcf6d2eebde421, type: 3}
     amount: 3
     collect: 1
+  - root: {fileID: 881234182}
+    prefab: {fileID: -4155865047577931596, guid: fb6928bd3ca69d54e89389e575d3426a, type: 3}
+    amount: 3
+    collect: 1
   Particle:
   - root: {fileID: 1728482450}
     particleType: 2
@@ -833,6 +868,10 @@ MonoBehaviour:
   - root: {fileID: 907344187}
     particleType: 1
     prefab: {fileID: 3009870444586549989, guid: 5174d9c9930581e4297eb12feb28e13c, type: 3}
+    amount: 10
+  - root: {fileID: 434946015}
+    particleType: 3
+    prefab: {fileID: 198224074816188994, guid: 53f7aee838133ee49abbbe580cbe2abf, type: 3}
     amount: 10
 --- !u!1 &832191920
 GameObject:
@@ -986,7 +1025,7 @@ MonoBehaviour:
     volume: 1
   - audioClip: {fileID: 8300000, guid: c2f6e15dd95544944a829dd8d97b01dc, type: 3}
     soundType: 2
-    volume: 1
+    volume: 0.7
   - audioClip: {fileID: 8300000, guid: 3f9df24e23a9cfc4bbcb24d35f881833, type: 3}
     soundType: 6
     volume: 1
@@ -998,6 +1037,9 @@ MonoBehaviour:
     volume: 1
   - audioClip: {fileID: 8300000, guid: 919de2e922c8eac4e8146fd9a08c08c7, type: 3}
     soundType: 5
+    volume: 1
+  - audioClip: {fileID: 8300000, guid: 00f9fc6f41fe3824b9b728419c71cff7, type: 3}
+    soundType: 8
     volume: 1
 --- !u!82 &880391725
 AudioSource:
@@ -1095,6 +1137,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &881234181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881234182}
+  m_Layer: 0
+  m_Name: Bomb
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &881234182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881234181}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1099336029}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &900295760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,7 +1379,7 @@ MonoBehaviour:
   tf: {fileID: 963194228}
   target: {fileID: 699053940}
   targetOffset: {x: 0, y: 1.8, z: -5.5}
-  offsetMin: {x: 0, y: 16, z: -10}
+  offsetMin: {x: 0, y: 20, z: -12}
   offsetMax: {x: 0, y: 45, z: -27}
   offsets:
   - {fileID: 235596629}
@@ -1354,6 +1427,7 @@ Transform:
   - {fileID: 1597770496}
   - {fileID: 832191921}
   - {fileID: 560786132}
+  - {fileID: 881234182}
   m_Father: {fileID: 802946735}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1820,6 +1894,7 @@ Transform:
   m_Children:
   - {fileID: 907344187}
   - {fileID: 1728482450}
+  - {fileID: 434946015}
   m_Father: {fileID: 802946735}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

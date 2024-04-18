@@ -63,6 +63,7 @@
         WHammer = 0,
         WBoomerang = 1,
         WKnife = 2,
+        WBomb = 3,
     }
     
     public enum SetSkinType

@@ -108,7 +108,7 @@ namespace _Game.Scripts.Data
         [JsonProperty]
         private Dictionary<ShopType, List<int>> _itemStates = new Dictionary<ShopType, List<int>>()
         {
-            {ShopType.Weapon, new List<int>(){1,0,0}},
+            {ShopType.Weapon, new List<int>(){1,0,0,0}},
             {ShopType.Hair, new List<int>(){1,0,0,0,0,0,0,0,0,0}},
             {ShopType.Pant, new List<int>(){1,0,0,0,0,0,0,0,0,0}},
             {ShopType.Shield, new List<int>(){1,0,0}},

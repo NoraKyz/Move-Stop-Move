@@ -142,6 +142,7 @@ public enum ParticleType
     None = 0,
     Hit = 1,
     Uplevel = 2,
+    BombExplosion = 3,
 }
 
 public enum PoolType
@@ -161,6 +162,8 @@ public enum PoolType
     Knife = 11,
     Uzi = 12,
     Z = 13,
+    Bomb = 15,
+    // Other
     Indicator = 14,
 }
 

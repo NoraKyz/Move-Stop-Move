@@ -2,6 +2,7 @@
 using _Game.Scripts.Level;
 using _SDK.Singleton;
 using _SDK.UI.MainMenu;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _SDK.UI.Base
@@ -45,6 +46,7 @@ namespace _SDK.UI.Base
             
             //csv.OnInit();
             DataManager.Ins.LoadData();
+            DOTween.Init(true, false);
         }
         
         private void Start()

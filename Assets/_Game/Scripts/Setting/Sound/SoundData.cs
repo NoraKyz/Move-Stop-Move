@@ -22,5 +22,6 @@ namespace _Game.Scripts.Setting.Sound
         Dead = 5,
         Win = 6,
         Lose = 7,
+        BombExplosion = 8,
     }
 }

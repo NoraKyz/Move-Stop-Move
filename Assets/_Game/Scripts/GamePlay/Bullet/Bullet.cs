@@ -1,13 +1,12 @@
 using _Game.Scripts.Interface;
 using _Game.Scripts.Other.Utils;
-using _SDK.Pool.Scripts;
 using _SDK.UI.Base;
 using _SDK.Utils;
 using UnityEngine;
 
 namespace _Game.Scripts.GamePlay.Bullet
 {
-    public class Bullet : PoolUnit
+    public class Bullet : BulletBase
     {
         #region Config
         
@@ -26,7 +25,7 @@ namespace _Game.Scripts.GamePlay.Bullet
 
         #region Init
 
-        public virtual void OnInit(GamePlay.Character.Base.Character owner, Vector3 targetPos)
+        public override void OnInit(GamePlay.Character.Base.Character owner, Vector3 targetPos)
         {
             _owner = owner;
             
@@ -64,8 +63,8 @@ namespace _Game.Scripts.GamePlay.Bullet
                 }
             }
         }
-        
-        private void OnTriggerEnter(Collider other)
+
+        protected override void OnDetect(Collider other)
         {
             IHit hit = Cache<IHit>.GetComponent(other);
             
@@ -78,12 +77,7 @@ namespace _Game.Scripts.GamePlay.Bullet
                 Despawn();
             }
         }
-        
-        private void Despawn()
-        {
-            SimplePool.Despawn(this);
-        }
-        
+
         protected virtual void Move()
         {
             TF.position += moveDirection * (moveSpeed * Time.deltaTime);

@@ -2,7 +2,7 @@
 
 namespace _Game.Scripts.GamePlay.Bullet
 {
-    public class RotateBullet : GamePlay.Bullet.Bullet
+    public class RotateBullet : Bullet
     {
         #region Config
         

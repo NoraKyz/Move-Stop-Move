@@ -99,6 +99,8 @@ namespace _Game.Scripts.GamePlay.Character.Player
             
             Rank = UIManager.Ins.GetUI<UIGamePlay>().Alive + 1;
             ChangeState(new PlayerDieState());
+            
+            CameraFollower.Ins.Vibrate();
         }
 
         public override void AddScore(int amount = 1)
