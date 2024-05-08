@@ -117,6 +117,7 @@ namespace _Game.Scripts.GamePlay.Bullet
         private void Throw(Vector3 targetPos, float throwPower)
         {
             TF.DOJump(targetPos, throwPower, 1, _flyingTime)
+                .SetEase(Ease.Linear)
                 .OnComplete(Explode);
         }
     }
